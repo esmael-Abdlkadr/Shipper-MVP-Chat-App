@@ -72,6 +72,78 @@ export function setupSocketHandlers(io: SocketIOServer) {
       await handleReactionRemove(io, socket, userId, data)
     })
 
+    // Group chat handlers
+    socket.on('group:join', (data: { groupId: string }) => {
+      socket.join(`group:${data.groupId}`)
+    })
+
+    socket.on('group:leave', (data: { groupId: string }) => {
+      socket.leave(`group:${data.groupId}`)
+    })
+
+    socket.on('group:message:send', async (data: {
+      groupId: string
+      content: string
+      tempId: string
+      replyToId?: string
+    }) => {
+      await handleGroupMessageSend(io, socket, userId, data)
+    })
+
+    // Broadcast AI message to other group members (sender broadcasts after receiving)
+    socket.on('group:ai:message', (data: {
+      groupId: string
+      message: {
+        id: string
+        content: string
+        senderId: string | null
+        senderName: string | null
+        senderImage: string | null
+        isAI: boolean
+        createdAt: Date
+        replyTo?: {
+          id: string
+          content: string
+          senderName: string | null
+          isAI: boolean
+        } | null
+      }
+    }) => {
+      // Broadcast to all OTHER members in the group (not the sender)
+      socket.to(`group:${data.groupId}`).emit('group:message:new', {
+        groupId: data.groupId,
+        message: data.message,
+      })
+    })
+
+    // Group message edit - broadcast to all members
+    socket.on('group:message:edit', (data: {
+      groupId: string
+      messageId: string
+      content: string
+      editedAt: Date
+    }) => {
+      // Broadcast to all OTHER members in the group
+      socket.to(`group:${data.groupId}`).emit('group:message:edited', {
+        groupId: data.groupId,
+        messageId: data.messageId,
+        content: data.content,
+        editedAt: data.editedAt,
+      })
+    })
+
+    // Group message delete for all - broadcast to all members
+    socket.on('group:message:delete', (data: {
+      groupId: string
+      messageId: string
+    }) => {
+      // Broadcast to all OTHER members in the group
+      socket.to(`group:${data.groupId}`).emit('group:message:deleted', {
+        groupId: data.groupId,
+        messageId: data.messageId,
+      })
+    })
+
     socket.on('disconnect', () => {
       handleDisconnect(io, socket, userId)
     })
@@ -442,10 +514,124 @@ async function handleReactionRemove(
   } catch {}
 }
 
+// Group message handler
+async function handleGroupMessageSend(
+  io: SocketIOServer,
+  socket: Socket,
+  senderId: string,
+  data: {
+    groupId: string
+    content: string
+    tempId: string
+    replyToId?: string
+  }
+) {
+  try {
+    // Verify membership
+    const membership = await prisma.groupMember.findUnique({
+      where: { groupId_userId: { groupId: data.groupId, userId: senderId } },
+    })
+
+    if (!membership) {
+      socket.emit('error', { message: 'Not a member of this group' })
+      return
+    }
+
+    // Create message with optional reply
+    const message = await prisma.groupMessage.create({
+      data: {
+        groupId: data.groupId,
+        senderId,
+        content: data.content,
+        isAI: false,
+        replyToId: data.replyToId || null,
+      },
+      include: {
+        sender: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+        replyTo: {
+          select: {
+            id: true,
+            content: true,
+            isAI: true,
+            sender: {
+              select: { name: true },
+            },
+          },
+        },
+      },
+    })
+
+    // Update group's updatedAt
+    await prisma.group.update({
+      where: { id: data.groupId },
+      data: { updatedAt: new Date() },
+    })
+
+    const formattedMessage = {
+      id: message.id,
+      content: message.content,
+      senderId: message.senderId,
+      senderName: message.sender?.name || 'Unknown',
+      senderImage: message.sender?.image || null,
+      isAI: false,
+      createdAt: message.createdAt,
+      replyTo: message.replyTo
+        ? {
+            id: message.replyTo.id,
+            content: message.replyTo.content,
+            senderName: message.replyTo.isAI
+              ? 'Shipper'
+              : message.replyTo.sender?.name || 'Unknown',
+            isAI: message.replyTo.isAI,
+          }
+        : null,
+    }
+
+    // Confirm to sender
+    socket.emit('group:message:confirm', {
+      groupId: data.groupId,
+      tempId: data.tempId,
+      message: formattedMessage,
+    })
+
+    // Broadcast to all other members in the group room
+    socket.to(`group:${data.groupId}`).emit('group:message:new', {
+      groupId: data.groupId,
+      message: formattedMessage,
+    })
+  } catch (error) {
+    console.error('Group message error:', error)
+    socket.emit('error', { message: 'Failed to send group message' })
+  }
+}
+
 export function isUserOnline(userId: string): boolean {
   return onlineUsers.has(userId)
 }
 
 export function getOnlineUsers(): string[] {
   return Array.from(onlineUsers.keys())
+}
+
+// Export io instance for use in API routes (for AI responses)
+let ioInstance: SocketIOServer | null = null
+
+export function setIOInstance(io: SocketIOServer) {
+  ioInstance = io
+}
+
+export function getIOInstance(): SocketIOServer | null {
+  return ioInstance
+}
+
+export function emitToGroup(groupId: string, event: string, data: unknown) {
+  if (ioInstance) {
+    ioInstance.to(`group:${groupId}`).emit(event, data)
+  }
 }

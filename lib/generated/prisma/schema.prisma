@@ -24,6 +24,9 @@ model User {
   aiConversations AIConversation[]
   reactions       Reaction[]
   aiProfile       UserAIProfile?
+  createdGroups   Group[]          @relation("GroupCreator")
+  groupMembers    GroupMember[]
+  groupMessages   GroupMessage[]   @relation("GroupMessageSender")
 }
 
 model UserAIProfile {
@@ -145,4 +148,56 @@ model AIMessage {
   createdAt      DateTime       @default(now())
 
   @@index([conversationId])
+}
+
+model Group {
+  id          String         @id @default(cuid())
+  name        String
+  description String?
+  avatar      String?
+  creatorId   String
+  creator     User           @relation("GroupCreator", fields: [creatorId], references: [id])
+  members     GroupMember[]
+  messages    GroupMessage[]
+  aiEnabled   Boolean        @default(true)
+  maxMembers  Int            @default(100)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([creatorId])
+}
+
+model GroupMember {
+  id       String   @id @default(cuid())
+  groupId  String
+  userId   String
+  role     String   @default("member")
+  group    Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt DateTime @default(now())
+
+  @@unique([groupId, userId])
+  @@index([groupId])
+  @@index([userId])
+}
+
+model GroupMessage {
+  id              String         @id @default(cuid())
+  groupId         String
+  senderId        String?
+  isAI            Boolean        @default(false)
+  content         String         @db.Text
+  replyToId       String?
+  replyTo         GroupMessage?  @relation("GroupMessageReplies", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies         GroupMessage[] @relation("GroupMessageReplies")
+  group           Group          @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  sender          User?          @relation("GroupMessageSender", fields: [senderId], references: [id])
+  createdAt       DateTime       @default(now())
+  editedAt        DateTime?
+  deletedAt       DateTime?
+  deletedForUsers String[]       @default([])
+
+  @@index([groupId])
+  @@index([senderId])
+  @@index([replyToId])
 }

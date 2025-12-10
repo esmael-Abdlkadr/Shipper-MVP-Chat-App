@@ -3,7 +3,7 @@ import { createServer } from 'http'
 import { parse } from 'url'
 import next from 'next'
 import { Server as SocketIOServer } from 'socket.io'
-import { setupSocketHandlers } from './lib/socket'
+import { setupSocketHandlers, setIOInstance } from './lib/socket'
 
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = 'localhost'
@@ -28,6 +28,7 @@ app.prepare().then(() => {
   })
 
   setupSocketHandlers(io)
+  setIOInstance(io)
 
   httpServer.listen(port, () => {
     console.log(`> Ready on http://${hostname}:${port}`)
