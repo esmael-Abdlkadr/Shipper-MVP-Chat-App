@@ -21,21 +21,31 @@ export type ChatSession = {
   updatedAt: Date
 }
 
-export type ChatSessionWithDetails = ChatSession & {
-  lastMessage?: Message | null
-  unreadCount: number
-  otherParticipant: User
+export type ChatSessionWithDetails = {
+  id: string
+  participant: {
+    id: string
+    name: string | null
+    image: string | null
+    isOnline: boolean
+  } | null
+  lastMessage: {
+    content: string
+    createdAt: string
+    senderId: string
+  } | null
+  updatedAt: string | Date
 }
 
 export type MessageStatus = 'sending' | 'sent' | 'delivered' | 'read' | 'failed'
 
 export type Attachment = {
   id: string
-  type: 'image' | 'video' | 'audio' | 'file'
+  type: string
   url: string
   name: string
-  size: number
-  mimeType: string | null
+  size?: number
+  mimeType?: string | null
 }
 
 export type Reaction = {
@@ -47,23 +57,29 @@ export type Reaction = {
   createdAt: Date
 }
 
+export type MessageSender = {
+  id: string
+  name: string | null
+  image: string | null
+}
+
 export type Message = {
   id: string
   content: string
   senderId: string
-  sender?: User
+  sender?: MessageSender | User
   sessionId: string
-  read: boolean
-  delivered: boolean
-  replyToId: string | null
+  read?: boolean
+  delivered?: boolean
+  replyToId?: string | null
   replyTo?: Message | null
-  attachments: Attachment[]
-  reactions: Reaction[]
+  attachments?: Attachment[]
+  reactions?: Reaction[]
   createdAt: Date
 }
 
 export type MessageWithStatus = Message & {
-  status: MessageStatus
+  status?: MessageStatus
   tempId?: string
 }
 

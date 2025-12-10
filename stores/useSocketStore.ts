@@ -28,6 +28,7 @@ export const useSocketStore = create<SocketState & SocketActions>((set, get) => 
     set({ isConnecting: true })
 
     const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3000'
+
     const newSocket = io(socketUrl, {
       auth: { userId },
       transports: ['websocket', 'polling'],
@@ -38,7 +39,6 @@ export const useSocketStore = create<SocketState & SocketActions>((set, get) => 
 
     newSocket.on('connect', () => {
       set({ isConnected: true, isConnecting: false })
-      newSocket.emit('user:join', { userId })
     })
 
     newSocket.on('disconnect', () => {
@@ -62,4 +62,3 @@ export const useSocketStore = create<SocketState & SocketActions>((set, get) => 
 
   setConnected: (connected: boolean) => set({ isConnected: connected }),
 }))
-

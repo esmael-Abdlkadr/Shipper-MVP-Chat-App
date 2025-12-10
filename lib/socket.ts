@@ -18,13 +18,7 @@ export function setupSocketHandlers(io: SocketIOServer) {
       return
     }
 
-    console.log(`User connected: ${userId} (socket: ${socket.id})`)
-
     handleUserJoin(io, socket, userId)
-
-    socket.on('user:join', (data: { userId: string }) => {
-      handleUserJoin(io, socket, data.userId)
-    })
 
     socket.on('user:leave', (data: { userId: string }) => {
       handleUserLeave(io, socket, data.userId)
@@ -60,6 +54,22 @@ export function setupSocketHandlers(io: SocketIOServer) {
 
     socket.on('typing:stop', (data: { sessionId: string }) => {
       handleTypingStop(io, socket, userId, data.sessionId)
+    })
+
+    socket.on('session:join', (data: { sessionId: string }) => {
+      socket.join(`session:${data.sessionId}`)
+    })
+
+    socket.on('session:leave', (data: { sessionId: string }) => {
+      socket.leave(`session:${data.sessionId}`)
+    })
+
+    socket.on('reaction:add', async (data: { sessionId: string; messageId: string; emoji: string }) => {
+      await handleReactionAdd(io, socket, userId, data)
+    })
+
+    socket.on('reaction:remove', async (data: { sessionId: string; messageId: string; emoji: string }) => {
+      await handleReactionRemove(io, socket, userId, data)
     })
 
     socket.on('disconnect', () => {
@@ -183,12 +193,19 @@ async function handleMessageSend(
         .map((p) => p.id)
         .filter((id) => id !== senderId)
 
-      socket.emit('message:new', { ...message, tempId: data.tempId })
+      socket.emit('message:confirm', {
+        sessionId: data.sessionId,
+        tempId: data.tempId,
+        message,
+      })
 
       recipientIds.forEach((recipientId) => {
         const isOnline = onlineUsers.has(recipientId)
 
-        io.to(`user:${recipientId}`).emit('message:new', message)
+        io.to(`user:${recipientId}`).emit('message:new', {
+          sessionId: data.sessionId,
+          message,
+        })
 
         if (isOnline) {
           prisma.message
@@ -202,12 +219,11 @@ async function handleMessageSend(
                 deliveredAt: new Date(),
               })
             })
-            .catch(console.error)
+            .catch(() => {})
         }
       })
     }
-  } catch (error) {
-    console.error('Error sending message:', error)
+  } catch {
     socket.emit('error', { message: 'Failed to send message' })
   }
 }
@@ -223,14 +239,12 @@ async function handleMessageDelivered(io: SocketIOServer, messageId: string) {
       messageId,
       deliveredAt: new Date(),
     })
-  } catch (error) {
-    console.error('Error marking message as delivered:', error)
-  }
+  } catch {}
 }
 
 async function handleMessageRead(
   io: SocketIOServer,
-  socket: Socket,
+  _socket: Socket,
   userId: string,
   data: { sessionId: string; messageIds: string[] }
 ) {
@@ -258,9 +272,7 @@ async function handleMessageRead(
         })
       }
     })
-  } catch (error) {
-    console.error('Error marking messages as read:', error)
-  }
+  } catch {}
 }
 
 function handleTypingStart(
@@ -286,7 +298,7 @@ function handleTypingStart(
 
   sessionTyping.set(userId, timeout)
 
-  socket.to(`session:${sessionId}`).emit('typing:update', {
+  socket.to(`session:${sessionId}`).emit('typing:indicator', {
     sessionId,
     userId,
     isTyping: true,
@@ -294,7 +306,7 @@ function handleTypingStart(
 }
 
 function handleTypingStop(
-  io: SocketIOServer,
+  _io: SocketIOServer,
   socket: Socket,
   userId: string,
   sessionId: string
@@ -313,7 +325,7 @@ function handleTypingStop(
     }
   }
 
-  socket.to(`session:${sessionId}`).emit('typing:update', {
+  socket.to(`session:${sessionId}`).emit('typing:indicator', {
     sessionId,
     userId,
     isTyping: false,
@@ -321,8 +333,6 @@ function handleTypingStop(
 }
 
 function handleDisconnect(io: SocketIOServer, socket: Socket, userId: string) {
-  console.log(`User disconnected: ${userId} (socket: ${socket.id})`)
-
   const userSockets = onlineUsers.get(userId)
 
   if (userSockets) {
@@ -344,7 +354,7 @@ function handleDisconnect(io: SocketIOServer, socket: Socket, userId: string) {
       clearTimeout(timeout)
       sessionTyping.delete(userId)
 
-      io.to(`session:${sessionId}`).emit('typing:update', {
+      io.to(`session:${sessionId}`).emit('typing:indicator', {
         sessionId,
         userId,
         isTyping: false,
@@ -366,9 +376,70 @@ async function updateUserOnlineStatus(
         lastSeen: lastSeen || new Date(),
       },
     })
-  } catch (error) {
-    console.error('Error updating user online status:', error)
-  }
+  } catch {}
+}
+
+async function handleReactionAdd(
+  io: SocketIOServer,
+  _socket: Socket,
+  userId: string,
+  data: { sessionId: string; messageId: string; emoji: string }
+) {
+  try {
+    const existing = await prisma.reaction.findFirst({
+      where: {
+        messageId: data.messageId,
+        userId,
+        emoji: data.emoji,
+      },
+    })
+
+    if (existing) return
+
+    const reaction = await prisma.reaction.create({
+      data: {
+        emoji: data.emoji,
+        userId,
+        messageId: data.messageId,
+      },
+    })
+
+    io.to(`session:${data.sessionId}`).emit('reaction:added', {
+      sessionId: data.sessionId,
+      messageId: data.messageId,
+      reaction: {
+        id: reaction.id,
+        emoji: reaction.emoji,
+        userId: reaction.userId,
+        messageId: reaction.messageId,
+        createdAt: reaction.createdAt,
+      },
+    })
+  } catch {}
+}
+
+async function handleReactionRemove(
+  io: SocketIOServer,
+  _socket: Socket,
+  userId: string,
+  data: { sessionId: string; messageId: string; emoji: string }
+) {
+  try {
+    await prisma.reaction.deleteMany({
+      where: {
+        messageId: data.messageId,
+        userId,
+        emoji: data.emoji,
+      },
+    })
+
+    io.to(`session:${data.sessionId}`).emit('reaction:removed', {
+      sessionId: data.sessionId,
+      messageId: data.messageId,
+      emoji: data.emoji,
+      userId,
+    })
+  } catch {}
 }
 
 export function isUserOnline(userId: string): boolean {
@@ -378,4 +449,3 @@ export function isUserOnline(userId: string): boolean {
 export function getOnlineUsers(): string[] {
   return Array.from(onlineUsers.keys())
 }
-

@@ -13,6 +13,7 @@ model User {
   name            String?
   image           String?
   password        String?
+  emailVerified   DateTime?
   lastSeen        DateTime         @default(now())
   isOnline        Boolean          @default(false)
   createdAt       DateTime         @default(now())
@@ -40,6 +41,18 @@ model Account {
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  type      String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([userId])
 }
 
 model ChatSession {
