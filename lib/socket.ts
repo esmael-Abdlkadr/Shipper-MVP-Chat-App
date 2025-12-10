@@ -1,0 +1,381 @@
+import { Server as SocketIOServer, Socket } from 'socket.io'
+import { prisma } from './prisma'
+
+type OnlineUsersMap = Map<string, Set<string>>
+type TypingUsersMap = Map<string, Map<string, NodeJS.Timeout>>
+
+const onlineUsers: OnlineUsersMap = new Map()
+const typingUsers: TypingUsersMap = new Map()
+
+const TYPING_TIMEOUT = 3000
+
+export function setupSocketHandlers(io: SocketIOServer) {
+  io.on('connection', (socket: Socket) => {
+    const userId = socket.handshake.auth.userId as string | undefined
+
+    if (!userId) {
+      socket.disconnect()
+      return
+    }
+
+    console.log(`User connected: ${userId} (socket: ${socket.id})`)
+
+    handleUserJoin(io, socket, userId)
+
+    socket.on('user:join', (data: { userId: string }) => {
+      handleUserJoin(io, socket, data.userId)
+    })
+
+    socket.on('user:leave', (data: { userId: string }) => {
+      handleUserLeave(io, socket, data.userId)
+    })
+
+    socket.on('message:send', async (data: {
+      sessionId: string
+      content: string
+      tempId: string
+      replyToId?: string
+      attachments?: Array<{
+        type: string
+        url: string
+        name: string
+        size: number
+        mimeType?: string
+      }>
+    }) => {
+      await handleMessageSend(io, socket, userId, data)
+    })
+
+    socket.on('message:delivered', async (data: { messageId: string }) => {
+      await handleMessageDelivered(io, data.messageId)
+    })
+
+    socket.on('message:read', async (data: { sessionId: string; messageIds: string[] }) => {
+      await handleMessageRead(io, socket, userId, data)
+    })
+
+    socket.on('typing:start', (data: { sessionId: string }) => {
+      handleTypingStart(io, socket, userId, data.sessionId)
+    })
+
+    socket.on('typing:stop', (data: { sessionId: string }) => {
+      handleTypingStop(io, socket, userId, data.sessionId)
+    })
+
+    socket.on('disconnect', () => {
+      handleDisconnect(io, socket, userId)
+    })
+  })
+}
+
+function handleUserJoin(io: SocketIOServer, socket: Socket, userId: string) {
+  if (!onlineUsers.has(userId)) {
+    onlineUsers.set(userId, new Set())
+  }
+  onlineUsers.get(userId)!.add(socket.id)
+
+  socket.join(`user:${userId}`)
+
+  updateUserOnlineStatus(userId, true)
+
+  io.emit('user:online', { userId })
+
+  const onlineUserIds = Array.from(onlineUsers.keys())
+  socket.emit('users:list', { users: onlineUserIds })
+}
+
+function handleUserLeave(io: SocketIOServer, socket: Socket, userId: string) {
+  const userSockets = onlineUsers.get(userId)
+
+  if (userSockets) {
+    userSockets.delete(socket.id)
+
+    if (userSockets.size === 0) {
+      onlineUsers.delete(userId)
+      const lastSeen = new Date()
+
+      updateUserOnlineStatus(userId, false, lastSeen)
+
+      io.emit('user:offline', { userId, lastSeen })
+    }
+  }
+
+  socket.leave(`user:${userId}`)
+}
+
+async function handleMessageSend(
+  io: SocketIOServer,
+  socket: Socket,
+  senderId: string,
+  data: {
+    sessionId: string
+    content: string
+    tempId: string
+    replyToId?: string
+    attachments?: Array<{
+      type: string
+      url: string
+      name: string
+      size: number
+      mimeType?: string
+    }>
+  }
+) {
+  try {
+    const message = await prisma.message.create({
+      data: {
+        content: data.content,
+        senderId,
+        sessionId: data.sessionId,
+        replyToId: data.replyToId,
+        attachments: data.attachments
+          ? {
+              create: data.attachments.map((att) => ({
+                type: att.type,
+                url: att.url,
+                name: att.name,
+                size: att.size,
+                mimeType: att.mimeType,
+              })),
+            }
+          : undefined,
+      },
+      include: {
+        sender: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+            email: true,
+          },
+        },
+        attachments: true,
+        reactions: true,
+        replyTo: {
+          include: {
+            sender: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    })
+
+    await prisma.chatSession.update({
+      where: { id: data.sessionId },
+      data: { updatedAt: new Date() },
+    })
+
+    const session = await prisma.chatSession.findUnique({
+      where: { id: data.sessionId },
+      include: {
+        participants: {
+          select: { id: true },
+        },
+      },
+    })
+
+    if (session) {
+      const recipientIds = session.participants
+        .map((p) => p.id)
+        .filter((id) => id !== senderId)
+
+      socket.emit('message:new', { ...message, tempId: data.tempId })
+
+      recipientIds.forEach((recipientId) => {
+        const isOnline = onlineUsers.has(recipientId)
+
+        io.to(`user:${recipientId}`).emit('message:new', message)
+
+        if (isOnline) {
+          prisma.message
+            .update({
+              where: { id: message.id },
+              data: { delivered: true },
+            })
+            .then(() => {
+              io.to(`user:${senderId}`).emit('message:delivered', {
+                messageId: message.id,
+                deliveredAt: new Date(),
+              })
+            })
+            .catch(console.error)
+        }
+      })
+    }
+  } catch (error) {
+    console.error('Error sending message:', error)
+    socket.emit('error', { message: 'Failed to send message' })
+  }
+}
+
+async function handleMessageDelivered(io: SocketIOServer, messageId: string) {
+  try {
+    const message = await prisma.message.update({
+      where: { id: messageId },
+      data: { delivered: true },
+    })
+
+    io.to(`user:${message.senderId}`).emit('message:delivered', {
+      messageId,
+      deliveredAt: new Date(),
+    })
+  } catch (error) {
+    console.error('Error marking message as delivered:', error)
+  }
+}
+
+async function handleMessageRead(
+  io: SocketIOServer,
+  socket: Socket,
+  userId: string,
+  data: { sessionId: string; messageIds: string[] }
+) {
+  try {
+    await prisma.message.updateMany({
+      where: {
+        id: { in: data.messageIds },
+        senderId: { not: userId },
+      },
+      data: { read: true },
+    })
+
+    const messages = await prisma.message.findMany({
+      where: { id: { in: data.messageIds } },
+      select: { senderId: true },
+    })
+
+    const senderIds = [...new Set(messages.map((m) => m.senderId))]
+
+    senderIds.forEach((senderId) => {
+      if (senderId !== userId) {
+        io.to(`user:${senderId}`).emit('message:read', {
+          messageIds: data.messageIds,
+          readAt: new Date(),
+        })
+      }
+    })
+  } catch (error) {
+    console.error('Error marking messages as read:', error)
+  }
+}
+
+function handleTypingStart(
+  io: SocketIOServer,
+  socket: Socket,
+  userId: string,
+  sessionId: string
+) {
+  if (!typingUsers.has(sessionId)) {
+    typingUsers.set(sessionId, new Map())
+  }
+
+  const sessionTyping = typingUsers.get(sessionId)!
+
+  const existingTimeout = sessionTyping.get(userId)
+  if (existingTimeout) {
+    clearTimeout(existingTimeout)
+  }
+
+  const timeout = setTimeout(() => {
+    handleTypingStop(io, socket, userId, sessionId)
+  }, TYPING_TIMEOUT)
+
+  sessionTyping.set(userId, timeout)
+
+  socket.to(`session:${sessionId}`).emit('typing:update', {
+    sessionId,
+    userId,
+    isTyping: true,
+  })
+}
+
+function handleTypingStop(
+  io: SocketIOServer,
+  socket: Socket,
+  userId: string,
+  sessionId: string
+) {
+  const sessionTyping = typingUsers.get(sessionId)
+
+  if (sessionTyping) {
+    const timeout = sessionTyping.get(userId)
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    sessionTyping.delete(userId)
+
+    if (sessionTyping.size === 0) {
+      typingUsers.delete(sessionId)
+    }
+  }
+
+  socket.to(`session:${sessionId}`).emit('typing:update', {
+    sessionId,
+    userId,
+    isTyping: false,
+  })
+}
+
+function handleDisconnect(io: SocketIOServer, socket: Socket, userId: string) {
+  console.log(`User disconnected: ${userId} (socket: ${socket.id})`)
+
+  const userSockets = onlineUsers.get(userId)
+
+  if (userSockets) {
+    userSockets.delete(socket.id)
+
+    if (userSockets.size === 0) {
+      onlineUsers.delete(userId)
+      const lastSeen = new Date()
+
+      updateUserOnlineStatus(userId, false, lastSeen)
+
+      io.emit('user:offline', { userId, lastSeen })
+    }
+  }
+
+  typingUsers.forEach((sessionTyping, sessionId) => {
+    const timeout = sessionTyping.get(userId)
+    if (timeout) {
+      clearTimeout(timeout)
+      sessionTyping.delete(userId)
+
+      io.to(`session:${sessionId}`).emit('typing:update', {
+        sessionId,
+        userId,
+        isTyping: false,
+      })
+    }
+  })
+}
+
+async function updateUserOnlineStatus(
+  userId: string,
+  isOnline: boolean,
+  lastSeen?: Date
+) {
+  try {
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        isOnline,
+        lastSeen: lastSeen || new Date(),
+      },
+    })
+  } catch (error) {
+    console.error('Error updating user online status:', error)
+  }
+}
+
+export function isUserOnline(userId: string): boolean {
+  return onlineUsers.has(userId)
+}
+
+export function getOnlineUsers(): string[] {
+  return Array.from(onlineUsers.keys())
+}
+

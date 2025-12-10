@@ -1,3 +1,7 @@
+ignoredBuiltDependencies:
+  - '@prisma/engines'
+  - prisma
+
 onlyBuiltDependencies:
   - prisma
-  - "@prisma/engines"
+  - '@prisma/engines'
