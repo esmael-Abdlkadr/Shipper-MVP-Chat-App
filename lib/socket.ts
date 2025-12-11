@@ -137,11 +137,47 @@ export function setupSocketHandlers(io: SocketIOServer) {
       groupId: string
       messageId: string
     }) => {
-      // Broadcast to all OTHER members in the group
       socket.to(`group:${data.groupId}`).emit('group:message:deleted', {
         groupId: data.groupId,
         messageId: data.messageId,
       })
+    })
+
+    // Task events
+    socket.on('group:task:created', (data: {
+      groupId: string
+      task: {
+        id: string
+        description: string
+        assigneeId: string
+        assigneeName: string | null
+        status: string
+        priority: string
+        createdAt: Date
+      }
+    }) => {
+      socket.to(`group:${data.groupId}`).emit('group:task:new', data)
+    })
+
+    socket.on('group:task:updated', (data: {
+      groupId: string
+      task: {
+        id: string
+        status: string
+        description?: string
+        completedAt?: Date | null
+      }
+    }) => {
+      socket.to(`group:${data.groupId}`).emit('group:task:changed', data)
+    })
+
+    socket.on('group:task:completed', (data: {
+      groupId: string
+      taskId: string
+      completedBy: string
+      completedByName: string | null
+    }) => {
+      socket.to(`group:${data.groupId}`).emit('group:task:done', data)
     })
 
     socket.on('disconnect', () => {

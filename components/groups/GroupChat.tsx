@@ -140,6 +140,11 @@ export function GroupChat({
         editingMessage={editingMessage}
         onCancelReply={onCancelReply}
         onCancelEdit={onCancelEdit}
+        members={group.members.map(m => ({
+          id: m.id,
+          name: m.name,
+          image: m.image,
+        }))}
       />
     </div>
   )

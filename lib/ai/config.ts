@@ -26,7 +26,7 @@ export const AI_MODELS: Record<ModelId, ModelConfig> = {
   },
 }
 
-export const DEFAULT_MODEL: ModelId = 'gemini'
+export const DEFAULT_MODEL: ModelId = 'openai'
 
 // Legacy export for backwards compatibility
 export const AI_MODEL = AI_MODELS.gemini.modelId

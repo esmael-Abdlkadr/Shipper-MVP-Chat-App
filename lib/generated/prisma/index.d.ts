@@ -78,6 +78,16 @@ export type GroupMember = $Result.DefaultSelection<Prisma.$GroupMemberPayload>
  * 
  */
 export type GroupMessage = $Result.DefaultSelection<Prisma.$GroupMessagePayload>
+/**
+ * Model GroupTask
+ * 
+ */
+export type GroupTask = $Result.DefaultSelection<Prisma.$GroupTaskPayload>
+/**
+ * Model TaskReminder
+ * 
+ */
+export type TaskReminder = $Result.DefaultSelection<Prisma.$TaskReminderPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -325,6 +335,26 @@ export class PrismaClient<
     * ```
     */
   get groupMessage(): Prisma.GroupMessageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.groupTask`: Exposes CRUD operations for the **GroupTask** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GroupTasks
+    * const groupTasks = await prisma.groupTask.findMany()
+    * ```
+    */
+  get groupTask(): Prisma.GroupTaskDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.taskReminder`: Exposes CRUD operations for the **TaskReminder** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TaskReminders
+    * const taskReminders = await prisma.taskReminder.findMany()
+    * ```
+    */
+  get taskReminder(): Prisma.TaskReminderDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -771,7 +801,9 @@ export namespace Prisma {
     AIMessage: 'AIMessage',
     Group: 'Group',
     GroupMember: 'GroupMember',
-    GroupMessage: 'GroupMessage'
+    GroupMessage: 'GroupMessage',
+    GroupTask: 'GroupTask',
+    TaskReminder: 'TaskReminder'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -787,7 +819,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userAIProfile" | "account" | "verificationToken" | "chatSession" | "message" | "attachment" | "reaction" | "aIConversation" | "aIMessage" | "group" | "groupMember" | "groupMessage"
+      modelProps: "user" | "userAIProfile" | "account" | "verificationToken" | "chatSession" | "message" | "attachment" | "reaction" | "aIConversation" | "aIMessage" | "group" | "groupMember" | "groupMessage" | "groupTask" | "taskReminder"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1753,6 +1785,154 @@ export namespace Prisma {
           }
         }
       }
+      GroupTask: {
+        payload: Prisma.$GroupTaskPayload<ExtArgs>
+        fields: Prisma.GroupTaskFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GroupTaskFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupTaskPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GroupTaskFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupTaskPayload>
+          }
+          findFirst: {
+            args: Prisma.GroupTaskFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupTaskPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GroupTaskFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupTaskPayload>
+          }
+          findMany: {
+            args: Prisma.GroupTaskFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupTaskPayload>[]
+          }
+          create: {
+            args: Prisma.GroupTaskCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupTaskPayload>
+          }
+          createMany: {
+            args: Prisma.GroupTaskCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GroupTaskCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupTaskPayload>[]
+          }
+          delete: {
+            args: Prisma.GroupTaskDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupTaskPayload>
+          }
+          update: {
+            args: Prisma.GroupTaskUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupTaskPayload>
+          }
+          deleteMany: {
+            args: Prisma.GroupTaskDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GroupTaskUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GroupTaskUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupTaskPayload>[]
+          }
+          upsert: {
+            args: Prisma.GroupTaskUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupTaskPayload>
+          }
+          aggregate: {
+            args: Prisma.GroupTaskAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGroupTask>
+          }
+          groupBy: {
+            args: Prisma.GroupTaskGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GroupTaskGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GroupTaskCountArgs<ExtArgs>
+            result: $Utils.Optional<GroupTaskCountAggregateOutputType> | number
+          }
+        }
+      }
+      TaskReminder: {
+        payload: Prisma.$TaskReminderPayload<ExtArgs>
+        fields: Prisma.TaskReminderFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TaskReminderFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskReminderPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TaskReminderFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskReminderPayload>
+          }
+          findFirst: {
+            args: Prisma.TaskReminderFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskReminderPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TaskReminderFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskReminderPayload>
+          }
+          findMany: {
+            args: Prisma.TaskReminderFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskReminderPayload>[]
+          }
+          create: {
+            args: Prisma.TaskReminderCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskReminderPayload>
+          }
+          createMany: {
+            args: Prisma.TaskReminderCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TaskReminderCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskReminderPayload>[]
+          }
+          delete: {
+            args: Prisma.TaskReminderDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskReminderPayload>
+          }
+          update: {
+            args: Prisma.TaskReminderUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskReminderPayload>
+          }
+          deleteMany: {
+            args: Prisma.TaskReminderDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TaskReminderUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TaskReminderUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskReminderPayload>[]
+          }
+          upsert: {
+            args: Prisma.TaskReminderUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskReminderPayload>
+          }
+          aggregate: {
+            args: Prisma.TaskReminderAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTaskReminder>
+          }
+          groupBy: {
+            args: Prisma.TaskReminderGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TaskReminderGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TaskReminderCountArgs<ExtArgs>
+            result: $Utils.Optional<TaskReminderCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1874,6 +2054,8 @@ export namespace Prisma {
     group?: GroupOmit
     groupMember?: GroupMemberOmit
     groupMessage?: GroupMessageOmit
+    groupTask?: GroupTaskOmit
+    taskReminder?: TaskReminderOmit
   }
 
   /* Types for Logging */
@@ -1962,6 +2144,8 @@ export namespace Prisma {
     createdGroups: number
     groupMembers: number
     groupMessages: number
+    assignedTasks: number
+    createdTasks: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1973,6 +2157,8 @@ export namespace Prisma {
     createdGroups?: boolean | UserCountOutputTypeCountCreatedGroupsArgs
     groupMembers?: boolean | UserCountOutputTypeCountGroupMembersArgs
     groupMessages?: boolean | UserCountOutputTypeCountGroupMessagesArgs
+    assignedTasks?: boolean | UserCountOutputTypeCountAssignedTasksArgs
+    createdTasks?: boolean | UserCountOutputTypeCountCreatedTasksArgs
   }
 
   // Custom InputTypes
@@ -2040,6 +2226,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountGroupMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GroupMessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAssignedTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupTaskWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCreatedTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupTaskWhereInput
   }
 
 
@@ -2170,11 +2370,13 @@ export namespace Prisma {
   export type GroupCountOutputType = {
     members: number
     messages: number
+    tasks: number
   }
 
   export type GroupCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | GroupCountOutputTypeCountMembersArgs
     messages?: boolean | GroupCountOutputTypeCountMessagesArgs
+    tasks?: boolean | GroupCountOutputTypeCountTasksArgs
   }
 
   // Custom InputTypes
@@ -2200,6 +2402,13 @@ export namespace Prisma {
    */
   export type GroupCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GroupMessageWhereInput
+  }
+
+  /**
+   * GroupCountOutputType without action
+   */
+  export type GroupCountOutputTypeCountTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupTaskWhereInput
   }
 
 
@@ -2231,6 +2440,37 @@ export namespace Prisma {
    */
   export type GroupMessageCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GroupMessageWhereInput
+  }
+
+
+  /**
+   * Count Type GroupTaskCountOutputType
+   */
+
+  export type GroupTaskCountOutputType = {
+    reminders: number
+  }
+
+  export type GroupTaskCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reminders?: boolean | GroupTaskCountOutputTypeCountRemindersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GroupTaskCountOutputType without action
+   */
+  export type GroupTaskCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTaskCountOutputType
+     */
+    select?: GroupTaskCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GroupTaskCountOutputType without action
+   */
+  export type GroupTaskCountOutputTypeCountRemindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskReminderWhereInput
   }
 
 
@@ -2459,6 +2699,8 @@ export namespace Prisma {
     createdGroups?: boolean | User$createdGroupsArgs<ExtArgs>
     groupMembers?: boolean | User$groupMembersArgs<ExtArgs>
     groupMessages?: boolean | User$groupMessagesArgs<ExtArgs>
+    assignedTasks?: boolean | User$assignedTasksArgs<ExtArgs>
+    createdTasks?: boolean | User$createdTasksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2515,6 +2757,8 @@ export namespace Prisma {
     createdGroups?: boolean | User$createdGroupsArgs<ExtArgs>
     groupMembers?: boolean | User$groupMembersArgs<ExtArgs>
     groupMessages?: boolean | User$groupMessagesArgs<ExtArgs>
+    assignedTasks?: boolean | User$assignedTasksArgs<ExtArgs>
+    createdTasks?: boolean | User$createdTasksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2532,6 +2776,8 @@ export namespace Prisma {
       createdGroups: Prisma.$GroupPayload<ExtArgs>[]
       groupMembers: Prisma.$GroupMemberPayload<ExtArgs>[]
       groupMessages: Prisma.$GroupMessagePayload<ExtArgs>[]
+      assignedTasks: Prisma.$GroupTaskPayload<ExtArgs>[]
+      createdTasks: Prisma.$GroupTaskPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2948,6 +3194,8 @@ export namespace Prisma {
     createdGroups<T extends User$createdGroupsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     groupMembers<T extends User$groupMembersArgs<ExtArgs> = {}>(args?: Subset<T, User$groupMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     groupMessages<T extends User$groupMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$groupMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assignedTasks<T extends User$assignedTasksArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    createdTasks<T extends User$createdTasksArgs<ExtArgs> = {}>(args?: Subset<T, User$createdTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3584,6 +3832,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GroupMessageScalarFieldEnum | GroupMessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.assignedTasks
+   */
+  export type User$assignedTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    where?: GroupTaskWhereInput
+    orderBy?: GroupTaskOrderByWithRelationInput | GroupTaskOrderByWithRelationInput[]
+    cursor?: GroupTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupTaskScalarFieldEnum | GroupTaskScalarFieldEnum[]
+  }
+
+  /**
+   * User.createdTasks
+   */
+  export type User$createdTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    where?: GroupTaskWhereInput
+    orderBy?: GroupTaskOrderByWithRelationInput | GroupTaskOrderByWithRelationInput[]
+    cursor?: GroupTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupTaskScalarFieldEnum | GroupTaskScalarFieldEnum[]
   }
 
   /**
@@ -13840,6 +14136,7 @@ export namespace Prisma {
     creator?: boolean | UserDefaultArgs<ExtArgs>
     members?: boolean | Group$membersArgs<ExtArgs>
     messages?: boolean | Group$messagesArgs<ExtArgs>
+    tasks?: boolean | Group$tasksArgs<ExtArgs>
     _count?: boolean | GroupCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["group"]>
 
@@ -13886,6 +14183,7 @@ export namespace Prisma {
     creator?: boolean | UserDefaultArgs<ExtArgs>
     members?: boolean | Group$membersArgs<ExtArgs>
     messages?: boolean | Group$messagesArgs<ExtArgs>
+    tasks?: boolean | Group$tasksArgs<ExtArgs>
     _count?: boolean | GroupCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GroupIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13901,6 +14199,7 @@ export namespace Prisma {
       creator: Prisma.$UserPayload<ExtArgs>
       members: Prisma.$GroupMemberPayload<ExtArgs>[]
       messages: Prisma.$GroupMessagePayload<ExtArgs>[]
+      tasks: Prisma.$GroupTaskPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14309,6 +14608,7 @@ export namespace Prisma {
     creator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     members<T extends Group$membersArgs<ExtArgs> = {}>(args?: Subset<T, Group$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     messages<T extends Group$messagesArgs<ExtArgs> = {}>(args?: Subset<T, Group$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tasks<T extends Group$tasksArgs<ExtArgs> = {}>(args?: Subset<T, Group$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14788,6 +15088,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GroupMessageScalarFieldEnum | GroupMessageScalarFieldEnum[]
+  }
+
+  /**
+   * Group.tasks
+   */
+  export type Group$tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    where?: GroupTaskWhereInput
+    orderBy?: GroupTaskOrderByWithRelationInput | GroupTaskOrderByWithRelationInput[]
+    cursor?: GroupTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupTaskScalarFieldEnum | GroupTaskScalarFieldEnum[]
   }
 
   /**
@@ -17092,6 +17416,2291 @@ export namespace Prisma {
 
 
   /**
+   * Model GroupTask
+   */
+
+  export type AggregateGroupTask = {
+    _count: GroupTaskCountAggregateOutputType | null
+    _min: GroupTaskMinAggregateOutputType | null
+    _max: GroupTaskMaxAggregateOutputType | null
+  }
+
+  export type GroupTaskMinAggregateOutputType = {
+    id: string | null
+    groupId: string | null
+    assigneeId: string | null
+    createdById: string | null
+    description: string | null
+    status: string | null
+    priority: string | null
+    sourceMessageId: string | null
+    dueDate: Date | null
+    completedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type GroupTaskMaxAggregateOutputType = {
+    id: string | null
+    groupId: string | null
+    assigneeId: string | null
+    createdById: string | null
+    description: string | null
+    status: string | null
+    priority: string | null
+    sourceMessageId: string | null
+    dueDate: Date | null
+    completedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type GroupTaskCountAggregateOutputType = {
+    id: number
+    groupId: number
+    assigneeId: number
+    createdById: number
+    description: number
+    status: number
+    priority: number
+    sourceMessageId: number
+    dueDate: number
+    completedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type GroupTaskMinAggregateInputType = {
+    id?: true
+    groupId?: true
+    assigneeId?: true
+    createdById?: true
+    description?: true
+    status?: true
+    priority?: true
+    sourceMessageId?: true
+    dueDate?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type GroupTaskMaxAggregateInputType = {
+    id?: true
+    groupId?: true
+    assigneeId?: true
+    createdById?: true
+    description?: true
+    status?: true
+    priority?: true
+    sourceMessageId?: true
+    dueDate?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type GroupTaskCountAggregateInputType = {
+    id?: true
+    groupId?: true
+    assigneeId?: true
+    createdById?: true
+    description?: true
+    status?: true
+    priority?: true
+    sourceMessageId?: true
+    dueDate?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type GroupTaskAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroupTask to aggregate.
+     */
+    where?: GroupTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupTasks to fetch.
+     */
+    orderBy?: GroupTaskOrderByWithRelationInput | GroupTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GroupTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GroupTasks
+    **/
+    _count?: true | GroupTaskCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GroupTaskMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GroupTaskMaxAggregateInputType
+  }
+
+  export type GetGroupTaskAggregateType<T extends GroupTaskAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroupTask]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroupTask[P]>
+      : GetScalarType<T[P], AggregateGroupTask[P]>
+  }
+
+
+
+
+  export type GroupTaskGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupTaskWhereInput
+    orderBy?: GroupTaskOrderByWithAggregationInput | GroupTaskOrderByWithAggregationInput[]
+    by: GroupTaskScalarFieldEnum[] | GroupTaskScalarFieldEnum
+    having?: GroupTaskScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GroupTaskCountAggregateInputType | true
+    _min?: GroupTaskMinAggregateInputType
+    _max?: GroupTaskMaxAggregateInputType
+  }
+
+  export type GroupTaskGroupByOutputType = {
+    id: string
+    groupId: string
+    assigneeId: string
+    createdById: string | null
+    description: string
+    status: string
+    priority: string
+    sourceMessageId: string | null
+    dueDate: Date | null
+    completedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: GroupTaskCountAggregateOutputType | null
+    _min: GroupTaskMinAggregateOutputType | null
+    _max: GroupTaskMaxAggregateOutputType | null
+  }
+
+  type GetGroupTaskGroupByPayload<T extends GroupTaskGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GroupTaskGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GroupTaskGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GroupTaskGroupByOutputType[P]>
+            : GetScalarType<T[P], GroupTaskGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GroupTaskSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    groupId?: boolean
+    assigneeId?: boolean
+    createdById?: boolean
+    description?: boolean
+    status?: boolean
+    priority?: boolean
+    sourceMessageId?: boolean
+    dueDate?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    assignee?: boolean | UserDefaultArgs<ExtArgs>
+    createdBy?: boolean | GroupTask$createdByArgs<ExtArgs>
+    reminders?: boolean | GroupTask$remindersArgs<ExtArgs>
+    _count?: boolean | GroupTaskCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["groupTask"]>
+
+  export type GroupTaskSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    groupId?: boolean
+    assigneeId?: boolean
+    createdById?: boolean
+    description?: boolean
+    status?: boolean
+    priority?: boolean
+    sourceMessageId?: boolean
+    dueDate?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    assignee?: boolean | UserDefaultArgs<ExtArgs>
+    createdBy?: boolean | GroupTask$createdByArgs<ExtArgs>
+  }, ExtArgs["result"]["groupTask"]>
+
+  export type GroupTaskSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    groupId?: boolean
+    assigneeId?: boolean
+    createdById?: boolean
+    description?: boolean
+    status?: boolean
+    priority?: boolean
+    sourceMessageId?: boolean
+    dueDate?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    assignee?: boolean | UserDefaultArgs<ExtArgs>
+    createdBy?: boolean | GroupTask$createdByArgs<ExtArgs>
+  }, ExtArgs["result"]["groupTask"]>
+
+  export type GroupTaskSelectScalar = {
+    id?: boolean
+    groupId?: boolean
+    assigneeId?: boolean
+    createdById?: boolean
+    description?: boolean
+    status?: boolean
+    priority?: boolean
+    sourceMessageId?: boolean
+    dueDate?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type GroupTaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "groupId" | "assigneeId" | "createdById" | "description" | "status" | "priority" | "sourceMessageId" | "dueDate" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["groupTask"]>
+  export type GroupTaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    assignee?: boolean | UserDefaultArgs<ExtArgs>
+    createdBy?: boolean | GroupTask$createdByArgs<ExtArgs>
+    reminders?: boolean | GroupTask$remindersArgs<ExtArgs>
+    _count?: boolean | GroupTaskCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GroupTaskIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    assignee?: boolean | UserDefaultArgs<ExtArgs>
+    createdBy?: boolean | GroupTask$createdByArgs<ExtArgs>
+  }
+  export type GroupTaskIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    assignee?: boolean | UserDefaultArgs<ExtArgs>
+    createdBy?: boolean | GroupTask$createdByArgs<ExtArgs>
+  }
+
+  export type $GroupTaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GroupTask"
+    objects: {
+      group: Prisma.$GroupPayload<ExtArgs>
+      assignee: Prisma.$UserPayload<ExtArgs>
+      createdBy: Prisma.$UserPayload<ExtArgs> | null
+      reminders: Prisma.$TaskReminderPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      groupId: string
+      assigneeId: string
+      createdById: string | null
+      description: string
+      status: string
+      priority: string
+      sourceMessageId: string | null
+      dueDate: Date | null
+      completedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["groupTask"]>
+    composites: {}
+  }
+
+  type GroupTaskGetPayload<S extends boolean | null | undefined | GroupTaskDefaultArgs> = $Result.GetResult<Prisma.$GroupTaskPayload, S>
+
+  type GroupTaskCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GroupTaskFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GroupTaskCountAggregateInputType | true
+    }
+
+  export interface GroupTaskDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GroupTask'], meta: { name: 'GroupTask' } }
+    /**
+     * Find zero or one GroupTask that matches the filter.
+     * @param {GroupTaskFindUniqueArgs} args - Arguments to find a GroupTask
+     * @example
+     * // Get one GroupTask
+     * const groupTask = await prisma.groupTask.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GroupTaskFindUniqueArgs>(args: SelectSubset<T, GroupTaskFindUniqueArgs<ExtArgs>>): Prisma__GroupTaskClient<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GroupTask that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GroupTaskFindUniqueOrThrowArgs} args - Arguments to find a GroupTask
+     * @example
+     * // Get one GroupTask
+     * const groupTask = await prisma.groupTask.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GroupTaskFindUniqueOrThrowArgs>(args: SelectSubset<T, GroupTaskFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GroupTaskClient<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GroupTask that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupTaskFindFirstArgs} args - Arguments to find a GroupTask
+     * @example
+     * // Get one GroupTask
+     * const groupTask = await prisma.groupTask.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GroupTaskFindFirstArgs>(args?: SelectSubset<T, GroupTaskFindFirstArgs<ExtArgs>>): Prisma__GroupTaskClient<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GroupTask that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupTaskFindFirstOrThrowArgs} args - Arguments to find a GroupTask
+     * @example
+     * // Get one GroupTask
+     * const groupTask = await prisma.groupTask.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GroupTaskFindFirstOrThrowArgs>(args?: SelectSubset<T, GroupTaskFindFirstOrThrowArgs<ExtArgs>>): Prisma__GroupTaskClient<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GroupTasks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupTaskFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GroupTasks
+     * const groupTasks = await prisma.groupTask.findMany()
+     * 
+     * // Get first 10 GroupTasks
+     * const groupTasks = await prisma.groupTask.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const groupTaskWithIdOnly = await prisma.groupTask.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GroupTaskFindManyArgs>(args?: SelectSubset<T, GroupTaskFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GroupTask.
+     * @param {GroupTaskCreateArgs} args - Arguments to create a GroupTask.
+     * @example
+     * // Create one GroupTask
+     * const GroupTask = await prisma.groupTask.create({
+     *   data: {
+     *     // ... data to create a GroupTask
+     *   }
+     * })
+     * 
+     */
+    create<T extends GroupTaskCreateArgs>(args: SelectSubset<T, GroupTaskCreateArgs<ExtArgs>>): Prisma__GroupTaskClient<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GroupTasks.
+     * @param {GroupTaskCreateManyArgs} args - Arguments to create many GroupTasks.
+     * @example
+     * // Create many GroupTasks
+     * const groupTask = await prisma.groupTask.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GroupTaskCreateManyArgs>(args?: SelectSubset<T, GroupTaskCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GroupTasks and returns the data saved in the database.
+     * @param {GroupTaskCreateManyAndReturnArgs} args - Arguments to create many GroupTasks.
+     * @example
+     * // Create many GroupTasks
+     * const groupTask = await prisma.groupTask.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GroupTasks and only return the `id`
+     * const groupTaskWithIdOnly = await prisma.groupTask.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GroupTaskCreateManyAndReturnArgs>(args?: SelectSubset<T, GroupTaskCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GroupTask.
+     * @param {GroupTaskDeleteArgs} args - Arguments to delete one GroupTask.
+     * @example
+     * // Delete one GroupTask
+     * const GroupTask = await prisma.groupTask.delete({
+     *   where: {
+     *     // ... filter to delete one GroupTask
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GroupTaskDeleteArgs>(args: SelectSubset<T, GroupTaskDeleteArgs<ExtArgs>>): Prisma__GroupTaskClient<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GroupTask.
+     * @param {GroupTaskUpdateArgs} args - Arguments to update one GroupTask.
+     * @example
+     * // Update one GroupTask
+     * const groupTask = await prisma.groupTask.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GroupTaskUpdateArgs>(args: SelectSubset<T, GroupTaskUpdateArgs<ExtArgs>>): Prisma__GroupTaskClient<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GroupTasks.
+     * @param {GroupTaskDeleteManyArgs} args - Arguments to filter GroupTasks to delete.
+     * @example
+     * // Delete a few GroupTasks
+     * const { count } = await prisma.groupTask.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GroupTaskDeleteManyArgs>(args?: SelectSubset<T, GroupTaskDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroupTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupTaskUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GroupTasks
+     * const groupTask = await prisma.groupTask.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GroupTaskUpdateManyArgs>(args: SelectSubset<T, GroupTaskUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroupTasks and returns the data updated in the database.
+     * @param {GroupTaskUpdateManyAndReturnArgs} args - Arguments to update many GroupTasks.
+     * @example
+     * // Update many GroupTasks
+     * const groupTask = await prisma.groupTask.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GroupTasks and only return the `id`
+     * const groupTaskWithIdOnly = await prisma.groupTask.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GroupTaskUpdateManyAndReturnArgs>(args: SelectSubset<T, GroupTaskUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GroupTask.
+     * @param {GroupTaskUpsertArgs} args - Arguments to update or create a GroupTask.
+     * @example
+     * // Update or create a GroupTask
+     * const groupTask = await prisma.groupTask.upsert({
+     *   create: {
+     *     // ... data to create a GroupTask
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GroupTask we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GroupTaskUpsertArgs>(args: SelectSubset<T, GroupTaskUpsertArgs<ExtArgs>>): Prisma__GroupTaskClient<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GroupTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupTaskCountArgs} args - Arguments to filter GroupTasks to count.
+     * @example
+     * // Count the number of GroupTasks
+     * const count = await prisma.groupTask.count({
+     *   where: {
+     *     // ... the filter for the GroupTasks we want to count
+     *   }
+     * })
+    **/
+    count<T extends GroupTaskCountArgs>(
+      args?: Subset<T, GroupTaskCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GroupTaskCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GroupTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupTaskAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GroupTaskAggregateArgs>(args: Subset<T, GroupTaskAggregateArgs>): Prisma.PrismaPromise<GetGroupTaskAggregateType<T>>
+
+    /**
+     * Group by GroupTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupTaskGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GroupTaskGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GroupTaskGroupByArgs['orderBy'] }
+        : { orderBy?: GroupTaskGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GroupTaskGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroupTaskGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GroupTask model
+   */
+  readonly fields: GroupTaskFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GroupTask.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GroupTaskClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    group<T extends GroupDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GroupDefaultArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    assignee<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    createdBy<T extends GroupTask$createdByArgs<ExtArgs> = {}>(args?: Subset<T, GroupTask$createdByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    reminders<T extends GroupTask$remindersArgs<ExtArgs> = {}>(args?: Subset<T, GroupTask$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GroupTask model
+   */
+  interface GroupTaskFieldRefs {
+    readonly id: FieldRef<"GroupTask", 'String'>
+    readonly groupId: FieldRef<"GroupTask", 'String'>
+    readonly assigneeId: FieldRef<"GroupTask", 'String'>
+    readonly createdById: FieldRef<"GroupTask", 'String'>
+    readonly description: FieldRef<"GroupTask", 'String'>
+    readonly status: FieldRef<"GroupTask", 'String'>
+    readonly priority: FieldRef<"GroupTask", 'String'>
+    readonly sourceMessageId: FieldRef<"GroupTask", 'String'>
+    readonly dueDate: FieldRef<"GroupTask", 'DateTime'>
+    readonly completedAt: FieldRef<"GroupTask", 'DateTime'>
+    readonly createdAt: FieldRef<"GroupTask", 'DateTime'>
+    readonly updatedAt: FieldRef<"GroupTask", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GroupTask findUnique
+   */
+  export type GroupTaskFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupTask to fetch.
+     */
+    where: GroupTaskWhereUniqueInput
+  }
+
+  /**
+   * GroupTask findUniqueOrThrow
+   */
+  export type GroupTaskFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupTask to fetch.
+     */
+    where: GroupTaskWhereUniqueInput
+  }
+
+  /**
+   * GroupTask findFirst
+   */
+  export type GroupTaskFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupTask to fetch.
+     */
+    where?: GroupTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupTasks to fetch.
+     */
+    orderBy?: GroupTaskOrderByWithRelationInput | GroupTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupTasks.
+     */
+    cursor?: GroupTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupTasks.
+     */
+    distinct?: GroupTaskScalarFieldEnum | GroupTaskScalarFieldEnum[]
+  }
+
+  /**
+   * GroupTask findFirstOrThrow
+   */
+  export type GroupTaskFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupTask to fetch.
+     */
+    where?: GroupTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupTasks to fetch.
+     */
+    orderBy?: GroupTaskOrderByWithRelationInput | GroupTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupTasks.
+     */
+    cursor?: GroupTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupTasks.
+     */
+    distinct?: GroupTaskScalarFieldEnum | GroupTaskScalarFieldEnum[]
+  }
+
+  /**
+   * GroupTask findMany
+   */
+  export type GroupTaskFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupTasks to fetch.
+     */
+    where?: GroupTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupTasks to fetch.
+     */
+    orderBy?: GroupTaskOrderByWithRelationInput | GroupTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GroupTasks.
+     */
+    cursor?: GroupTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupTasks.
+     */
+    skip?: number
+    distinct?: GroupTaskScalarFieldEnum | GroupTaskScalarFieldEnum[]
+  }
+
+  /**
+   * GroupTask create
+   */
+  export type GroupTaskCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GroupTask.
+     */
+    data: XOR<GroupTaskCreateInput, GroupTaskUncheckedCreateInput>
+  }
+
+  /**
+   * GroupTask createMany
+   */
+  export type GroupTaskCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GroupTasks.
+     */
+    data: GroupTaskCreateManyInput | GroupTaskCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GroupTask createManyAndReturn
+   */
+  export type GroupTaskCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * The data used to create many GroupTasks.
+     */
+    data: GroupTaskCreateManyInput | GroupTaskCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GroupTask update
+   */
+  export type GroupTaskUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GroupTask.
+     */
+    data: XOR<GroupTaskUpdateInput, GroupTaskUncheckedUpdateInput>
+    /**
+     * Choose, which GroupTask to update.
+     */
+    where: GroupTaskWhereUniqueInput
+  }
+
+  /**
+   * GroupTask updateMany
+   */
+  export type GroupTaskUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GroupTasks.
+     */
+    data: XOR<GroupTaskUpdateManyMutationInput, GroupTaskUncheckedUpdateManyInput>
+    /**
+     * Filter which GroupTasks to update
+     */
+    where?: GroupTaskWhereInput
+    /**
+     * Limit how many GroupTasks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroupTask updateManyAndReturn
+   */
+  export type GroupTaskUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * The data used to update GroupTasks.
+     */
+    data: XOR<GroupTaskUpdateManyMutationInput, GroupTaskUncheckedUpdateManyInput>
+    /**
+     * Filter which GroupTasks to update
+     */
+    where?: GroupTaskWhereInput
+    /**
+     * Limit how many GroupTasks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GroupTask upsert
+   */
+  export type GroupTaskUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GroupTask to update in case it exists.
+     */
+    where: GroupTaskWhereUniqueInput
+    /**
+     * In case the GroupTask found by the `where` argument doesn't exist, create a new GroupTask with this data.
+     */
+    create: XOR<GroupTaskCreateInput, GroupTaskUncheckedCreateInput>
+    /**
+     * In case the GroupTask was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GroupTaskUpdateInput, GroupTaskUncheckedUpdateInput>
+  }
+
+  /**
+   * GroupTask delete
+   */
+  export type GroupTaskDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+    /**
+     * Filter which GroupTask to delete.
+     */
+    where: GroupTaskWhereUniqueInput
+  }
+
+  /**
+   * GroupTask deleteMany
+   */
+  export type GroupTaskDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroupTasks to delete
+     */
+    where?: GroupTaskWhereInput
+    /**
+     * Limit how many GroupTasks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroupTask.createdBy
+   */
+  export type GroupTask$createdByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * GroupTask.reminders
+   */
+  export type GroupTask$remindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderInclude<ExtArgs> | null
+    where?: TaskReminderWhereInput
+    orderBy?: TaskReminderOrderByWithRelationInput | TaskReminderOrderByWithRelationInput[]
+    cursor?: TaskReminderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskReminderScalarFieldEnum | TaskReminderScalarFieldEnum[]
+  }
+
+  /**
+   * GroupTask without action
+   */
+  export type GroupTaskDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupTask
+     */
+    select?: GroupTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupTask
+     */
+    omit?: GroupTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupTaskInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TaskReminder
+   */
+
+  export type AggregateTaskReminder = {
+    _count: TaskReminderCountAggregateOutputType | null
+    _min: TaskReminderMinAggregateOutputType | null
+    _max: TaskReminderMaxAggregateOutputType | null
+  }
+
+  export type TaskReminderMinAggregateOutputType = {
+    id: string | null
+    taskId: string | null
+    sendAt: Date | null
+    sent: boolean | null
+    sentAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type TaskReminderMaxAggregateOutputType = {
+    id: string | null
+    taskId: string | null
+    sendAt: Date | null
+    sent: boolean | null
+    sentAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type TaskReminderCountAggregateOutputType = {
+    id: number
+    taskId: number
+    sendAt: number
+    sent: number
+    sentAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type TaskReminderMinAggregateInputType = {
+    id?: true
+    taskId?: true
+    sendAt?: true
+    sent?: true
+    sentAt?: true
+    createdAt?: true
+  }
+
+  export type TaskReminderMaxAggregateInputType = {
+    id?: true
+    taskId?: true
+    sendAt?: true
+    sent?: true
+    sentAt?: true
+    createdAt?: true
+  }
+
+  export type TaskReminderCountAggregateInputType = {
+    id?: true
+    taskId?: true
+    sendAt?: true
+    sent?: true
+    sentAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type TaskReminderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaskReminder to aggregate.
+     */
+    where?: TaskReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskReminders to fetch.
+     */
+    orderBy?: TaskReminderOrderByWithRelationInput | TaskReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TaskReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskReminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskReminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TaskReminders
+    **/
+    _count?: true | TaskReminderCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TaskReminderMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TaskReminderMaxAggregateInputType
+  }
+
+  export type GetTaskReminderAggregateType<T extends TaskReminderAggregateArgs> = {
+        [P in keyof T & keyof AggregateTaskReminder]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTaskReminder[P]>
+      : GetScalarType<T[P], AggregateTaskReminder[P]>
+  }
+
+
+
+
+  export type TaskReminderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskReminderWhereInput
+    orderBy?: TaskReminderOrderByWithAggregationInput | TaskReminderOrderByWithAggregationInput[]
+    by: TaskReminderScalarFieldEnum[] | TaskReminderScalarFieldEnum
+    having?: TaskReminderScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TaskReminderCountAggregateInputType | true
+    _min?: TaskReminderMinAggregateInputType
+    _max?: TaskReminderMaxAggregateInputType
+  }
+
+  export type TaskReminderGroupByOutputType = {
+    id: string
+    taskId: string
+    sendAt: Date
+    sent: boolean
+    sentAt: Date | null
+    createdAt: Date
+    _count: TaskReminderCountAggregateOutputType | null
+    _min: TaskReminderMinAggregateOutputType | null
+    _max: TaskReminderMaxAggregateOutputType | null
+  }
+
+  type GetTaskReminderGroupByPayload<T extends TaskReminderGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TaskReminderGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TaskReminderGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TaskReminderGroupByOutputType[P]>
+            : GetScalarType<T[P], TaskReminderGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TaskReminderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    taskId?: boolean
+    sendAt?: boolean
+    sent?: boolean
+    sentAt?: boolean
+    createdAt?: boolean
+    task?: boolean | GroupTaskDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taskReminder"]>
+
+  export type TaskReminderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    taskId?: boolean
+    sendAt?: boolean
+    sent?: boolean
+    sentAt?: boolean
+    createdAt?: boolean
+    task?: boolean | GroupTaskDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taskReminder"]>
+
+  export type TaskReminderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    taskId?: boolean
+    sendAt?: boolean
+    sent?: boolean
+    sentAt?: boolean
+    createdAt?: boolean
+    task?: boolean | GroupTaskDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taskReminder"]>
+
+  export type TaskReminderSelectScalar = {
+    id?: boolean
+    taskId?: boolean
+    sendAt?: boolean
+    sent?: boolean
+    sentAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type TaskReminderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "taskId" | "sendAt" | "sent" | "sentAt" | "createdAt", ExtArgs["result"]["taskReminder"]>
+  export type TaskReminderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | GroupTaskDefaultArgs<ExtArgs>
+  }
+  export type TaskReminderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | GroupTaskDefaultArgs<ExtArgs>
+  }
+  export type TaskReminderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | GroupTaskDefaultArgs<ExtArgs>
+  }
+
+  export type $TaskReminderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TaskReminder"
+    objects: {
+      task: Prisma.$GroupTaskPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      taskId: string
+      sendAt: Date
+      sent: boolean
+      sentAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["taskReminder"]>
+    composites: {}
+  }
+
+  type TaskReminderGetPayload<S extends boolean | null | undefined | TaskReminderDefaultArgs> = $Result.GetResult<Prisma.$TaskReminderPayload, S>
+
+  type TaskReminderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TaskReminderFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TaskReminderCountAggregateInputType | true
+    }
+
+  export interface TaskReminderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TaskReminder'], meta: { name: 'TaskReminder' } }
+    /**
+     * Find zero or one TaskReminder that matches the filter.
+     * @param {TaskReminderFindUniqueArgs} args - Arguments to find a TaskReminder
+     * @example
+     * // Get one TaskReminder
+     * const taskReminder = await prisma.taskReminder.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TaskReminderFindUniqueArgs>(args: SelectSubset<T, TaskReminderFindUniqueArgs<ExtArgs>>): Prisma__TaskReminderClient<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TaskReminder that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TaskReminderFindUniqueOrThrowArgs} args - Arguments to find a TaskReminder
+     * @example
+     * // Get one TaskReminder
+     * const taskReminder = await prisma.taskReminder.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TaskReminderFindUniqueOrThrowArgs>(args: SelectSubset<T, TaskReminderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TaskReminderClient<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaskReminder that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskReminderFindFirstArgs} args - Arguments to find a TaskReminder
+     * @example
+     * // Get one TaskReminder
+     * const taskReminder = await prisma.taskReminder.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TaskReminderFindFirstArgs>(args?: SelectSubset<T, TaskReminderFindFirstArgs<ExtArgs>>): Prisma__TaskReminderClient<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaskReminder that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskReminderFindFirstOrThrowArgs} args - Arguments to find a TaskReminder
+     * @example
+     * // Get one TaskReminder
+     * const taskReminder = await prisma.taskReminder.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TaskReminderFindFirstOrThrowArgs>(args?: SelectSubset<T, TaskReminderFindFirstOrThrowArgs<ExtArgs>>): Prisma__TaskReminderClient<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TaskReminders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskReminderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TaskReminders
+     * const taskReminders = await prisma.taskReminder.findMany()
+     * 
+     * // Get first 10 TaskReminders
+     * const taskReminders = await prisma.taskReminder.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const taskReminderWithIdOnly = await prisma.taskReminder.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TaskReminderFindManyArgs>(args?: SelectSubset<T, TaskReminderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TaskReminder.
+     * @param {TaskReminderCreateArgs} args - Arguments to create a TaskReminder.
+     * @example
+     * // Create one TaskReminder
+     * const TaskReminder = await prisma.taskReminder.create({
+     *   data: {
+     *     // ... data to create a TaskReminder
+     *   }
+     * })
+     * 
+     */
+    create<T extends TaskReminderCreateArgs>(args: SelectSubset<T, TaskReminderCreateArgs<ExtArgs>>): Prisma__TaskReminderClient<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TaskReminders.
+     * @param {TaskReminderCreateManyArgs} args - Arguments to create many TaskReminders.
+     * @example
+     * // Create many TaskReminders
+     * const taskReminder = await prisma.taskReminder.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TaskReminderCreateManyArgs>(args?: SelectSubset<T, TaskReminderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TaskReminders and returns the data saved in the database.
+     * @param {TaskReminderCreateManyAndReturnArgs} args - Arguments to create many TaskReminders.
+     * @example
+     * // Create many TaskReminders
+     * const taskReminder = await prisma.taskReminder.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TaskReminders and only return the `id`
+     * const taskReminderWithIdOnly = await prisma.taskReminder.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TaskReminderCreateManyAndReturnArgs>(args?: SelectSubset<T, TaskReminderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TaskReminder.
+     * @param {TaskReminderDeleteArgs} args - Arguments to delete one TaskReminder.
+     * @example
+     * // Delete one TaskReminder
+     * const TaskReminder = await prisma.taskReminder.delete({
+     *   where: {
+     *     // ... filter to delete one TaskReminder
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TaskReminderDeleteArgs>(args: SelectSubset<T, TaskReminderDeleteArgs<ExtArgs>>): Prisma__TaskReminderClient<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TaskReminder.
+     * @param {TaskReminderUpdateArgs} args - Arguments to update one TaskReminder.
+     * @example
+     * // Update one TaskReminder
+     * const taskReminder = await prisma.taskReminder.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TaskReminderUpdateArgs>(args: SelectSubset<T, TaskReminderUpdateArgs<ExtArgs>>): Prisma__TaskReminderClient<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TaskReminders.
+     * @param {TaskReminderDeleteManyArgs} args - Arguments to filter TaskReminders to delete.
+     * @example
+     * // Delete a few TaskReminders
+     * const { count } = await prisma.taskReminder.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TaskReminderDeleteManyArgs>(args?: SelectSubset<T, TaskReminderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaskReminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskReminderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TaskReminders
+     * const taskReminder = await prisma.taskReminder.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TaskReminderUpdateManyArgs>(args: SelectSubset<T, TaskReminderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaskReminders and returns the data updated in the database.
+     * @param {TaskReminderUpdateManyAndReturnArgs} args - Arguments to update many TaskReminders.
+     * @example
+     * // Update many TaskReminders
+     * const taskReminder = await prisma.taskReminder.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TaskReminders and only return the `id`
+     * const taskReminderWithIdOnly = await prisma.taskReminder.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TaskReminderUpdateManyAndReturnArgs>(args: SelectSubset<T, TaskReminderUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TaskReminder.
+     * @param {TaskReminderUpsertArgs} args - Arguments to update or create a TaskReminder.
+     * @example
+     * // Update or create a TaskReminder
+     * const taskReminder = await prisma.taskReminder.upsert({
+     *   create: {
+     *     // ... data to create a TaskReminder
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TaskReminder we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TaskReminderUpsertArgs>(args: SelectSubset<T, TaskReminderUpsertArgs<ExtArgs>>): Prisma__TaskReminderClient<$Result.GetResult<Prisma.$TaskReminderPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TaskReminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskReminderCountArgs} args - Arguments to filter TaskReminders to count.
+     * @example
+     * // Count the number of TaskReminders
+     * const count = await prisma.taskReminder.count({
+     *   where: {
+     *     // ... the filter for the TaskReminders we want to count
+     *   }
+     * })
+    **/
+    count<T extends TaskReminderCountArgs>(
+      args?: Subset<T, TaskReminderCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TaskReminderCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TaskReminder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskReminderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TaskReminderAggregateArgs>(args: Subset<T, TaskReminderAggregateArgs>): Prisma.PrismaPromise<GetTaskReminderAggregateType<T>>
+
+    /**
+     * Group by TaskReminder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskReminderGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TaskReminderGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TaskReminderGroupByArgs['orderBy'] }
+        : { orderBy?: TaskReminderGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TaskReminderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTaskReminderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TaskReminder model
+   */
+  readonly fields: TaskReminderFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TaskReminder.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TaskReminderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    task<T extends GroupTaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GroupTaskDefaultArgs<ExtArgs>>): Prisma__GroupTaskClient<$Result.GetResult<Prisma.$GroupTaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TaskReminder model
+   */
+  interface TaskReminderFieldRefs {
+    readonly id: FieldRef<"TaskReminder", 'String'>
+    readonly taskId: FieldRef<"TaskReminder", 'String'>
+    readonly sendAt: FieldRef<"TaskReminder", 'DateTime'>
+    readonly sent: FieldRef<"TaskReminder", 'Boolean'>
+    readonly sentAt: FieldRef<"TaskReminder", 'DateTime'>
+    readonly createdAt: FieldRef<"TaskReminder", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TaskReminder findUnique
+   */
+  export type TaskReminderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskReminder to fetch.
+     */
+    where: TaskReminderWhereUniqueInput
+  }
+
+  /**
+   * TaskReminder findUniqueOrThrow
+   */
+  export type TaskReminderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskReminder to fetch.
+     */
+    where: TaskReminderWhereUniqueInput
+  }
+
+  /**
+   * TaskReminder findFirst
+   */
+  export type TaskReminderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskReminder to fetch.
+     */
+    where?: TaskReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskReminders to fetch.
+     */
+    orderBy?: TaskReminderOrderByWithRelationInput | TaskReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaskReminders.
+     */
+    cursor?: TaskReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskReminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskReminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaskReminders.
+     */
+    distinct?: TaskReminderScalarFieldEnum | TaskReminderScalarFieldEnum[]
+  }
+
+  /**
+   * TaskReminder findFirstOrThrow
+   */
+  export type TaskReminderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskReminder to fetch.
+     */
+    where?: TaskReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskReminders to fetch.
+     */
+    orderBy?: TaskReminderOrderByWithRelationInput | TaskReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaskReminders.
+     */
+    cursor?: TaskReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskReminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskReminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaskReminders.
+     */
+    distinct?: TaskReminderScalarFieldEnum | TaskReminderScalarFieldEnum[]
+  }
+
+  /**
+   * TaskReminder findMany
+   */
+  export type TaskReminderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskReminders to fetch.
+     */
+    where?: TaskReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskReminders to fetch.
+     */
+    orderBy?: TaskReminderOrderByWithRelationInput | TaskReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TaskReminders.
+     */
+    cursor?: TaskReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskReminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskReminders.
+     */
+    skip?: number
+    distinct?: TaskReminderScalarFieldEnum | TaskReminderScalarFieldEnum[]
+  }
+
+  /**
+   * TaskReminder create
+   */
+  export type TaskReminderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TaskReminder.
+     */
+    data: XOR<TaskReminderCreateInput, TaskReminderUncheckedCreateInput>
+  }
+
+  /**
+   * TaskReminder createMany
+   */
+  export type TaskReminderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TaskReminders.
+     */
+    data: TaskReminderCreateManyInput | TaskReminderCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TaskReminder createManyAndReturn
+   */
+  export type TaskReminderCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * The data used to create many TaskReminders.
+     */
+    data: TaskReminderCreateManyInput | TaskReminderCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaskReminder update
+   */
+  export type TaskReminderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TaskReminder.
+     */
+    data: XOR<TaskReminderUpdateInput, TaskReminderUncheckedUpdateInput>
+    /**
+     * Choose, which TaskReminder to update.
+     */
+    where: TaskReminderWhereUniqueInput
+  }
+
+  /**
+   * TaskReminder updateMany
+   */
+  export type TaskReminderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TaskReminders.
+     */
+    data: XOR<TaskReminderUpdateManyMutationInput, TaskReminderUncheckedUpdateManyInput>
+    /**
+     * Filter which TaskReminders to update
+     */
+    where?: TaskReminderWhereInput
+    /**
+     * Limit how many TaskReminders to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaskReminder updateManyAndReturn
+   */
+  export type TaskReminderUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * The data used to update TaskReminders.
+     */
+    data: XOR<TaskReminderUpdateManyMutationInput, TaskReminderUncheckedUpdateManyInput>
+    /**
+     * Filter which TaskReminders to update
+     */
+    where?: TaskReminderWhereInput
+    /**
+     * Limit how many TaskReminders to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaskReminder upsert
+   */
+  export type TaskReminderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TaskReminder to update in case it exists.
+     */
+    where: TaskReminderWhereUniqueInput
+    /**
+     * In case the TaskReminder found by the `where` argument doesn't exist, create a new TaskReminder with this data.
+     */
+    create: XOR<TaskReminderCreateInput, TaskReminderUncheckedCreateInput>
+    /**
+     * In case the TaskReminder was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TaskReminderUpdateInput, TaskReminderUncheckedUpdateInput>
+  }
+
+  /**
+   * TaskReminder delete
+   */
+  export type TaskReminderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderInclude<ExtArgs> | null
+    /**
+     * Filter which TaskReminder to delete.
+     */
+    where: TaskReminderWhereUniqueInput
+  }
+
+  /**
+   * TaskReminder deleteMany
+   */
+  export type TaskReminderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaskReminders to delete
+     */
+    where?: TaskReminderWhereInput
+    /**
+     * Limit how many TaskReminders to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaskReminder without action
+   */
+  export type TaskReminderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskReminder
+     */
+    select?: TaskReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskReminder
+     */
+    omit?: TaskReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskReminderInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17282,6 +19891,36 @@ export namespace Prisma {
   export type GroupMessageScalarFieldEnum = (typeof GroupMessageScalarFieldEnum)[keyof typeof GroupMessageScalarFieldEnum]
 
 
+  export const GroupTaskScalarFieldEnum: {
+    id: 'id',
+    groupId: 'groupId',
+    assigneeId: 'assigneeId',
+    createdById: 'createdById',
+    description: 'description',
+    status: 'status',
+    priority: 'priority',
+    sourceMessageId: 'sourceMessageId',
+    dueDate: 'dueDate',
+    completedAt: 'completedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type GroupTaskScalarFieldEnum = (typeof GroupTaskScalarFieldEnum)[keyof typeof GroupTaskScalarFieldEnum]
+
+
+  export const TaskReminderScalarFieldEnum: {
+    id: 'id',
+    taskId: 'taskId',
+    sendAt: 'sendAt',
+    sent: 'sent',
+    sentAt: 'sentAt',
+    createdAt: 'createdAt'
+  };
+
+  export type TaskReminderScalarFieldEnum = (typeof TaskReminderScalarFieldEnum)[keyof typeof TaskReminderScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -17401,6 +20040,8 @@ export namespace Prisma {
     createdGroups?: GroupListRelationFilter
     groupMembers?: GroupMemberListRelationFilter
     groupMessages?: GroupMessageListRelationFilter
+    assignedTasks?: GroupTaskListRelationFilter
+    createdTasks?: GroupTaskListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -17424,6 +20065,8 @@ export namespace Prisma {
     createdGroups?: GroupOrderByRelationAggregateInput
     groupMembers?: GroupMemberOrderByRelationAggregateInput
     groupMessages?: GroupMessageOrderByRelationAggregateInput
+    assignedTasks?: GroupTaskOrderByRelationAggregateInput
+    createdTasks?: GroupTaskOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -17450,6 +20093,8 @@ export namespace Prisma {
     createdGroups?: GroupListRelationFilter
     groupMembers?: GroupMemberListRelationFilter
     groupMessages?: GroupMessageListRelationFilter
+    assignedTasks?: GroupTaskListRelationFilter
+    createdTasks?: GroupTaskListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -18116,6 +20761,7 @@ export namespace Prisma {
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
     members?: GroupMemberListRelationFilter
     messages?: GroupMessageListRelationFilter
+    tasks?: GroupTaskListRelationFilter
   }
 
   export type GroupOrderByWithRelationInput = {
@@ -18131,6 +20777,7 @@ export namespace Prisma {
     creator?: UserOrderByWithRelationInput
     members?: GroupMemberOrderByRelationAggregateInput
     messages?: GroupMessageOrderByRelationAggregateInput
+    tasks?: GroupTaskOrderByRelationAggregateInput
   }
 
   export type GroupWhereUniqueInput = Prisma.AtLeast<{
@@ -18149,6 +20796,7 @@ export namespace Prisma {
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
     members?: GroupMemberListRelationFilter
     messages?: GroupMessageListRelationFilter
+    tasks?: GroupTaskListRelationFilter
   }, "id">
 
   export type GroupOrderByWithAggregationInput = {
@@ -18336,6 +20984,165 @@ export namespace Prisma {
     aiModel?: StringNullableWithAggregatesFilter<"GroupMessage"> | string | null
   }
 
+  export type GroupTaskWhereInput = {
+    AND?: GroupTaskWhereInput | GroupTaskWhereInput[]
+    OR?: GroupTaskWhereInput[]
+    NOT?: GroupTaskWhereInput | GroupTaskWhereInput[]
+    id?: StringFilter<"GroupTask"> | string
+    groupId?: StringFilter<"GroupTask"> | string
+    assigneeId?: StringFilter<"GroupTask"> | string
+    createdById?: StringNullableFilter<"GroupTask"> | string | null
+    description?: StringFilter<"GroupTask"> | string
+    status?: StringFilter<"GroupTask"> | string
+    priority?: StringFilter<"GroupTask"> | string
+    sourceMessageId?: StringNullableFilter<"GroupTask"> | string | null
+    dueDate?: DateTimeNullableFilter<"GroupTask"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"GroupTask"> | Date | string | null
+    createdAt?: DateTimeFilter<"GroupTask"> | Date | string
+    updatedAt?: DateTimeFilter<"GroupTask"> | Date | string
+    group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
+    assignee?: XOR<UserScalarRelationFilter, UserWhereInput>
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    reminders?: TaskReminderListRelationFilter
+  }
+
+  export type GroupTaskOrderByWithRelationInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    assigneeId?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    sourceMessageId?: SortOrderInput | SortOrder
+    dueDate?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    group?: GroupOrderByWithRelationInput
+    assignee?: UserOrderByWithRelationInput
+    createdBy?: UserOrderByWithRelationInput
+    reminders?: TaskReminderOrderByRelationAggregateInput
+  }
+
+  export type GroupTaskWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GroupTaskWhereInput | GroupTaskWhereInput[]
+    OR?: GroupTaskWhereInput[]
+    NOT?: GroupTaskWhereInput | GroupTaskWhereInput[]
+    groupId?: StringFilter<"GroupTask"> | string
+    assigneeId?: StringFilter<"GroupTask"> | string
+    createdById?: StringNullableFilter<"GroupTask"> | string | null
+    description?: StringFilter<"GroupTask"> | string
+    status?: StringFilter<"GroupTask"> | string
+    priority?: StringFilter<"GroupTask"> | string
+    sourceMessageId?: StringNullableFilter<"GroupTask"> | string | null
+    dueDate?: DateTimeNullableFilter<"GroupTask"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"GroupTask"> | Date | string | null
+    createdAt?: DateTimeFilter<"GroupTask"> | Date | string
+    updatedAt?: DateTimeFilter<"GroupTask"> | Date | string
+    group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
+    assignee?: XOR<UserScalarRelationFilter, UserWhereInput>
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    reminders?: TaskReminderListRelationFilter
+  }, "id">
+
+  export type GroupTaskOrderByWithAggregationInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    assigneeId?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    sourceMessageId?: SortOrderInput | SortOrder
+    dueDate?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: GroupTaskCountOrderByAggregateInput
+    _max?: GroupTaskMaxOrderByAggregateInput
+    _min?: GroupTaskMinOrderByAggregateInput
+  }
+
+  export type GroupTaskScalarWhereWithAggregatesInput = {
+    AND?: GroupTaskScalarWhereWithAggregatesInput | GroupTaskScalarWhereWithAggregatesInput[]
+    OR?: GroupTaskScalarWhereWithAggregatesInput[]
+    NOT?: GroupTaskScalarWhereWithAggregatesInput | GroupTaskScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GroupTask"> | string
+    groupId?: StringWithAggregatesFilter<"GroupTask"> | string
+    assigneeId?: StringWithAggregatesFilter<"GroupTask"> | string
+    createdById?: StringNullableWithAggregatesFilter<"GroupTask"> | string | null
+    description?: StringWithAggregatesFilter<"GroupTask"> | string
+    status?: StringWithAggregatesFilter<"GroupTask"> | string
+    priority?: StringWithAggregatesFilter<"GroupTask"> | string
+    sourceMessageId?: StringNullableWithAggregatesFilter<"GroupTask"> | string | null
+    dueDate?: DateTimeNullableWithAggregatesFilter<"GroupTask"> | Date | string | null
+    completedAt?: DateTimeNullableWithAggregatesFilter<"GroupTask"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"GroupTask"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"GroupTask"> | Date | string
+  }
+
+  export type TaskReminderWhereInput = {
+    AND?: TaskReminderWhereInput | TaskReminderWhereInput[]
+    OR?: TaskReminderWhereInput[]
+    NOT?: TaskReminderWhereInput | TaskReminderWhereInput[]
+    id?: StringFilter<"TaskReminder"> | string
+    taskId?: StringFilter<"TaskReminder"> | string
+    sendAt?: DateTimeFilter<"TaskReminder"> | Date | string
+    sent?: BoolFilter<"TaskReminder"> | boolean
+    sentAt?: DateTimeNullableFilter<"TaskReminder"> | Date | string | null
+    createdAt?: DateTimeFilter<"TaskReminder"> | Date | string
+    task?: XOR<GroupTaskScalarRelationFilter, GroupTaskWhereInput>
+  }
+
+  export type TaskReminderOrderByWithRelationInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    sendAt?: SortOrder
+    sent?: SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    task?: GroupTaskOrderByWithRelationInput
+  }
+
+  export type TaskReminderWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TaskReminderWhereInput | TaskReminderWhereInput[]
+    OR?: TaskReminderWhereInput[]
+    NOT?: TaskReminderWhereInput | TaskReminderWhereInput[]
+    taskId?: StringFilter<"TaskReminder"> | string
+    sendAt?: DateTimeFilter<"TaskReminder"> | Date | string
+    sent?: BoolFilter<"TaskReminder"> | boolean
+    sentAt?: DateTimeNullableFilter<"TaskReminder"> | Date | string | null
+    createdAt?: DateTimeFilter<"TaskReminder"> | Date | string
+    task?: XOR<GroupTaskScalarRelationFilter, GroupTaskWhereInput>
+  }, "id">
+
+  export type TaskReminderOrderByWithAggregationInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    sendAt?: SortOrder
+    sent?: SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: TaskReminderCountOrderByAggregateInput
+    _max?: TaskReminderMaxOrderByAggregateInput
+    _min?: TaskReminderMinOrderByAggregateInput
+  }
+
+  export type TaskReminderScalarWhereWithAggregatesInput = {
+    AND?: TaskReminderScalarWhereWithAggregatesInput | TaskReminderScalarWhereWithAggregatesInput[]
+    OR?: TaskReminderScalarWhereWithAggregatesInput[]
+    NOT?: TaskReminderScalarWhereWithAggregatesInput | TaskReminderScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TaskReminder"> | string
+    taskId?: StringWithAggregatesFilter<"TaskReminder"> | string
+    sendAt?: DateTimeWithAggregatesFilter<"TaskReminder"> | Date | string
+    sent?: BoolWithAggregatesFilter<"TaskReminder"> | boolean
+    sentAt?: DateTimeNullableWithAggregatesFilter<"TaskReminder"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TaskReminder"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -18357,6 +21164,8 @@ export namespace Prisma {
     createdGroups?: GroupCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -18380,6 +21189,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUpdateInput = {
@@ -18403,6 +21214,8 @@ export namespace Prisma {
     createdGroups?: GroupUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -18426,6 +21239,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -19126,6 +21941,7 @@ export namespace Prisma {
     creator: UserCreateNestedOneWithoutCreatedGroupsInput
     members?: GroupMemberCreateNestedManyWithoutGroupInput
     messages?: GroupMessageCreateNestedManyWithoutGroupInput
+    tasks?: GroupTaskCreateNestedManyWithoutGroupInput
   }
 
   export type GroupUncheckedCreateInput = {
@@ -19140,6 +21956,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     members?: GroupMemberUncheckedCreateNestedManyWithoutGroupInput
     messages?: GroupMessageUncheckedCreateNestedManyWithoutGroupInput
+    tasks?: GroupTaskUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupUpdateInput = {
@@ -19154,6 +21971,7 @@ export namespace Prisma {
     creator?: UserUpdateOneRequiredWithoutCreatedGroupsNestedInput
     members?: GroupMemberUpdateManyWithoutGroupNestedInput
     messages?: GroupMessageUpdateManyWithoutGroupNestedInput
+    tasks?: GroupTaskUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupUncheckedUpdateInput = {
@@ -19168,6 +21986,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: GroupMemberUncheckedUpdateManyWithoutGroupNestedInput
     messages?: GroupMessageUncheckedUpdateManyWithoutGroupNestedInput
+    tasks?: GroupTaskUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupCreateManyInput = {
@@ -19358,6 +22177,174 @@ export namespace Prisma {
     aiModel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type GroupTaskCreateInput = {
+    id?: string
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    group: GroupCreateNestedOneWithoutTasksInput
+    assignee: UserCreateNestedOneWithoutAssignedTasksInput
+    createdBy?: UserCreateNestedOneWithoutCreatedTasksInput
+    reminders?: TaskReminderCreateNestedManyWithoutTaskInput
+  }
+
+  export type GroupTaskUncheckedCreateInput = {
+    id?: string
+    groupId: string
+    assigneeId: string
+    createdById?: string | null
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reminders?: TaskReminderUncheckedCreateNestedManyWithoutTaskInput
+  }
+
+  export type GroupTaskUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: GroupUpdateOneRequiredWithoutTasksNestedInput
+    assignee?: UserUpdateOneRequiredWithoutAssignedTasksNestedInput
+    createdBy?: UserUpdateOneWithoutCreatedTasksNestedInput
+    reminders?: TaskReminderUpdateManyWithoutTaskNestedInput
+  }
+
+  export type GroupTaskUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    assigneeId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminders?: TaskReminderUncheckedUpdateManyWithoutTaskNestedInput
+  }
+
+  export type GroupTaskCreateManyInput = {
+    id?: string
+    groupId: string
+    assigneeId: string
+    createdById?: string | null
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GroupTaskUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupTaskUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    assigneeId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskReminderCreateInput = {
+    id?: string
+    sendAt: Date | string
+    sent?: boolean
+    sentAt?: Date | string | null
+    createdAt?: Date | string
+    task: GroupTaskCreateNestedOneWithoutRemindersInput
+  }
+
+  export type TaskReminderUncheckedCreateInput = {
+    id?: string
+    taskId: string
+    sendAt: Date | string
+    sent?: boolean
+    sentAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type TaskReminderUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sendAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    task?: GroupTaskUpdateOneRequiredWithoutRemindersNestedInput
+  }
+
+  export type TaskReminderUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    sendAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskReminderCreateManyInput = {
+    id?: string
+    taskId: string
+    sendAt: Date | string
+    sent?: boolean
+    sentAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type TaskReminderUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sendAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskReminderUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    sendAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19468,6 +22455,12 @@ export namespace Prisma {
     none?: GroupMessageWhereInput
   }
 
+  export type GroupTaskListRelationFilter = {
+    every?: GroupTaskWhereInput
+    some?: GroupTaskWhereInput
+    none?: GroupTaskWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -19502,6 +22495,10 @@ export namespace Prisma {
   }
 
   export type GroupMessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GroupTaskOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20173,6 +23170,93 @@ export namespace Prisma {
     aiModel?: SortOrder
   }
 
+  export type TaskReminderListRelationFilter = {
+    every?: TaskReminderWhereInput
+    some?: TaskReminderWhereInput
+    none?: TaskReminderWhereInput
+  }
+
+  export type TaskReminderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GroupTaskCountOrderByAggregateInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    assigneeId?: SortOrder
+    createdById?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    sourceMessageId?: SortOrder
+    dueDate?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GroupTaskMaxOrderByAggregateInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    assigneeId?: SortOrder
+    createdById?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    sourceMessageId?: SortOrder
+    dueDate?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GroupTaskMinOrderByAggregateInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    assigneeId?: SortOrder
+    createdById?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    sourceMessageId?: SortOrder
+    dueDate?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GroupTaskScalarRelationFilter = {
+    is?: GroupTaskWhereInput
+    isNot?: GroupTaskWhereInput
+  }
+
+  export type TaskReminderCountOrderByAggregateInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    sendAt?: SortOrder
+    sent?: SortOrder
+    sentAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TaskReminderMaxOrderByAggregateInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    sendAt?: SortOrder
+    sent?: SortOrder
+    sentAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TaskReminderMinOrderByAggregateInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    sendAt?: SortOrder
+    sent?: SortOrder
+    sentAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type MessageCreateNestedManyWithoutSenderInput = {
     create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
@@ -20234,6 +23318,20 @@ export namespace Prisma {
     connect?: GroupMessageWhereUniqueInput | GroupMessageWhereUniqueInput[]
   }
 
+  export type GroupTaskCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<GroupTaskCreateWithoutAssigneeInput, GroupTaskUncheckedCreateWithoutAssigneeInput> | GroupTaskCreateWithoutAssigneeInput[] | GroupTaskUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutAssigneeInput | GroupTaskCreateOrConnectWithoutAssigneeInput[]
+    createMany?: GroupTaskCreateManyAssigneeInputEnvelope
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+  }
+
+  export type GroupTaskCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<GroupTaskCreateWithoutCreatedByInput, GroupTaskUncheckedCreateWithoutCreatedByInput> | GroupTaskCreateWithoutCreatedByInput[] | GroupTaskUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutCreatedByInput | GroupTaskCreateOrConnectWithoutCreatedByInput[]
+    createMany?: GroupTaskCreateManyCreatedByInputEnvelope
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+  }
+
   export type MessageUncheckedCreateNestedManyWithoutSenderInput = {
     create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
@@ -20293,6 +23391,20 @@ export namespace Prisma {
     connectOrCreate?: GroupMessageCreateOrConnectWithoutSenderInput | GroupMessageCreateOrConnectWithoutSenderInput[]
     createMany?: GroupMessageCreateManySenderInputEnvelope
     connect?: GroupMessageWhereUniqueInput | GroupMessageWhereUniqueInput[]
+  }
+
+  export type GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<GroupTaskCreateWithoutAssigneeInput, GroupTaskUncheckedCreateWithoutAssigneeInput> | GroupTaskCreateWithoutAssigneeInput[] | GroupTaskUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutAssigneeInput | GroupTaskCreateOrConnectWithoutAssigneeInput[]
+    createMany?: GroupTaskCreateManyAssigneeInputEnvelope
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+  }
+
+  export type GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<GroupTaskCreateWithoutCreatedByInput, GroupTaskUncheckedCreateWithoutCreatedByInput> | GroupTaskCreateWithoutCreatedByInput[] | GroupTaskUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutCreatedByInput | GroupTaskCreateOrConnectWithoutCreatedByInput[]
+    createMany?: GroupTaskCreateManyCreatedByInputEnvelope
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -20436,6 +23548,34 @@ export namespace Prisma {
     deleteMany?: GroupMessageScalarWhereInput | GroupMessageScalarWhereInput[]
   }
 
+  export type GroupTaskUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<GroupTaskCreateWithoutAssigneeInput, GroupTaskUncheckedCreateWithoutAssigneeInput> | GroupTaskCreateWithoutAssigneeInput[] | GroupTaskUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutAssigneeInput | GroupTaskCreateOrConnectWithoutAssigneeInput[]
+    upsert?: GroupTaskUpsertWithWhereUniqueWithoutAssigneeInput | GroupTaskUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: GroupTaskCreateManyAssigneeInputEnvelope
+    set?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    disconnect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    delete?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    update?: GroupTaskUpdateWithWhereUniqueWithoutAssigneeInput | GroupTaskUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: GroupTaskUpdateManyWithWhereWithoutAssigneeInput | GroupTaskUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: GroupTaskScalarWhereInput | GroupTaskScalarWhereInput[]
+  }
+
+  export type GroupTaskUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<GroupTaskCreateWithoutCreatedByInput, GroupTaskUncheckedCreateWithoutCreatedByInput> | GroupTaskCreateWithoutCreatedByInput[] | GroupTaskUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutCreatedByInput | GroupTaskCreateOrConnectWithoutCreatedByInput[]
+    upsert?: GroupTaskUpsertWithWhereUniqueWithoutCreatedByInput | GroupTaskUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: GroupTaskCreateManyCreatedByInputEnvelope
+    set?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    disconnect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    delete?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    update?: GroupTaskUpdateWithWhereUniqueWithoutCreatedByInput | GroupTaskUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: GroupTaskUpdateManyWithWhereWithoutCreatedByInput | GroupTaskUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: GroupTaskScalarWhereInput | GroupTaskScalarWhereInput[]
+  }
+
   export type MessageUncheckedUpdateManyWithoutSenderNestedInput = {
     create?: XOR<MessageCreateWithoutSenderInput, MessageUncheckedCreateWithoutSenderInput> | MessageCreateWithoutSenderInput[] | MessageUncheckedCreateWithoutSenderInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutSenderInput | MessageCreateOrConnectWithoutSenderInput[]
@@ -20555,6 +23695,34 @@ export namespace Prisma {
     update?: GroupMessageUpdateWithWhereUniqueWithoutSenderInput | GroupMessageUpdateWithWhereUniqueWithoutSenderInput[]
     updateMany?: GroupMessageUpdateManyWithWhereWithoutSenderInput | GroupMessageUpdateManyWithWhereWithoutSenderInput[]
     deleteMany?: GroupMessageScalarWhereInput | GroupMessageScalarWhereInput[]
+  }
+
+  export type GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<GroupTaskCreateWithoutAssigneeInput, GroupTaskUncheckedCreateWithoutAssigneeInput> | GroupTaskCreateWithoutAssigneeInput[] | GroupTaskUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutAssigneeInput | GroupTaskCreateOrConnectWithoutAssigneeInput[]
+    upsert?: GroupTaskUpsertWithWhereUniqueWithoutAssigneeInput | GroupTaskUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: GroupTaskCreateManyAssigneeInputEnvelope
+    set?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    disconnect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    delete?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    update?: GroupTaskUpdateWithWhereUniqueWithoutAssigneeInput | GroupTaskUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: GroupTaskUpdateManyWithWhereWithoutAssigneeInput | GroupTaskUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: GroupTaskScalarWhereInput | GroupTaskScalarWhereInput[]
+  }
+
+  export type GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<GroupTaskCreateWithoutCreatedByInput, GroupTaskUncheckedCreateWithoutCreatedByInput> | GroupTaskCreateWithoutCreatedByInput[] | GroupTaskUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutCreatedByInput | GroupTaskCreateOrConnectWithoutCreatedByInput[]
+    upsert?: GroupTaskUpsertWithWhereUniqueWithoutCreatedByInput | GroupTaskUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: GroupTaskCreateManyCreatedByInputEnvelope
+    set?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    disconnect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    delete?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    update?: GroupTaskUpdateWithWhereUniqueWithoutCreatedByInput | GroupTaskUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: GroupTaskUpdateManyWithWhereWithoutCreatedByInput | GroupTaskUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: GroupTaskScalarWhereInput | GroupTaskScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAiProfileInput = {
@@ -20983,6 +24151,13 @@ export namespace Prisma {
     connect?: GroupMessageWhereUniqueInput | GroupMessageWhereUniqueInput[]
   }
 
+  export type GroupTaskCreateNestedManyWithoutGroupInput = {
+    create?: XOR<GroupTaskCreateWithoutGroupInput, GroupTaskUncheckedCreateWithoutGroupInput> | GroupTaskCreateWithoutGroupInput[] | GroupTaskUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutGroupInput | GroupTaskCreateOrConnectWithoutGroupInput[]
+    createMany?: GroupTaskCreateManyGroupInputEnvelope
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+  }
+
   export type GroupMemberUncheckedCreateNestedManyWithoutGroupInput = {
     create?: XOR<GroupMemberCreateWithoutGroupInput, GroupMemberUncheckedCreateWithoutGroupInput> | GroupMemberCreateWithoutGroupInput[] | GroupMemberUncheckedCreateWithoutGroupInput[]
     connectOrCreate?: GroupMemberCreateOrConnectWithoutGroupInput | GroupMemberCreateOrConnectWithoutGroupInput[]
@@ -20995,6 +24170,13 @@ export namespace Prisma {
     connectOrCreate?: GroupMessageCreateOrConnectWithoutGroupInput | GroupMessageCreateOrConnectWithoutGroupInput[]
     createMany?: GroupMessageCreateManyGroupInputEnvelope
     connect?: GroupMessageWhereUniqueInput | GroupMessageWhereUniqueInput[]
+  }
+
+  export type GroupTaskUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<GroupTaskCreateWithoutGroupInput, GroupTaskUncheckedCreateWithoutGroupInput> | GroupTaskCreateWithoutGroupInput[] | GroupTaskUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutGroupInput | GroupTaskCreateOrConnectWithoutGroupInput[]
+    createMany?: GroupTaskCreateManyGroupInputEnvelope
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutCreatedGroupsNestedInput = {
@@ -21033,6 +24215,20 @@ export namespace Prisma {
     deleteMany?: GroupMessageScalarWhereInput | GroupMessageScalarWhereInput[]
   }
 
+  export type GroupTaskUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<GroupTaskCreateWithoutGroupInput, GroupTaskUncheckedCreateWithoutGroupInput> | GroupTaskCreateWithoutGroupInput[] | GroupTaskUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutGroupInput | GroupTaskCreateOrConnectWithoutGroupInput[]
+    upsert?: GroupTaskUpsertWithWhereUniqueWithoutGroupInput | GroupTaskUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: GroupTaskCreateManyGroupInputEnvelope
+    set?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    disconnect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    delete?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    update?: GroupTaskUpdateWithWhereUniqueWithoutGroupInput | GroupTaskUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: GroupTaskUpdateManyWithWhereWithoutGroupInput | GroupTaskUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: GroupTaskScalarWhereInput | GroupTaskScalarWhereInput[]
+  }
+
   export type GroupMemberUncheckedUpdateManyWithoutGroupNestedInput = {
     create?: XOR<GroupMemberCreateWithoutGroupInput, GroupMemberUncheckedCreateWithoutGroupInput> | GroupMemberCreateWithoutGroupInput[] | GroupMemberUncheckedCreateWithoutGroupInput[]
     connectOrCreate?: GroupMemberCreateOrConnectWithoutGroupInput | GroupMemberCreateOrConnectWithoutGroupInput[]
@@ -21059,6 +24255,20 @@ export namespace Prisma {
     update?: GroupMessageUpdateWithWhereUniqueWithoutGroupInput | GroupMessageUpdateWithWhereUniqueWithoutGroupInput[]
     updateMany?: GroupMessageUpdateManyWithWhereWithoutGroupInput | GroupMessageUpdateManyWithWhereWithoutGroupInput[]
     deleteMany?: GroupMessageScalarWhereInput | GroupMessageScalarWhereInput[]
+  }
+
+  export type GroupTaskUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<GroupTaskCreateWithoutGroupInput, GroupTaskUncheckedCreateWithoutGroupInput> | GroupTaskCreateWithoutGroupInput[] | GroupTaskUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutGroupInput | GroupTaskCreateOrConnectWithoutGroupInput[]
+    upsert?: GroupTaskUpsertWithWhereUniqueWithoutGroupInput | GroupTaskUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: GroupTaskCreateManyGroupInputEnvelope
+    set?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    disconnect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    delete?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    connect?: GroupTaskWhereUniqueInput | GroupTaskWhereUniqueInput[]
+    update?: GroupTaskUpdateWithWhereUniqueWithoutGroupInput | GroupTaskUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: GroupTaskUpdateManyWithWhereWithoutGroupInput | GroupTaskUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: GroupTaskScalarWhereInput | GroupTaskScalarWhereInput[]
   }
 
   export type GroupCreateNestedOneWithoutMembersInput = {
@@ -21184,6 +24394,106 @@ export namespace Prisma {
     update?: GroupMessageUpdateWithWhereUniqueWithoutReplyToInput | GroupMessageUpdateWithWhereUniqueWithoutReplyToInput[]
     updateMany?: GroupMessageUpdateManyWithWhereWithoutReplyToInput | GroupMessageUpdateManyWithWhereWithoutReplyToInput[]
     deleteMany?: GroupMessageScalarWhereInput | GroupMessageScalarWhereInput[]
+  }
+
+  export type GroupCreateNestedOneWithoutTasksInput = {
+    create?: XOR<GroupCreateWithoutTasksInput, GroupUncheckedCreateWithoutTasksInput>
+    connectOrCreate?: GroupCreateOrConnectWithoutTasksInput
+    connect?: GroupWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutAssignedTasksInput = {
+    create?: XOR<UserCreateWithoutAssignedTasksInput, UserUncheckedCreateWithoutAssignedTasksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedTasksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCreatedTasksInput = {
+    create?: XOR<UserCreateWithoutCreatedTasksInput, UserUncheckedCreateWithoutCreatedTasksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedTasksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TaskReminderCreateNestedManyWithoutTaskInput = {
+    create?: XOR<TaskReminderCreateWithoutTaskInput, TaskReminderUncheckedCreateWithoutTaskInput> | TaskReminderCreateWithoutTaskInput[] | TaskReminderUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskReminderCreateOrConnectWithoutTaskInput | TaskReminderCreateOrConnectWithoutTaskInput[]
+    createMany?: TaskReminderCreateManyTaskInputEnvelope
+    connect?: TaskReminderWhereUniqueInput | TaskReminderWhereUniqueInput[]
+  }
+
+  export type TaskReminderUncheckedCreateNestedManyWithoutTaskInput = {
+    create?: XOR<TaskReminderCreateWithoutTaskInput, TaskReminderUncheckedCreateWithoutTaskInput> | TaskReminderCreateWithoutTaskInput[] | TaskReminderUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskReminderCreateOrConnectWithoutTaskInput | TaskReminderCreateOrConnectWithoutTaskInput[]
+    createMany?: TaskReminderCreateManyTaskInputEnvelope
+    connect?: TaskReminderWhereUniqueInput | TaskReminderWhereUniqueInput[]
+  }
+
+  export type GroupUpdateOneRequiredWithoutTasksNestedInput = {
+    create?: XOR<GroupCreateWithoutTasksInput, GroupUncheckedCreateWithoutTasksInput>
+    connectOrCreate?: GroupCreateOrConnectWithoutTasksInput
+    upsert?: GroupUpsertWithoutTasksInput
+    connect?: GroupWhereUniqueInput
+    update?: XOR<XOR<GroupUpdateToOneWithWhereWithoutTasksInput, GroupUpdateWithoutTasksInput>, GroupUncheckedUpdateWithoutTasksInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutAssignedTasksNestedInput = {
+    create?: XOR<UserCreateWithoutAssignedTasksInput, UserUncheckedCreateWithoutAssignedTasksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedTasksInput
+    upsert?: UserUpsertWithoutAssignedTasksInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssignedTasksInput, UserUpdateWithoutAssignedTasksInput>, UserUncheckedUpdateWithoutAssignedTasksInput>
+  }
+
+  export type UserUpdateOneWithoutCreatedTasksNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedTasksInput, UserUncheckedCreateWithoutCreatedTasksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedTasksInput
+    upsert?: UserUpsertWithoutCreatedTasksInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedTasksInput, UserUpdateWithoutCreatedTasksInput>, UserUncheckedUpdateWithoutCreatedTasksInput>
+  }
+
+  export type TaskReminderUpdateManyWithoutTaskNestedInput = {
+    create?: XOR<TaskReminderCreateWithoutTaskInput, TaskReminderUncheckedCreateWithoutTaskInput> | TaskReminderCreateWithoutTaskInput[] | TaskReminderUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskReminderCreateOrConnectWithoutTaskInput | TaskReminderCreateOrConnectWithoutTaskInput[]
+    upsert?: TaskReminderUpsertWithWhereUniqueWithoutTaskInput | TaskReminderUpsertWithWhereUniqueWithoutTaskInput[]
+    createMany?: TaskReminderCreateManyTaskInputEnvelope
+    set?: TaskReminderWhereUniqueInput | TaskReminderWhereUniqueInput[]
+    disconnect?: TaskReminderWhereUniqueInput | TaskReminderWhereUniqueInput[]
+    delete?: TaskReminderWhereUniqueInput | TaskReminderWhereUniqueInput[]
+    connect?: TaskReminderWhereUniqueInput | TaskReminderWhereUniqueInput[]
+    update?: TaskReminderUpdateWithWhereUniqueWithoutTaskInput | TaskReminderUpdateWithWhereUniqueWithoutTaskInput[]
+    updateMany?: TaskReminderUpdateManyWithWhereWithoutTaskInput | TaskReminderUpdateManyWithWhereWithoutTaskInput[]
+    deleteMany?: TaskReminderScalarWhereInput | TaskReminderScalarWhereInput[]
+  }
+
+  export type TaskReminderUncheckedUpdateManyWithoutTaskNestedInput = {
+    create?: XOR<TaskReminderCreateWithoutTaskInput, TaskReminderUncheckedCreateWithoutTaskInput> | TaskReminderCreateWithoutTaskInput[] | TaskReminderUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskReminderCreateOrConnectWithoutTaskInput | TaskReminderCreateOrConnectWithoutTaskInput[]
+    upsert?: TaskReminderUpsertWithWhereUniqueWithoutTaskInput | TaskReminderUpsertWithWhereUniqueWithoutTaskInput[]
+    createMany?: TaskReminderCreateManyTaskInputEnvelope
+    set?: TaskReminderWhereUniqueInput | TaskReminderWhereUniqueInput[]
+    disconnect?: TaskReminderWhereUniqueInput | TaskReminderWhereUniqueInput[]
+    delete?: TaskReminderWhereUniqueInput | TaskReminderWhereUniqueInput[]
+    connect?: TaskReminderWhereUniqueInput | TaskReminderWhereUniqueInput[]
+    update?: TaskReminderUpdateWithWhereUniqueWithoutTaskInput | TaskReminderUpdateWithWhereUniqueWithoutTaskInput[]
+    updateMany?: TaskReminderUpdateManyWithWhereWithoutTaskInput | TaskReminderUpdateManyWithWhereWithoutTaskInput[]
+    deleteMany?: TaskReminderScalarWhereInput | TaskReminderScalarWhereInput[]
+  }
+
+  export type GroupTaskCreateNestedOneWithoutRemindersInput = {
+    create?: XOR<GroupTaskCreateWithoutRemindersInput, GroupTaskUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutRemindersInput
+    connect?: GroupTaskWhereUniqueInput
+  }
+
+  export type GroupTaskUpdateOneRequiredWithoutRemindersNestedInput = {
+    create?: XOR<GroupTaskCreateWithoutRemindersInput, GroupTaskUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: GroupTaskCreateOrConnectWithoutRemindersInput
+    upsert?: GroupTaskUpsertWithoutRemindersInput
+    connect?: GroupTaskWhereUniqueInput
+    update?: XOR<XOR<GroupTaskUpdateToOneWithWhereWithoutRemindersInput, GroupTaskUpdateWithoutRemindersInput>, GroupTaskUncheckedUpdateWithoutRemindersInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -21570,6 +24880,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     members?: GroupMemberCreateNestedManyWithoutGroupInput
     messages?: GroupMessageCreateNestedManyWithoutGroupInput
+    tasks?: GroupTaskCreateNestedManyWithoutGroupInput
   }
 
   export type GroupUncheckedCreateWithoutCreatorInput = {
@@ -21583,6 +24894,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     members?: GroupMemberUncheckedCreateNestedManyWithoutGroupInput
     messages?: GroupMessageUncheckedCreateNestedManyWithoutGroupInput
+    tasks?: GroupTaskUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupCreateOrConnectWithoutCreatorInput = {
@@ -21654,6 +24966,86 @@ export namespace Prisma {
 
   export type GroupMessageCreateManySenderInputEnvelope = {
     data: GroupMessageCreateManySenderInput | GroupMessageCreateManySenderInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GroupTaskCreateWithoutAssigneeInput = {
+    id?: string
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    group: GroupCreateNestedOneWithoutTasksInput
+    createdBy?: UserCreateNestedOneWithoutCreatedTasksInput
+    reminders?: TaskReminderCreateNestedManyWithoutTaskInput
+  }
+
+  export type GroupTaskUncheckedCreateWithoutAssigneeInput = {
+    id?: string
+    groupId: string
+    createdById?: string | null
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reminders?: TaskReminderUncheckedCreateNestedManyWithoutTaskInput
+  }
+
+  export type GroupTaskCreateOrConnectWithoutAssigneeInput = {
+    where: GroupTaskWhereUniqueInput
+    create: XOR<GroupTaskCreateWithoutAssigneeInput, GroupTaskUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type GroupTaskCreateManyAssigneeInputEnvelope = {
+    data: GroupTaskCreateManyAssigneeInput | GroupTaskCreateManyAssigneeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GroupTaskCreateWithoutCreatedByInput = {
+    id?: string
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    group: GroupCreateNestedOneWithoutTasksInput
+    assignee: UserCreateNestedOneWithoutAssignedTasksInput
+    reminders?: TaskReminderCreateNestedManyWithoutTaskInput
+  }
+
+  export type GroupTaskUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    groupId: string
+    assigneeId: string
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reminders?: TaskReminderUncheckedCreateNestedManyWithoutTaskInput
+  }
+
+  export type GroupTaskCreateOrConnectWithoutCreatedByInput = {
+    where: GroupTaskWhereUniqueInput
+    create: XOR<GroupTaskCreateWithoutCreatedByInput, GroupTaskUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type GroupTaskCreateManyCreatedByInputEnvelope = {
+    data: GroupTaskCreateManyCreatedByInput | GroupTaskCreateManyCreatedByInput[]
     skipDuplicates?: boolean
   }
 
@@ -21925,6 +25317,56 @@ export namespace Prisma {
     aiModel?: StringNullableFilter<"GroupMessage"> | string | null
   }
 
+  export type GroupTaskUpsertWithWhereUniqueWithoutAssigneeInput = {
+    where: GroupTaskWhereUniqueInput
+    update: XOR<GroupTaskUpdateWithoutAssigneeInput, GroupTaskUncheckedUpdateWithoutAssigneeInput>
+    create: XOR<GroupTaskCreateWithoutAssigneeInput, GroupTaskUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type GroupTaskUpdateWithWhereUniqueWithoutAssigneeInput = {
+    where: GroupTaskWhereUniqueInput
+    data: XOR<GroupTaskUpdateWithoutAssigneeInput, GroupTaskUncheckedUpdateWithoutAssigneeInput>
+  }
+
+  export type GroupTaskUpdateManyWithWhereWithoutAssigneeInput = {
+    where: GroupTaskScalarWhereInput
+    data: XOR<GroupTaskUpdateManyMutationInput, GroupTaskUncheckedUpdateManyWithoutAssigneeInput>
+  }
+
+  export type GroupTaskScalarWhereInput = {
+    AND?: GroupTaskScalarWhereInput | GroupTaskScalarWhereInput[]
+    OR?: GroupTaskScalarWhereInput[]
+    NOT?: GroupTaskScalarWhereInput | GroupTaskScalarWhereInput[]
+    id?: StringFilter<"GroupTask"> | string
+    groupId?: StringFilter<"GroupTask"> | string
+    assigneeId?: StringFilter<"GroupTask"> | string
+    createdById?: StringNullableFilter<"GroupTask"> | string | null
+    description?: StringFilter<"GroupTask"> | string
+    status?: StringFilter<"GroupTask"> | string
+    priority?: StringFilter<"GroupTask"> | string
+    sourceMessageId?: StringNullableFilter<"GroupTask"> | string | null
+    dueDate?: DateTimeNullableFilter<"GroupTask"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"GroupTask"> | Date | string | null
+    createdAt?: DateTimeFilter<"GroupTask"> | Date | string
+    updatedAt?: DateTimeFilter<"GroupTask"> | Date | string
+  }
+
+  export type GroupTaskUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: GroupTaskWhereUniqueInput
+    update: XOR<GroupTaskUpdateWithoutCreatedByInput, GroupTaskUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<GroupTaskCreateWithoutCreatedByInput, GroupTaskUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type GroupTaskUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: GroupTaskWhereUniqueInput
+    data: XOR<GroupTaskUpdateWithoutCreatedByInput, GroupTaskUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type GroupTaskUpdateManyWithWhereWithoutCreatedByInput = {
+    where: GroupTaskScalarWhereInput
+    data: XOR<GroupTaskUpdateManyMutationInput, GroupTaskUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
   export type UserCreateWithoutAiProfileInput = {
     id?: string
     email: string
@@ -21945,6 +25387,8 @@ export namespace Prisma {
     createdGroups?: GroupCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutAiProfileInput = {
@@ -21967,6 +25411,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutAiProfileInput = {
@@ -22005,6 +25451,8 @@ export namespace Prisma {
     createdGroups?: GroupUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiProfileInput = {
@@ -22027,6 +25475,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -22049,6 +25499,8 @@ export namespace Prisma {
     createdGroups?: GroupCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -22071,6 +25523,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -22109,6 +25563,8 @@ export namespace Prisma {
     createdGroups?: GroupUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -22131,6 +25587,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -22153,6 +25611,8 @@ export namespace Prisma {
     createdGroups?: GroupCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -22175,6 +25635,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -22287,6 +25749,8 @@ export namespace Prisma {
     createdGroups?: GroupCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutMessagesInput = {
@@ -22309,6 +25773,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutMessagesInput = {
@@ -22487,6 +25953,8 @@ export namespace Prisma {
     createdGroups?: GroupUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -22509,6 +25977,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ChatSessionUpsertWithoutMessagesInput = {
@@ -22723,6 +26193,8 @@ export namespace Prisma {
     createdGroups?: GroupCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutReactionsInput = {
@@ -22745,6 +26217,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutReactionsInput = {
@@ -22814,6 +26288,8 @@ export namespace Prisma {
     createdGroups?: GroupUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReactionsInput = {
@@ -22836,6 +26312,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type MessageUpsertWithoutReactionsInput = {
@@ -22895,6 +26373,8 @@ export namespace Prisma {
     createdGroups?: GroupCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutAiConversationsInput = {
@@ -22917,6 +26397,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutAiConversationsInput = {
@@ -22981,6 +26463,8 @@ export namespace Prisma {
     createdGroups?: GroupUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiConversationsInput = {
@@ -23003,6 +26487,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type AIMessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -23105,6 +26591,8 @@ export namespace Prisma {
     aiProfile?: UserAIProfileCreateNestedOneWithoutUserInput
     groupMembers?: GroupMemberCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutCreatedGroupsInput = {
@@ -23127,6 +26615,8 @@ export namespace Prisma {
     aiProfile?: UserAIProfileUncheckedCreateNestedOneWithoutUserInput
     groupMembers?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
     groupMessages?: GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutCreatedGroupsInput = {
@@ -23196,6 +26686,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type GroupTaskCreateWithoutGroupInput = {
+    id?: string
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignee: UserCreateNestedOneWithoutAssignedTasksInput
+    createdBy?: UserCreateNestedOneWithoutCreatedTasksInput
+    reminders?: TaskReminderCreateNestedManyWithoutTaskInput
+  }
+
+  export type GroupTaskUncheckedCreateWithoutGroupInput = {
+    id?: string
+    assigneeId: string
+    createdById?: string | null
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reminders?: TaskReminderUncheckedCreateNestedManyWithoutTaskInput
+  }
+
+  export type GroupTaskCreateOrConnectWithoutGroupInput = {
+    where: GroupTaskWhereUniqueInput
+    create: XOR<GroupTaskCreateWithoutGroupInput, GroupTaskUncheckedCreateWithoutGroupInput>
+  }
+
+  export type GroupTaskCreateManyGroupInputEnvelope = {
+    data: GroupTaskCreateManyGroupInput | GroupTaskCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutCreatedGroupsInput = {
     update: XOR<UserUpdateWithoutCreatedGroupsInput, UserUncheckedUpdateWithoutCreatedGroupsInput>
     create: XOR<UserCreateWithoutCreatedGroupsInput, UserUncheckedCreateWithoutCreatedGroupsInput>
@@ -23227,6 +26757,8 @@ export namespace Prisma {
     aiProfile?: UserAIProfileUpdateOneWithoutUserNestedInput
     groupMembers?: GroupMemberUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedGroupsInput = {
@@ -23249,6 +26781,8 @@ export namespace Prisma {
     aiProfile?: UserAIProfileUncheckedUpdateOneWithoutUserNestedInput
     groupMembers?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type GroupMemberUpsertWithWhereUniqueWithoutGroupInput = {
@@ -23283,6 +26817,22 @@ export namespace Prisma {
     data: XOR<GroupMessageUpdateManyMutationInput, GroupMessageUncheckedUpdateManyWithoutGroupInput>
   }
 
+  export type GroupTaskUpsertWithWhereUniqueWithoutGroupInput = {
+    where: GroupTaskWhereUniqueInput
+    update: XOR<GroupTaskUpdateWithoutGroupInput, GroupTaskUncheckedUpdateWithoutGroupInput>
+    create: XOR<GroupTaskCreateWithoutGroupInput, GroupTaskUncheckedCreateWithoutGroupInput>
+  }
+
+  export type GroupTaskUpdateWithWhereUniqueWithoutGroupInput = {
+    where: GroupTaskWhereUniqueInput
+    data: XOR<GroupTaskUpdateWithoutGroupInput, GroupTaskUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type GroupTaskUpdateManyWithWhereWithoutGroupInput = {
+    where: GroupTaskScalarWhereInput
+    data: XOR<GroupTaskUpdateManyMutationInput, GroupTaskUncheckedUpdateManyWithoutGroupInput>
+  }
+
   export type GroupCreateWithoutMembersInput = {
     id?: string
     name: string
@@ -23294,6 +26844,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     creator: UserCreateNestedOneWithoutCreatedGroupsInput
     messages?: GroupMessageCreateNestedManyWithoutGroupInput
+    tasks?: GroupTaskCreateNestedManyWithoutGroupInput
   }
 
   export type GroupUncheckedCreateWithoutMembersInput = {
@@ -23307,6 +26858,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: GroupMessageUncheckedCreateNestedManyWithoutGroupInput
+    tasks?: GroupTaskUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupCreateOrConnectWithoutMembersInput = {
@@ -23334,6 +26886,8 @@ export namespace Prisma {
     aiProfile?: UserAIProfileCreateNestedOneWithoutUserInput
     createdGroups?: GroupCreateNestedManyWithoutCreatorInput
     groupMessages?: GroupMessageCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutGroupMembersInput = {
@@ -23356,6 +26910,8 @@ export namespace Prisma {
     aiProfile?: UserAIProfileUncheckedCreateNestedOneWithoutUserInput
     createdGroups?: GroupUncheckedCreateNestedManyWithoutCreatorInput
     groupMessages?: GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutGroupMembersInput = {
@@ -23385,6 +26941,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     creator?: UserUpdateOneRequiredWithoutCreatedGroupsNestedInput
     messages?: GroupMessageUpdateManyWithoutGroupNestedInput
+    tasks?: GroupTaskUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupUncheckedUpdateWithoutMembersInput = {
@@ -23398,6 +26955,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: GroupMessageUncheckedUpdateManyWithoutGroupNestedInput
+    tasks?: GroupTaskUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type UserUpsertWithoutGroupMembersInput = {
@@ -23431,6 +26989,8 @@ export namespace Prisma {
     aiProfile?: UserAIProfileUpdateOneWithoutUserNestedInput
     createdGroups?: GroupUpdateManyWithoutCreatorNestedInput
     groupMessages?: GroupMessageUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGroupMembersInput = {
@@ -23453,6 +27013,8 @@ export namespace Prisma {
     aiProfile?: UserAIProfileUncheckedUpdateOneWithoutUserNestedInput
     createdGroups?: GroupUncheckedUpdateManyWithoutCreatorNestedInput
     groupMessages?: GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type GroupMessageCreateWithoutRepliesInput = {
@@ -23537,6 +27099,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     creator: UserCreateNestedOneWithoutCreatedGroupsInput
     members?: GroupMemberCreateNestedManyWithoutGroupInput
+    tasks?: GroupTaskCreateNestedManyWithoutGroupInput
   }
 
   export type GroupUncheckedCreateWithoutMessagesInput = {
@@ -23550,6 +27113,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: GroupMemberUncheckedCreateNestedManyWithoutGroupInput
+    tasks?: GroupTaskUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupCreateOrConnectWithoutMessagesInput = {
@@ -23577,6 +27141,8 @@ export namespace Prisma {
     aiProfile?: UserAIProfileCreateNestedOneWithoutUserInput
     createdGroups?: GroupCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: GroupTaskCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutGroupMessagesInput = {
@@ -23599,6 +27165,8 @@ export namespace Prisma {
     aiProfile?: UserAIProfileUncheckedCreateNestedOneWithoutUserInput
     createdGroups?: GroupUncheckedCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    createdTasks?: GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutGroupMessagesInput = {
@@ -23683,6 +27251,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     creator?: UserUpdateOneRequiredWithoutCreatedGroupsNestedInput
     members?: GroupMemberUpdateManyWithoutGroupNestedInput
+    tasks?: GroupTaskUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupUncheckedUpdateWithoutMessagesInput = {
@@ -23696,6 +27265,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: GroupMemberUncheckedUpdateManyWithoutGroupNestedInput
+    tasks?: GroupTaskUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type UserUpsertWithoutGroupMessagesInput = {
@@ -23729,6 +27299,8 @@ export namespace Prisma {
     aiProfile?: UserAIProfileUpdateOneWithoutUserNestedInput
     createdGroups?: GroupUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: GroupTaskUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGroupMessagesInput = {
@@ -23751,6 +27323,434 @@ export namespace Prisma {
     aiProfile?: UserAIProfileUncheckedUpdateOneWithoutUserNestedInput
     createdGroups?: GroupUncheckedUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type GroupCreateWithoutTasksInput = {
+    id?: string
+    name: string
+    description?: string | null
+    avatar?: string | null
+    aiEnabled?: boolean
+    maxMembers?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    creator: UserCreateNestedOneWithoutCreatedGroupsInput
+    members?: GroupMemberCreateNestedManyWithoutGroupInput
+    messages?: GroupMessageCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupUncheckedCreateWithoutTasksInput = {
+    id?: string
+    name: string
+    description?: string | null
+    avatar?: string | null
+    creatorId: string
+    aiEnabled?: boolean
+    maxMembers?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: GroupMemberUncheckedCreateNestedManyWithoutGroupInput
+    messages?: GroupMessageUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupCreateOrConnectWithoutTasksInput = {
+    where: GroupWhereUniqueInput
+    create: XOR<GroupCreateWithoutTasksInput, GroupUncheckedCreateWithoutTasksInput>
+  }
+
+  export type UserCreateWithoutAssignedTasksInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    lastSeen?: Date | string
+    isOnline?: boolean
+    preferredAIModel?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageCreateNestedManyWithoutSenderInput
+    sessions?: ChatSessionCreateNestedManyWithoutParticipantsInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    aiConversations?: AIConversationCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
+    aiProfile?: UserAIProfileCreateNestedOneWithoutUserInput
+    createdGroups?: GroupCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMemberCreateNestedManyWithoutUserInput
+    groupMessages?: GroupMessageCreateNestedManyWithoutSenderInput
+    createdTasks?: GroupTaskCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutAssignedTasksInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    lastSeen?: Date | string
+    isOnline?: boolean
+    preferredAIModel?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sessions?: ChatSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    aiConversations?: AIConversationUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
+    aiProfile?: UserAIProfileUncheckedCreateNestedOneWithoutUserInput
+    createdGroups?: GroupUncheckedCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
+    groupMessages?: GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+    createdTasks?: GroupTaskUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutAssignedTasksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAssignedTasksInput, UserUncheckedCreateWithoutAssignedTasksInput>
+  }
+
+  export type UserCreateWithoutCreatedTasksInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    lastSeen?: Date | string
+    isOnline?: boolean
+    preferredAIModel?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageCreateNestedManyWithoutSenderInput
+    sessions?: ChatSessionCreateNestedManyWithoutParticipantsInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    aiConversations?: AIConversationCreateNestedManyWithoutUserInput
+    reactions?: ReactionCreateNestedManyWithoutUserInput
+    aiProfile?: UserAIProfileCreateNestedOneWithoutUserInput
+    createdGroups?: GroupCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMemberCreateNestedManyWithoutUserInput
+    groupMessages?: GroupMessageCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskCreateNestedManyWithoutAssigneeInput
+  }
+
+  export type UserUncheckedCreateWithoutCreatedTasksInput = {
+    id?: string
+    email: string
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    lastSeen?: Date | string
+    isOnline?: boolean
+    preferredAIModel?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    sessions?: ChatSessionUncheckedCreateNestedManyWithoutParticipantsInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    aiConversations?: AIConversationUncheckedCreateNestedManyWithoutUserInput
+    reactions?: ReactionUncheckedCreateNestedManyWithoutUserInput
+    aiProfile?: UserAIProfileUncheckedCreateNestedOneWithoutUserInput
+    createdGroups?: GroupUncheckedCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMemberUncheckedCreateNestedManyWithoutUserInput
+    groupMessages?: GroupMessageUncheckedCreateNestedManyWithoutSenderInput
+    assignedTasks?: GroupTaskUncheckedCreateNestedManyWithoutAssigneeInput
+  }
+
+  export type UserCreateOrConnectWithoutCreatedTasksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreatedTasksInput, UserUncheckedCreateWithoutCreatedTasksInput>
+  }
+
+  export type TaskReminderCreateWithoutTaskInput = {
+    id?: string
+    sendAt: Date | string
+    sent?: boolean
+    sentAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type TaskReminderUncheckedCreateWithoutTaskInput = {
+    id?: string
+    sendAt: Date | string
+    sent?: boolean
+    sentAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type TaskReminderCreateOrConnectWithoutTaskInput = {
+    where: TaskReminderWhereUniqueInput
+    create: XOR<TaskReminderCreateWithoutTaskInput, TaskReminderUncheckedCreateWithoutTaskInput>
+  }
+
+  export type TaskReminderCreateManyTaskInputEnvelope = {
+    data: TaskReminderCreateManyTaskInput | TaskReminderCreateManyTaskInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GroupUpsertWithoutTasksInput = {
+    update: XOR<GroupUpdateWithoutTasksInput, GroupUncheckedUpdateWithoutTasksInput>
+    create: XOR<GroupCreateWithoutTasksInput, GroupUncheckedCreateWithoutTasksInput>
+    where?: GroupWhereInput
+  }
+
+  export type GroupUpdateToOneWithWhereWithoutTasksInput = {
+    where?: GroupWhereInput
+    data: XOR<GroupUpdateWithoutTasksInput, GroupUncheckedUpdateWithoutTasksInput>
+  }
+
+  export type GroupUpdateWithoutTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    maxMembers?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: UserUpdateOneRequiredWithoutCreatedGroupsNestedInput
+    members?: GroupMemberUpdateManyWithoutGroupNestedInput
+    messages?: GroupMessageUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupUncheckedUpdateWithoutTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    maxMembers?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: GroupMemberUncheckedUpdateManyWithoutGroupNestedInput
+    messages?: GroupMessageUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type UserUpsertWithoutAssignedTasksInput = {
+    update: XOR<UserUpdateWithoutAssignedTasksInput, UserUncheckedUpdateWithoutAssignedTasksInput>
+    create: XOR<UserCreateWithoutAssignedTasksInput, UserUncheckedCreateWithoutAssignedTasksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAssignedTasksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAssignedTasksInput, UserUncheckedUpdateWithoutAssignedTasksInput>
+  }
+
+  export type UserUpdateWithoutAssignedTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUpdateManyWithoutSenderNestedInput
+    sessions?: ChatSessionUpdateManyWithoutParticipantsNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    aiConversations?: AIConversationUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
+    aiProfile?: UserAIProfileUpdateOneWithoutUserNestedInput
+    createdGroups?: GroupUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMemberUpdateManyWithoutUserNestedInput
+    groupMessages?: GroupMessageUpdateManyWithoutSenderNestedInput
+    createdTasks?: GroupTaskUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAssignedTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sessions?: ChatSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    aiConversations?: AIConversationUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
+    aiProfile?: UserAIProfileUncheckedUpdateOneWithoutUserNestedInput
+    createdGroups?: GroupUncheckedUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    groupMessages?: GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+    createdTasks?: GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUpsertWithoutCreatedTasksInput = {
+    update: XOR<UserUpdateWithoutCreatedTasksInput, UserUncheckedUpdateWithoutCreatedTasksInput>
+    create: XOR<UserCreateWithoutCreatedTasksInput, UserUncheckedCreateWithoutCreatedTasksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatedTasksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatedTasksInput, UserUncheckedUpdateWithoutCreatedTasksInput>
+  }
+
+  export type UserUpdateWithoutCreatedTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUpdateManyWithoutSenderNestedInput
+    sessions?: ChatSessionUpdateManyWithoutParticipantsNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    aiConversations?: AIConversationUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUpdateManyWithoutUserNestedInput
+    aiProfile?: UserAIProfileUpdateOneWithoutUserNestedInput
+    createdGroups?: GroupUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMemberUpdateManyWithoutUserNestedInput
+    groupMessages?: GroupMessageUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUpdateManyWithoutAssigneeNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatedTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    sessions?: ChatSessionUncheckedUpdateManyWithoutParticipantsNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    aiConversations?: AIConversationUncheckedUpdateManyWithoutUserNestedInput
+    reactions?: ReactionUncheckedUpdateManyWithoutUserNestedInput
+    aiProfile?: UserAIProfileUncheckedUpdateOneWithoutUserNestedInput
+    createdGroups?: GroupUncheckedUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    groupMessages?: GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  }
+
+  export type TaskReminderUpsertWithWhereUniqueWithoutTaskInput = {
+    where: TaskReminderWhereUniqueInput
+    update: XOR<TaskReminderUpdateWithoutTaskInput, TaskReminderUncheckedUpdateWithoutTaskInput>
+    create: XOR<TaskReminderCreateWithoutTaskInput, TaskReminderUncheckedCreateWithoutTaskInput>
+  }
+
+  export type TaskReminderUpdateWithWhereUniqueWithoutTaskInput = {
+    where: TaskReminderWhereUniqueInput
+    data: XOR<TaskReminderUpdateWithoutTaskInput, TaskReminderUncheckedUpdateWithoutTaskInput>
+  }
+
+  export type TaskReminderUpdateManyWithWhereWithoutTaskInput = {
+    where: TaskReminderScalarWhereInput
+    data: XOR<TaskReminderUpdateManyMutationInput, TaskReminderUncheckedUpdateManyWithoutTaskInput>
+  }
+
+  export type TaskReminderScalarWhereInput = {
+    AND?: TaskReminderScalarWhereInput | TaskReminderScalarWhereInput[]
+    OR?: TaskReminderScalarWhereInput[]
+    NOT?: TaskReminderScalarWhereInput | TaskReminderScalarWhereInput[]
+    id?: StringFilter<"TaskReminder"> | string
+    taskId?: StringFilter<"TaskReminder"> | string
+    sendAt?: DateTimeFilter<"TaskReminder"> | Date | string
+    sent?: BoolFilter<"TaskReminder"> | boolean
+    sentAt?: DateTimeNullableFilter<"TaskReminder"> | Date | string | null
+    createdAt?: DateTimeFilter<"TaskReminder"> | Date | string
+  }
+
+  export type GroupTaskCreateWithoutRemindersInput = {
+    id?: string
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    group: GroupCreateNestedOneWithoutTasksInput
+    assignee: UserCreateNestedOneWithoutAssignedTasksInput
+    createdBy?: UserCreateNestedOneWithoutCreatedTasksInput
+  }
+
+  export type GroupTaskUncheckedCreateWithoutRemindersInput = {
+    id?: string
+    groupId: string
+    assigneeId: string
+    createdById?: string | null
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GroupTaskCreateOrConnectWithoutRemindersInput = {
+    where: GroupTaskWhereUniqueInput
+    create: XOR<GroupTaskCreateWithoutRemindersInput, GroupTaskUncheckedCreateWithoutRemindersInput>
+  }
+
+  export type GroupTaskUpsertWithoutRemindersInput = {
+    update: XOR<GroupTaskUpdateWithoutRemindersInput, GroupTaskUncheckedUpdateWithoutRemindersInput>
+    create: XOR<GroupTaskCreateWithoutRemindersInput, GroupTaskUncheckedCreateWithoutRemindersInput>
+    where?: GroupTaskWhereInput
+  }
+
+  export type GroupTaskUpdateToOneWithWhereWithoutRemindersInput = {
+    where?: GroupTaskWhereInput
+    data: XOR<GroupTaskUpdateWithoutRemindersInput, GroupTaskUncheckedUpdateWithoutRemindersInput>
+  }
+
+  export type GroupTaskUpdateWithoutRemindersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: GroupUpdateOneRequiredWithoutTasksNestedInput
+    assignee?: UserUpdateOneRequiredWithoutAssignedTasksNestedInput
+    createdBy?: UserUpdateOneWithoutCreatedTasksNestedInput
+  }
+
+  export type GroupTaskUncheckedUpdateWithoutRemindersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    assigneeId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageCreateManySenderInput = {
@@ -23821,6 +27821,34 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
     aiModel?: string | null
+  }
+
+  export type GroupTaskCreateManyAssigneeInput = {
+    id?: string
+    groupId: string
+    createdById?: string | null
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GroupTaskCreateManyCreatedByInput = {
+    id?: string
+    groupId: string
+    assigneeId: string
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type MessageUpdateWithoutSenderInput = {
@@ -23979,6 +28007,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: GroupMemberUpdateManyWithoutGroupNestedInput
     messages?: GroupMessageUpdateManyWithoutGroupNestedInput
+    tasks?: GroupTaskUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupUncheckedUpdateWithoutCreatorInput = {
@@ -23992,6 +28021,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: GroupMemberUncheckedUpdateManyWithoutGroupNestedInput
     messages?: GroupMessageUncheckedUpdateManyWithoutGroupNestedInput
+    tasks?: GroupTaskUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupUncheckedUpdateManyWithoutCreatorInput = {
@@ -24067,6 +28097,94 @@ export namespace Prisma {
     aiModel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type GroupTaskUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: GroupUpdateOneRequiredWithoutTasksNestedInput
+    createdBy?: UserUpdateOneWithoutCreatedTasksNestedInput
+    reminders?: TaskReminderUpdateManyWithoutTaskNestedInput
+  }
+
+  export type GroupTaskUncheckedUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminders?: TaskReminderUncheckedUpdateManyWithoutTaskNestedInput
+  }
+
+  export type GroupTaskUncheckedUpdateManyWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupTaskUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: GroupUpdateOneRequiredWithoutTasksNestedInput
+    assignee?: UserUpdateOneRequiredWithoutAssignedTasksNestedInput
+    reminders?: TaskReminderUpdateManyWithoutTaskNestedInput
+  }
+
+  export type GroupTaskUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    assigneeId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminders?: TaskReminderUncheckedUpdateManyWithoutTaskNestedInput
+  }
+
+  export type GroupTaskUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    assigneeId?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MessageCreateManySessionInput = {
     id?: string
     content: string
@@ -24097,6 +28215,8 @@ export namespace Prisma {
     createdGroups?: GroupUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -24119,6 +28239,8 @@ export namespace Prisma {
     createdGroups?: GroupUncheckedUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMemberUncheckedUpdateManyWithoutUserNestedInput
     groupMessages?: GroupMessageUncheckedUpdateManyWithoutSenderNestedInput
+    assignedTasks?: GroupTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: GroupTaskUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutSessionsInput = {
@@ -24337,6 +28459,20 @@ export namespace Prisma {
     aiModel?: string | null
   }
 
+  export type GroupTaskCreateManyGroupInput = {
+    id?: string
+    assigneeId: string
+    createdById?: string | null
+    description: string
+    status?: string
+    priority?: string
+    sourceMessageId?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type GroupMemberUpdateWithoutGroupInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
@@ -24399,6 +28535,50 @@ export namespace Prisma {
     aiModel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type GroupTaskUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignee?: UserUpdateOneRequiredWithoutAssignedTasksNestedInput
+    createdBy?: UserUpdateOneWithoutCreatedTasksNestedInput
+    reminders?: TaskReminderUpdateManyWithoutTaskNestedInput
+  }
+
+  export type GroupTaskUncheckedUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assigneeId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminders?: TaskReminderUncheckedUpdateManyWithoutTaskNestedInput
+  }
+
+  export type GroupTaskUncheckedUpdateManyWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assigneeId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    sourceMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type GroupMessageCreateManyReplyToInput = {
     id?: string
     groupId: string
@@ -24451,6 +28631,38 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
     aiModel?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaskReminderCreateManyTaskInput = {
+    id?: string
+    sendAt: Date | string
+    sent?: boolean
+    sentAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type TaskReminderUpdateWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sendAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskReminderUncheckedUpdateWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sendAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskReminderUncheckedUpdateManyWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sendAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sent?: BoolFieldUpdateOperationsInput | boolean
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

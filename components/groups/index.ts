@@ -6,4 +6,6 @@ export { GroupInput } from './GroupInput'
 export { CreateGroupModal } from './CreateGroupModal'
 export { MemberSearchModal } from './MemberSearchModal'
 export { GroupSettings } from './GroupSettings'
+export { TaskList } from './TaskList'
+export { TaskBadge } from './TaskBadge'
 

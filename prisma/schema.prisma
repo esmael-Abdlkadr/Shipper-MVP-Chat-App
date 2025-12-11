@@ -16,7 +16,7 @@ model User {
   emailVerified    DateTime?
   lastSeen         DateTime         @default(now())
   isOnline         Boolean          @default(false)
-  preferredAIModel String           @default("gemini") // "gemini" | "openai"
+  preferredAIModel String           @default("gemini")
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
   messages         Message[]
@@ -28,6 +28,8 @@ model User {
   createdGroups    Group[]          @relation("GroupCreator")
   groupMembers     GroupMember[]
   groupMessages    GroupMessage[]   @relation("GroupMessageSender")
+  assignedTasks    GroupTask[]      @relation("TaskAssignee")
+  createdTasks     GroupTask[]      @relation("TaskCreator")
 }
 
 model UserAIProfile {
@@ -162,6 +164,7 @@ model Group {
   creator     User           @relation("GroupCreator", fields: [creatorId], references: [id])
   members     GroupMember[]
   messages    GroupMessage[]
+  tasks       GroupTask[]
   aiEnabled   Boolean        @default(true)
   maxMembers  Int            @default(100)
   createdAt   DateTime       @default(now())
@@ -199,9 +202,45 @@ model GroupMessage {
   editedAt        DateTime?
   deletedAt       DateTime?
   deletedForUsers String[]       @default([])
-  aiModel         String?        // Which AI model generated this (for AI messages)
+  aiModel         String?
 
   @@index([groupId])
   @@index([senderId])
   @@index([replyToId])
+}
+
+model GroupTask {
+  id              String         @id @default(cuid())
+  groupId         String
+  group           Group          @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  assigneeId      String
+  assignee        User           @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  createdById     String?
+  createdBy       User?          @relation("TaskCreator", fields: [createdById], references: [id])
+  description     String
+  status          String         @default("pending")
+  priority        String         @default("normal")
+  sourceMessageId String?
+  dueDate         DateTime?
+  completedAt     DateTime?
+  reminders       TaskReminder[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([groupId])
+  @@index([assigneeId])
+  @@index([status])
+}
+
+model TaskReminder {
+  id        String    @id @default(cuid())
+  taskId    String
+  task      GroupTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  sendAt    DateTime
+  sent      Boolean   @default(false)
+  sentAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([taskId])
+  @@index([sendAt])
 }
