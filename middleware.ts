@@ -20,10 +20,17 @@ const authRoutes = [
 export async function middleware(req: NextRequest) {
   const { nextUrl } = req
   
-  // Get JWT token without importing Prisma
+  // Determine cookie name based on environment
+  const useSecureCookies = process.env.NEXTAUTH_URL?.startsWith('https://')
+  const cookieName = useSecureCookies 
+    ? '__Secure-next-auth.session-token' 
+    : 'next-auth.session-token'
+  
+  // Get JWT token
   const token = await getToken({ 
     req, 
-    secret: process.env.NEXTAUTH_SECRET 
+    secret: process.env.NEXTAUTH_SECRET,
+    cookieName,
   })
   
   const isLoggedIn = !!token
