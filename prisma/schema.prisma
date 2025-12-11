@@ -8,25 +8,26 @@ datasource db {
 }
 
 model User {
-  id              String           @id @default(cuid())
-  email           String           @unique
-  name            String?
-  image           String?
-  password        String?
-  emailVerified   DateTime?
-  lastSeen        DateTime         @default(now())
-  isOnline        Boolean          @default(false)
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  messages        Message[]
-  sessions        ChatSession[]    @relation("ChatParticipants")
-  accounts        Account[]
-  aiConversations AIConversation[]
-  reactions       Reaction[]
-  aiProfile       UserAIProfile?
-  createdGroups   Group[]          @relation("GroupCreator")
-  groupMembers    GroupMember[]
-  groupMessages   GroupMessage[]   @relation("GroupMessageSender")
+  id               String           @id @default(cuid())
+  email            String           @unique
+  name             String?
+  image            String?
+  password         String?
+  emailVerified    DateTime?
+  lastSeen         DateTime         @default(now())
+  isOnline         Boolean          @default(false)
+  preferredAIModel String           @default("gemini") // "gemini" | "openai"
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  messages         Message[]
+  sessions         ChatSession[]    @relation("ChatParticipants")
+  accounts         Account[]
+  aiConversations  AIConversation[]
+  reactions        Reaction[]
+  aiProfile        UserAIProfile?
+  createdGroups    Group[]          @relation("GroupCreator")
+  groupMembers     GroupMember[]
+  groupMessages    GroupMessage[]   @relation("GroupMessageSender")
 }
 
 model UserAIProfile {
@@ -133,6 +134,7 @@ model AIConversation {
   userId    String
   user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   messages  AIMessage[]
+  model     String?     // Override model for this conversation
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
@@ -145,6 +147,7 @@ model AIMessage {
   conversation   AIConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   role           String
   content        String         @db.Text
+  model          String?        // Which AI model generated this (for assistant messages)
   createdAt      DateTime       @default(now())
 
   @@index([conversationId])
@@ -196,6 +199,7 @@ model GroupMessage {
   editedAt        DateTime?
   deletedAt       DateTime?
   deletedForUsers String[]       @default([])
+  aiModel         String?        // Which AI model generated this (for AI messages)
 
   @@index([groupId])
   @@index([senderId])

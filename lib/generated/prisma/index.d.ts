@@ -2257,6 +2257,7 @@ export namespace Prisma {
     emailVerified: Date | null
     lastSeen: Date | null
     isOnline: boolean | null
+    preferredAIModel: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2270,6 +2271,7 @@ export namespace Prisma {
     emailVerified: Date | null
     lastSeen: Date | null
     isOnline: boolean | null
+    preferredAIModel: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2283,6 +2285,7 @@ export namespace Prisma {
     emailVerified: number
     lastSeen: number
     isOnline: number
+    preferredAIModel: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2298,6 +2301,7 @@ export namespace Prisma {
     emailVerified?: true
     lastSeen?: true
     isOnline?: true
+    preferredAIModel?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2311,6 +2315,7 @@ export namespace Prisma {
     emailVerified?: true
     lastSeen?: true
     isOnline?: true
+    preferredAIModel?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2324,6 +2329,7 @@ export namespace Prisma {
     emailVerified?: true
     lastSeen?: true
     isOnline?: true
+    preferredAIModel?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2410,6 +2416,7 @@ export namespace Prisma {
     emailVerified: Date | null
     lastSeen: Date
     isOnline: boolean
+    preferredAIModel: string
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -2440,6 +2447,7 @@ export namespace Prisma {
     emailVerified?: boolean
     lastSeen?: boolean
     isOnline?: boolean
+    preferredAIModel?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     messages?: boolean | User$messagesArgs<ExtArgs>
@@ -2463,6 +2471,7 @@ export namespace Prisma {
     emailVerified?: boolean
     lastSeen?: boolean
     isOnline?: boolean
+    preferredAIModel?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2476,6 +2485,7 @@ export namespace Prisma {
     emailVerified?: boolean
     lastSeen?: boolean
     isOnline?: boolean
+    preferredAIModel?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2489,11 +2499,12 @@ export namespace Prisma {
     emailVerified?: boolean
     lastSeen?: boolean
     isOnline?: boolean
+    preferredAIModel?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "image" | "password" | "emailVerified" | "lastSeen" | "isOnline" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "image" | "password" | "emailVerified" | "lastSeen" | "isOnline" | "preferredAIModel" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     messages?: boolean | User$messagesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -2531,6 +2542,7 @@ export namespace Prisma {
       emailVerified: Date | null
       lastSeen: Date
       isOnline: boolean
+      preferredAIModel: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2973,6 +2985,7 @@ export namespace Prisma {
     readonly emailVerified: FieldRef<"User", 'DateTime'>
     readonly lastSeen: FieldRef<"User", 'DateTime'>
     readonly isOnline: FieldRef<"User", 'Boolean'>
+    readonly preferredAIModel: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -11436,6 +11449,7 @@ export namespace Prisma {
     id: string | null
     title: string | null
     userId: string | null
+    model: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -11444,6 +11458,7 @@ export namespace Prisma {
     id: string | null
     title: string | null
     userId: string | null
+    model: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -11452,6 +11467,7 @@ export namespace Prisma {
     id: number
     title: number
     userId: number
+    model: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -11462,6 +11478,7 @@ export namespace Prisma {
     id?: true
     title?: true
     userId?: true
+    model?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -11470,6 +11487,7 @@ export namespace Prisma {
     id?: true
     title?: true
     userId?: true
+    model?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -11478,6 +11496,7 @@ export namespace Prisma {
     id?: true
     title?: true
     userId?: true
+    model?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -11559,6 +11578,7 @@ export namespace Prisma {
     id: string
     title: string | null
     userId: string
+    model: string | null
     createdAt: Date
     updatedAt: Date
     _count: AIConversationCountAggregateOutputType | null
@@ -11584,6 +11604,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     userId?: boolean
+    model?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -11595,6 +11616,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     userId?: boolean
+    model?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -11604,6 +11626,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     userId?: boolean
+    model?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -11613,11 +11636,12 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     userId?: boolean
+    model?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AIConversationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["aIConversation"]>
+  export type AIConversationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "userId" | "model" | "createdAt" | "updatedAt", ExtArgs["result"]["aIConversation"]>
   export type AIConversationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     messages?: boolean | AIConversation$messagesArgs<ExtArgs>
@@ -11640,6 +11664,7 @@ export namespace Prisma {
       id: string
       title: string | null
       userId: string
+      model: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["aIConversation"]>
@@ -12070,6 +12095,7 @@ export namespace Prisma {
     readonly id: FieldRef<"AIConversation", 'String'>
     readonly title: FieldRef<"AIConversation", 'String'>
     readonly userId: FieldRef<"AIConversation", 'String'>
+    readonly model: FieldRef<"AIConversation", 'String'>
     readonly createdAt: FieldRef<"AIConversation", 'DateTime'>
     readonly updatedAt: FieldRef<"AIConversation", 'DateTime'>
   }
@@ -12525,6 +12551,7 @@ export namespace Prisma {
     conversationId: string | null
     role: string | null
     content: string | null
+    model: string | null
     createdAt: Date | null
   }
 
@@ -12533,6 +12560,7 @@ export namespace Prisma {
     conversationId: string | null
     role: string | null
     content: string | null
+    model: string | null
     createdAt: Date | null
   }
 
@@ -12541,6 +12569,7 @@ export namespace Prisma {
     conversationId: number
     role: number
     content: number
+    model: number
     createdAt: number
     _all: number
   }
@@ -12551,6 +12580,7 @@ export namespace Prisma {
     conversationId?: true
     role?: true
     content?: true
+    model?: true
     createdAt?: true
   }
 
@@ -12559,6 +12589,7 @@ export namespace Prisma {
     conversationId?: true
     role?: true
     content?: true
+    model?: true
     createdAt?: true
   }
 
@@ -12567,6 +12598,7 @@ export namespace Prisma {
     conversationId?: true
     role?: true
     content?: true
+    model?: true
     createdAt?: true
     _all?: true
   }
@@ -12648,6 +12680,7 @@ export namespace Prisma {
     conversationId: string
     role: string
     content: string
+    model: string | null
     createdAt: Date
     _count: AIMessageCountAggregateOutputType | null
     _min: AIMessageMinAggregateOutputType | null
@@ -12673,6 +12706,7 @@ export namespace Prisma {
     conversationId?: boolean
     role?: boolean
     content?: boolean
+    model?: boolean
     createdAt?: boolean
     conversation?: boolean | AIConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aIMessage"]>
@@ -12682,6 +12716,7 @@ export namespace Prisma {
     conversationId?: boolean
     role?: boolean
     content?: boolean
+    model?: boolean
     createdAt?: boolean
     conversation?: boolean | AIConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aIMessage"]>
@@ -12691,6 +12726,7 @@ export namespace Prisma {
     conversationId?: boolean
     role?: boolean
     content?: boolean
+    model?: boolean
     createdAt?: boolean
     conversation?: boolean | AIConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aIMessage"]>
@@ -12700,10 +12736,11 @@ export namespace Prisma {
     conversationId?: boolean
     role?: boolean
     content?: boolean
+    model?: boolean
     createdAt?: boolean
   }
 
-  export type AIMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "role" | "content" | "createdAt", ExtArgs["result"]["aIMessage"]>
+  export type AIMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "role" | "content" | "model" | "createdAt", ExtArgs["result"]["aIMessage"]>
   export type AIMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     conversation?: boolean | AIConversationDefaultArgs<ExtArgs>
   }
@@ -12724,6 +12761,7 @@ export namespace Prisma {
       conversationId: string
       role: string
       content: string
+      model: string | null
       createdAt: Date
     }, ExtArgs["result"]["aIMessage"]>
     composites: {}
@@ -13153,6 +13191,7 @@ export namespace Prisma {
     readonly conversationId: FieldRef<"AIMessage", 'String'>
     readonly role: FieldRef<"AIMessage", 'String'>
     readonly content: FieldRef<"AIMessage", 'String'>
+    readonly model: FieldRef<"AIMessage", 'String'>
     readonly createdAt: FieldRef<"AIMessage", 'DateTime'>
   }
     
@@ -15856,6 +15895,7 @@ export namespace Prisma {
     createdAt: Date | null
     editedAt: Date | null
     deletedAt: Date | null
+    aiModel: string | null
   }
 
   export type GroupMessageMaxAggregateOutputType = {
@@ -15868,6 +15908,7 @@ export namespace Prisma {
     createdAt: Date | null
     editedAt: Date | null
     deletedAt: Date | null
+    aiModel: string | null
   }
 
   export type GroupMessageCountAggregateOutputType = {
@@ -15881,6 +15922,7 @@ export namespace Prisma {
     editedAt: number
     deletedAt: number
     deletedForUsers: number
+    aiModel: number
     _all: number
   }
 
@@ -15895,6 +15937,7 @@ export namespace Prisma {
     createdAt?: true
     editedAt?: true
     deletedAt?: true
+    aiModel?: true
   }
 
   export type GroupMessageMaxAggregateInputType = {
@@ -15907,6 +15950,7 @@ export namespace Prisma {
     createdAt?: true
     editedAt?: true
     deletedAt?: true
+    aiModel?: true
   }
 
   export type GroupMessageCountAggregateInputType = {
@@ -15920,6 +15964,7 @@ export namespace Prisma {
     editedAt?: true
     deletedAt?: true
     deletedForUsers?: true
+    aiModel?: true
     _all?: true
   }
 
@@ -16006,6 +16051,7 @@ export namespace Prisma {
     editedAt: Date | null
     deletedAt: Date | null
     deletedForUsers: string[]
+    aiModel: string | null
     _count: GroupMessageCountAggregateOutputType | null
     _min: GroupMessageMinAggregateOutputType | null
     _max: GroupMessageMaxAggregateOutputType | null
@@ -16036,6 +16082,7 @@ export namespace Prisma {
     editedAt?: boolean
     deletedAt?: boolean
     deletedForUsers?: boolean
+    aiModel?: boolean
     replyTo?: boolean | GroupMessage$replyToArgs<ExtArgs>
     replies?: boolean | GroupMessage$repliesArgs<ExtArgs>
     group?: boolean | GroupDefaultArgs<ExtArgs>
@@ -16054,6 +16101,7 @@ export namespace Prisma {
     editedAt?: boolean
     deletedAt?: boolean
     deletedForUsers?: boolean
+    aiModel?: boolean
     replyTo?: boolean | GroupMessage$replyToArgs<ExtArgs>
     group?: boolean | GroupDefaultArgs<ExtArgs>
     sender?: boolean | GroupMessage$senderArgs<ExtArgs>
@@ -16070,6 +16118,7 @@ export namespace Prisma {
     editedAt?: boolean
     deletedAt?: boolean
     deletedForUsers?: boolean
+    aiModel?: boolean
     replyTo?: boolean | GroupMessage$replyToArgs<ExtArgs>
     group?: boolean | GroupDefaultArgs<ExtArgs>
     sender?: boolean | GroupMessage$senderArgs<ExtArgs>
@@ -16086,9 +16135,10 @@ export namespace Prisma {
     editedAt?: boolean
     deletedAt?: boolean
     deletedForUsers?: boolean
+    aiModel?: boolean
   }
 
-  export type GroupMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "groupId" | "senderId" | "isAI" | "content" | "replyToId" | "createdAt" | "editedAt" | "deletedAt" | "deletedForUsers", ExtArgs["result"]["groupMessage"]>
+  export type GroupMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "groupId" | "senderId" | "isAI" | "content" | "replyToId" | "createdAt" | "editedAt" | "deletedAt" | "deletedForUsers" | "aiModel", ExtArgs["result"]["groupMessage"]>
   export type GroupMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     replyTo?: boolean | GroupMessage$replyToArgs<ExtArgs>
     replies?: boolean | GroupMessage$repliesArgs<ExtArgs>
@@ -16126,6 +16176,7 @@ export namespace Prisma {
       editedAt: Date | null
       deletedAt: Date | null
       deletedForUsers: string[]
+      aiModel: string | null
     }, ExtArgs["result"]["groupMessage"]>
     composites: {}
   }
@@ -16563,6 +16614,7 @@ export namespace Prisma {
     readonly editedAt: FieldRef<"GroupMessage", 'DateTime'>
     readonly deletedAt: FieldRef<"GroupMessage", 'DateTime'>
     readonly deletedForUsers: FieldRef<"GroupMessage", 'String[]'>
+    readonly aiModel: FieldRef<"GroupMessage", 'String'>
   }
     
 
@@ -17062,6 +17114,7 @@ export namespace Prisma {
     emailVerified: 'emailVerified',
     lastSeen: 'lastSeen',
     isOnline: 'isOnline',
+    preferredAIModel: 'preferredAIModel',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -17166,6 +17219,7 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     userId: 'userId',
+    model: 'model',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -17178,6 +17232,7 @@ export namespace Prisma {
     conversationId: 'conversationId',
     role: 'role',
     content: 'content',
+    model: 'model',
     createdAt: 'createdAt'
   };
 
@@ -17220,7 +17275,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     editedAt: 'editedAt',
     deletedAt: 'deletedAt',
-    deletedForUsers: 'deletedForUsers'
+    deletedForUsers: 'deletedForUsers',
+    aiModel: 'aiModel'
   };
 
   export type GroupMessageScalarFieldEnum = (typeof GroupMessageScalarFieldEnum)[keyof typeof GroupMessageScalarFieldEnum]
@@ -17333,6 +17389,7 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     lastSeen?: DateTimeFilter<"User"> | Date | string
     isOnline?: BoolFilter<"User"> | boolean
+    preferredAIModel?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     messages?: MessageListRelationFilter
@@ -17355,6 +17412,7 @@ export namespace Prisma {
     emailVerified?: SortOrderInput | SortOrder
     lastSeen?: SortOrder
     isOnline?: SortOrder
+    preferredAIModel?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     messages?: MessageOrderByRelationAggregateInput
@@ -17380,6 +17438,7 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     lastSeen?: DateTimeFilter<"User"> | Date | string
     isOnline?: BoolFilter<"User"> | boolean
+    preferredAIModel?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     messages?: MessageListRelationFilter
@@ -17402,6 +17461,7 @@ export namespace Prisma {
     emailVerified?: SortOrderInput | SortOrder
     lastSeen?: SortOrder
     isOnline?: SortOrder
+    preferredAIModel?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -17421,6 +17481,7 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     lastSeen?: DateTimeWithAggregatesFilter<"User"> | Date | string
     isOnline?: BoolWithAggregatesFilter<"User"> | boolean
+    preferredAIModel?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -17923,6 +17984,7 @@ export namespace Prisma {
     id?: StringFilter<"AIConversation"> | string
     title?: StringNullableFilter<"AIConversation"> | string | null
     userId?: StringFilter<"AIConversation"> | string
+    model?: StringNullableFilter<"AIConversation"> | string | null
     createdAt?: DateTimeFilter<"AIConversation"> | Date | string
     updatedAt?: DateTimeFilter<"AIConversation"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -17933,6 +17995,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrderInput | SortOrder
     userId?: SortOrder
+    model?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -17946,6 +18009,7 @@ export namespace Prisma {
     NOT?: AIConversationWhereInput | AIConversationWhereInput[]
     title?: StringNullableFilter<"AIConversation"> | string | null
     userId?: StringFilter<"AIConversation"> | string
+    model?: StringNullableFilter<"AIConversation"> | string | null
     createdAt?: DateTimeFilter<"AIConversation"> | Date | string
     updatedAt?: DateTimeFilter<"AIConversation"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -17956,6 +18020,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrderInput | SortOrder
     userId?: SortOrder
+    model?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AIConversationCountOrderByAggregateInput
@@ -17970,6 +18035,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"AIConversation"> | string
     title?: StringNullableWithAggregatesFilter<"AIConversation"> | string | null
     userId?: StringWithAggregatesFilter<"AIConversation"> | string
+    model?: StringNullableWithAggregatesFilter<"AIConversation"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"AIConversation"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AIConversation"> | Date | string
   }
@@ -17982,6 +18048,7 @@ export namespace Prisma {
     conversationId?: StringFilter<"AIMessage"> | string
     role?: StringFilter<"AIMessage"> | string
     content?: StringFilter<"AIMessage"> | string
+    model?: StringNullableFilter<"AIMessage"> | string | null
     createdAt?: DateTimeFilter<"AIMessage"> | Date | string
     conversation?: XOR<AIConversationScalarRelationFilter, AIConversationWhereInput>
   }
@@ -17991,6 +18058,7 @@ export namespace Prisma {
     conversationId?: SortOrder
     role?: SortOrder
     content?: SortOrder
+    model?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     conversation?: AIConversationOrderByWithRelationInput
   }
@@ -18003,6 +18071,7 @@ export namespace Prisma {
     conversationId?: StringFilter<"AIMessage"> | string
     role?: StringFilter<"AIMessage"> | string
     content?: StringFilter<"AIMessage"> | string
+    model?: StringNullableFilter<"AIMessage"> | string | null
     createdAt?: DateTimeFilter<"AIMessage"> | Date | string
     conversation?: XOR<AIConversationScalarRelationFilter, AIConversationWhereInput>
   }, "id">
@@ -18012,6 +18081,7 @@ export namespace Prisma {
     conversationId?: SortOrder
     role?: SortOrder
     content?: SortOrder
+    model?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: AIMessageCountOrderByAggregateInput
     _max?: AIMessageMaxOrderByAggregateInput
@@ -18026,6 +18096,7 @@ export namespace Prisma {
     conversationId?: StringWithAggregatesFilter<"AIMessage"> | string
     role?: StringWithAggregatesFilter<"AIMessage"> | string
     content?: StringWithAggregatesFilter<"AIMessage"> | string
+    model?: StringNullableWithAggregatesFilter<"AIMessage"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"AIMessage"> | Date | string
   }
 
@@ -18185,6 +18256,7 @@ export namespace Prisma {
     editedAt?: DateTimeNullableFilter<"GroupMessage"> | Date | string | null
     deletedAt?: DateTimeNullableFilter<"GroupMessage"> | Date | string | null
     deletedForUsers?: StringNullableListFilter<"GroupMessage">
+    aiModel?: StringNullableFilter<"GroupMessage"> | string | null
     replyTo?: XOR<GroupMessageNullableScalarRelationFilter, GroupMessageWhereInput> | null
     replies?: GroupMessageListRelationFilter
     group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
@@ -18202,6 +18274,7 @@ export namespace Prisma {
     editedAt?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
     deletedForUsers?: SortOrder
+    aiModel?: SortOrderInput | SortOrder
     replyTo?: GroupMessageOrderByWithRelationInput
     replies?: GroupMessageOrderByRelationAggregateInput
     group?: GroupOrderByWithRelationInput
@@ -18222,6 +18295,7 @@ export namespace Prisma {
     editedAt?: DateTimeNullableFilter<"GroupMessage"> | Date | string | null
     deletedAt?: DateTimeNullableFilter<"GroupMessage"> | Date | string | null
     deletedForUsers?: StringNullableListFilter<"GroupMessage">
+    aiModel?: StringNullableFilter<"GroupMessage"> | string | null
     replyTo?: XOR<GroupMessageNullableScalarRelationFilter, GroupMessageWhereInput> | null
     replies?: GroupMessageListRelationFilter
     group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
@@ -18239,6 +18313,7 @@ export namespace Prisma {
     editedAt?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
     deletedForUsers?: SortOrder
+    aiModel?: SortOrderInput | SortOrder
     _count?: GroupMessageCountOrderByAggregateInput
     _max?: GroupMessageMaxOrderByAggregateInput
     _min?: GroupMessageMinOrderByAggregateInput
@@ -18258,6 +18333,7 @@ export namespace Prisma {
     editedAt?: DateTimeNullableWithAggregatesFilter<"GroupMessage"> | Date | string | null
     deletedAt?: DateTimeNullableWithAggregatesFilter<"GroupMessage"> | Date | string | null
     deletedForUsers?: StringNullableListFilter<"GroupMessage">
+    aiModel?: StringNullableWithAggregatesFilter<"GroupMessage"> | string | null
   }
 
   export type UserCreateInput = {
@@ -18269,6 +18345,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageCreateNestedManyWithoutSenderInput
@@ -18291,6 +18368,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -18313,6 +18391,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUpdateManyWithoutSenderNestedInput
@@ -18335,6 +18414,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -18357,6 +18437,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18370,6 +18451,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18383,6 +18465,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18906,6 +18989,7 @@ export namespace Prisma {
   export type AIConversationCreateInput = {
     id?: string
     title?: string | null
+    model?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAiConversationsInput
@@ -18916,6 +19000,7 @@ export namespace Prisma {
     id?: string
     title?: string | null
     userId: string
+    model?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: AIMessageUncheckedCreateNestedManyWithoutConversationInput
@@ -18924,6 +19009,7 @@ export namespace Prisma {
   export type AIConversationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAiConversationsNestedInput
@@ -18934,6 +19020,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: AIMessageUncheckedUpdateManyWithoutConversationNestedInput
@@ -18943,6 +19030,7 @@ export namespace Prisma {
     id?: string
     title?: string | null
     userId: string
+    model?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18950,6 +19038,7 @@ export namespace Prisma {
   export type AIConversationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18958,6 +19047,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18966,6 +19056,7 @@ export namespace Prisma {
     id?: string
     role: string
     content: string
+    model?: string | null
     createdAt?: Date | string
     conversation: AIConversationCreateNestedOneWithoutMessagesInput
   }
@@ -18975,6 +19066,7 @@ export namespace Prisma {
     conversationId: string
     role: string
     content: string
+    model?: string | null
     createdAt?: Date | string
   }
 
@@ -18982,6 +19074,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     conversation?: AIConversationUpdateOneRequiredWithoutMessagesNestedInput
   }
@@ -18991,6 +19084,7 @@ export namespace Prisma {
     conversationId?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18999,6 +19093,7 @@ export namespace Prisma {
     conversationId: string
     role: string
     content: string
+    model?: string | null
     createdAt?: Date | string
   }
 
@@ -19006,6 +19101,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19014,6 +19110,7 @@ export namespace Prisma {
     conversationId?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19170,6 +19267,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
     replyTo?: GroupMessageCreateNestedOneWithoutRepliesInput
     replies?: GroupMessageCreateNestedManyWithoutReplyToInput
     group: GroupCreateNestedOneWithoutMessagesInput
@@ -19187,6 +19285,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
     replies?: GroupMessageUncheckedCreateNestedManyWithoutReplyToInput
   }
 
@@ -19198,6 +19297,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
     replyTo?: GroupMessageUpdateOneWithoutRepliesNestedInput
     replies?: GroupMessageUpdateManyWithoutReplyToNestedInput
     group?: GroupUpdateOneRequiredWithoutMessagesNestedInput
@@ -19215,6 +19315,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
     replies?: GroupMessageUncheckedUpdateManyWithoutReplyToNestedInput
   }
 
@@ -19229,6 +19330,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
   }
 
   export type GroupMessageUpdateManyMutationInput = {
@@ -19239,6 +19341,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GroupMessageUncheckedUpdateManyInput = {
@@ -19252,6 +19355,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -19410,6 +19514,7 @@ export namespace Prisma {
     emailVerified?: SortOrder
     lastSeen?: SortOrder
     isOnline?: SortOrder
+    preferredAIModel?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19423,6 +19528,7 @@ export namespace Prisma {
     emailVerified?: SortOrder
     lastSeen?: SortOrder
     isOnline?: SortOrder
+    preferredAIModel?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19436,6 +19542,7 @@ export namespace Prisma {
     emailVerified?: SortOrder
     lastSeen?: SortOrder
     isOnline?: SortOrder
+    preferredAIModel?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19875,6 +19982,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     userId?: SortOrder
+    model?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19883,6 +19991,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     userId?: SortOrder
+    model?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19891,6 +20000,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     userId?: SortOrder
+    model?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19905,6 +20015,7 @@ export namespace Prisma {
     conversationId?: SortOrder
     role?: SortOrder
     content?: SortOrder
+    model?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -19913,6 +20024,7 @@ export namespace Prisma {
     conversationId?: SortOrder
     role?: SortOrder
     content?: SortOrder
+    model?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -19921,6 +20033,7 @@ export namespace Prisma {
     conversationId?: SortOrder
     role?: SortOrder
     content?: SortOrder
+    model?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -20031,6 +20144,7 @@ export namespace Prisma {
     editedAt?: SortOrder
     deletedAt?: SortOrder
     deletedForUsers?: SortOrder
+    aiModel?: SortOrder
   }
 
   export type GroupMessageMaxOrderByAggregateInput = {
@@ -20043,6 +20157,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     editedAt?: SortOrder
     deletedAt?: SortOrder
+    aiModel?: SortOrder
   }
 
   export type GroupMessageMinOrderByAggregateInput = {
@@ -20055,6 +20170,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     editedAt?: SortOrder
     deletedAt?: SortOrder
+    aiModel?: SortOrder
   }
 
   export type MessageCreateNestedManyWithoutSenderInput = {
@@ -21367,6 +21483,7 @@ export namespace Prisma {
   export type AIConversationCreateWithoutUserInput = {
     id?: string
     title?: string | null
+    model?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: AIMessageCreateNestedManyWithoutConversationInput
@@ -21375,6 +21492,7 @@ export namespace Prisma {
   export type AIConversationUncheckedCreateWithoutUserInput = {
     id?: string
     title?: string | null
+    model?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: AIMessageUncheckedCreateNestedManyWithoutConversationInput
@@ -21509,6 +21627,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
     replyTo?: GroupMessageCreateNestedOneWithoutRepliesInput
     replies?: GroupMessageCreateNestedManyWithoutReplyToInput
     group: GroupCreateNestedOneWithoutMessagesInput
@@ -21524,6 +21643,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
     replies?: GroupMessageUncheckedCreateNestedManyWithoutReplyToInput
   }
 
@@ -21649,6 +21769,7 @@ export namespace Prisma {
     id?: StringFilter<"AIConversation"> | string
     title?: StringNullableFilter<"AIConversation"> | string | null
     userId?: StringFilter<"AIConversation"> | string
+    model?: StringNullableFilter<"AIConversation"> | string | null
     createdAt?: DateTimeFilter<"AIConversation"> | Date | string
     updatedAt?: DateTimeFilter<"AIConversation"> | Date | string
   }
@@ -21801,6 +21922,7 @@ export namespace Prisma {
     editedAt?: DateTimeNullableFilter<"GroupMessage"> | Date | string | null
     deletedAt?: DateTimeNullableFilter<"GroupMessage"> | Date | string | null
     deletedForUsers?: StringNullableListFilter<"GroupMessage">
+    aiModel?: StringNullableFilter<"GroupMessage"> | string | null
   }
 
   export type UserCreateWithoutAiProfileInput = {
@@ -21812,6 +21934,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageCreateNestedManyWithoutSenderInput
@@ -21833,6 +21956,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -21870,6 +21994,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUpdateManyWithoutSenderNestedInput
@@ -21891,6 +22016,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -21912,6 +22038,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageCreateNestedManyWithoutSenderInput
@@ -21933,6 +22060,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -21970,6 +22098,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUpdateManyWithoutSenderNestedInput
@@ -21991,6 +22120,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -22012,6 +22142,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageCreateNestedManyWithoutSenderInput
@@ -22033,6 +22164,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -22114,6 +22246,7 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     lastSeen?: DateTimeFilter<"User"> | Date | string
     isOnline?: BoolFilter<"User"> | boolean
+    preferredAIModel?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
   }
@@ -22143,6 +22276,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: ChatSessionCreateNestedManyWithoutParticipantsInput
@@ -22164,6 +22298,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: ChatSessionUncheckedCreateNestedManyWithoutParticipantsInput
@@ -22341,6 +22476,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: ChatSessionUpdateManyWithoutParticipantsNestedInput
@@ -22362,6 +22498,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: ChatSessionUncheckedUpdateManyWithoutParticipantsNestedInput
@@ -22575,6 +22712,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageCreateNestedManyWithoutSenderInput
@@ -22596,6 +22734,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -22664,6 +22803,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUpdateManyWithoutSenderNestedInput
@@ -22685,6 +22825,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -22743,6 +22884,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageCreateNestedManyWithoutSenderInput
@@ -22764,6 +22906,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -22785,6 +22928,7 @@ export namespace Prisma {
     id?: string
     role: string
     content: string
+    model?: string | null
     createdAt?: Date | string
   }
 
@@ -22792,6 +22936,7 @@ export namespace Prisma {
     id?: string
     role: string
     content: string
+    model?: string | null
     createdAt?: Date | string
   }
 
@@ -22825,6 +22970,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUpdateManyWithoutSenderNestedInput
@@ -22846,6 +22992,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -22882,12 +23029,14 @@ export namespace Prisma {
     conversationId?: StringFilter<"AIMessage"> | string
     role?: StringFilter<"AIMessage"> | string
     content?: StringFilter<"AIMessage"> | string
+    model?: StringNullableFilter<"AIMessage"> | string | null
     createdAt?: DateTimeFilter<"AIMessage"> | Date | string
   }
 
   export type AIConversationCreateWithoutMessagesInput = {
     id?: string
     title?: string | null
+    model?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAiConversationsInput
@@ -22897,6 +23046,7 @@ export namespace Prisma {
     id?: string
     title?: string | null
     userId: string
+    model?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -22920,6 +23070,7 @@ export namespace Prisma {
   export type AIConversationUpdateWithoutMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAiConversationsNestedInput
@@ -22929,6 +23080,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22942,6 +23094,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageCreateNestedManyWithoutSenderInput
@@ -22963,6 +23116,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -23012,6 +23166,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
     replyTo?: GroupMessageCreateNestedOneWithoutRepliesInput
     replies?: GroupMessageCreateNestedManyWithoutReplyToInput
     sender?: UserCreateNestedOneWithoutGroupMessagesInput
@@ -23027,6 +23182,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
     replies?: GroupMessageUncheckedCreateNestedManyWithoutReplyToInput
   }
 
@@ -23060,6 +23216,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUpdateManyWithoutSenderNestedInput
@@ -23081,6 +23238,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -23165,6 +23323,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageCreateNestedManyWithoutSenderInput
@@ -23186,6 +23345,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -23260,6 +23420,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUpdateManyWithoutSenderNestedInput
@@ -23281,6 +23442,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -23301,6 +23463,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
     replyTo?: GroupMessageCreateNestedOneWithoutRepliesInput
     group: GroupCreateNestedOneWithoutMessagesInput
     sender?: UserCreateNestedOneWithoutGroupMessagesInput
@@ -23317,6 +23480,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
   }
 
   export type GroupMessageCreateOrConnectWithoutRepliesInput = {
@@ -23332,6 +23496,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
     replies?: GroupMessageCreateNestedManyWithoutReplyToInput
     group: GroupCreateNestedOneWithoutMessagesInput
     sender?: UserCreateNestedOneWithoutGroupMessagesInput
@@ -23347,6 +23512,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
     replies?: GroupMessageUncheckedCreateNestedManyWithoutReplyToInput
   }
 
@@ -23400,6 +23566,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageCreateNestedManyWithoutSenderInput
@@ -23421,6 +23588,7 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     lastSeen?: Date | string
     isOnline?: boolean
+    preferredAIModel?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -23457,6 +23625,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
     replyTo?: GroupMessageUpdateOneWithoutRepliesNestedInput
     group?: GroupUpdateOneRequiredWithoutMessagesNestedInput
     sender?: UserUpdateOneWithoutGroupMessagesNestedInput
@@ -23473,6 +23642,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GroupMessageUpsertWithWhereUniqueWithoutReplyToInput = {
@@ -23548,6 +23718,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUpdateManyWithoutSenderNestedInput
@@ -23569,6 +23740,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -23608,6 +23780,7 @@ export namespace Prisma {
   export type AIConversationCreateManyUserInput = {
     id?: string
     title?: string | null
+    model?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23647,6 +23820,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
   }
 
   export type MessageUpdateWithoutSenderInput = {
@@ -23750,6 +23924,7 @@ export namespace Prisma {
   export type AIConversationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: AIMessageUpdateManyWithoutConversationNestedInput
@@ -23758,6 +23933,7 @@ export namespace Prisma {
   export type AIConversationUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: AIMessageUncheckedUpdateManyWithoutConversationNestedInput
@@ -23766,6 +23942,7 @@ export namespace Prisma {
   export type AIConversationUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23857,6 +24034,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
     replyTo?: GroupMessageUpdateOneWithoutRepliesNestedInput
     replies?: GroupMessageUpdateManyWithoutReplyToNestedInput
     group?: GroupUpdateOneRequiredWithoutMessagesNestedInput
@@ -23872,6 +24050,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
     replies?: GroupMessageUncheckedUpdateManyWithoutReplyToNestedInput
   }
 
@@ -23885,6 +24064,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MessageCreateManySessionInput = {
@@ -23906,6 +24086,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUpdateManyWithoutSenderNestedInput
@@ -23927,6 +24108,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -23948,6 +24130,7 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     isOnline?: BoolFieldUpdateOperationsInput | boolean
+    preferredAIModel?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24106,6 +24289,7 @@ export namespace Prisma {
     id?: string
     role: string
     content: string
+    model?: string | null
     createdAt?: Date | string
   }
 
@@ -24113,6 +24297,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -24120,6 +24305,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -24127,6 +24313,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    model?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -24147,6 +24334,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
   }
 
   export type GroupMemberUpdateWithoutGroupInput = {
@@ -24178,6 +24366,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
     replyTo?: GroupMessageUpdateOneWithoutRepliesNestedInput
     replies?: GroupMessageUpdateManyWithoutReplyToNestedInput
     sender?: UserUpdateOneWithoutGroupMessagesNestedInput
@@ -24193,6 +24382,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
     replies?: GroupMessageUncheckedUpdateManyWithoutReplyToNestedInput
   }
 
@@ -24206,6 +24396,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GroupMessageCreateManyReplyToInput = {
@@ -24218,6 +24409,7 @@ export namespace Prisma {
     editedAt?: Date | string | null
     deletedAt?: Date | string | null
     deletedForUsers?: GroupMessageCreatedeletedForUsersInput | string[]
+    aiModel?: string | null
   }
 
   export type GroupMessageUpdateWithoutReplyToInput = {
@@ -24228,6 +24420,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
     replies?: GroupMessageUpdateManyWithoutReplyToNestedInput
     group?: GroupUpdateOneRequiredWithoutMessagesNestedInput
     sender?: UserUpdateOneWithoutGroupMessagesNestedInput
@@ -24243,6 +24436,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
     replies?: GroupMessageUncheckedUpdateManyWithoutReplyToNestedInput
   }
 
@@ -24256,6 +24450,7 @@ export namespace Prisma {
     editedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedForUsers?: GroupMessageUpdatedeletedForUsersInput | string[]
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

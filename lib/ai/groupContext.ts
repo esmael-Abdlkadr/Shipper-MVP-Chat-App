@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import { ChatMessage } from './providers'
 
 export type GroupMessageContext = {
   id: string
@@ -15,13 +16,15 @@ export type GroupMemberContext = {
 
 /**
  * Build context for AI from recent group messages
+ * Returns ChatMessage format that works with both Gemini and OpenAI
  */
 export async function buildGroupContext(
   groupId: string,
   messageLimit: number = 30
 ): Promise<{
   systemPrompt: string
-  history: { role: 'user' | 'model'; parts: [{ text: string }] }[]
+  history: ChatMessage[]
+  lastUserMessage: string
 }> {
   // Fetch group info
   const group = await prisma.group.findUnique({
@@ -85,27 +88,30 @@ IMPORTANT:
 - Reference recent messages when relevant to show you understand the context
 - Don't start with greetings every time - just jump into the conversation naturally`
 
-  // Build conversation history
-  const history: { role: 'user' | 'model'; parts: [{ text: string }] }[] = []
+  // Build conversation history using ChatMessage format (works with both providers)
+  const history: ChatMessage[] = []
+  let lastUserMessage = ''
 
   for (const msg of chronologicalMessages) {
     if (msg.isAI) {
-      // AI messages go as 'model'
+      // AI messages go as 'assistant'
       history.push({
-        role: 'model',
-        parts: [{ text: msg.content }],
+        role: 'assistant',
+        content: msg.content,
       })
     } else {
       // User messages with sender context
       const senderName = msg.sender?.name || 'Someone'
+      const content = `[${senderName}]: ${msg.content}`
       history.push({
         role: 'user',
-        parts: [{ text: `[${senderName}]: ${msg.content}` }],
+        content,
       })
+      lastUserMessage = content
     }
   }
 
-  return { systemPrompt, history }
+  return { systemPrompt, history, lastUserMessage }
 }
 
 /**

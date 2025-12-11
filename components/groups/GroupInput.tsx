@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useRef, useCallback, KeyboardEvent, useEffect } from 'react'
+import { useState, useRef, useCallback, KeyboardEvent, useEffect, useMemo } from 'react'
 import { Send, Bot, Loader2, X, Pencil, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { GroupMessage } from '@/stores/useGroupStore'
+import { AI_MODELS } from '@/lib/ai/config'
 
 interface GroupInputProps {
   onSend: (message: string, replyToId?: string) => void
@@ -96,13 +97,50 @@ export function GroupInput({
     }
   }
 
-  const insertMention = () => {
-    const newMessage = message ? `${message} @shipper ` : '@shipper '
+  const insertMention = (model?: string) => {
+    const mention = model ? `@shipper:${model}` : '@shipper'
+    const newMessage = message ? `${message} ${mention} ` : `${mention} `
     setMessage(newMessage)
     textareaRef.current?.focus()
   }
 
   const hasShipperMention = /@shipper\b/i.test(message)
+  
+  const hasShipperWithoutModel = useMemo(() => {
+    return /@shipper\b/i.test(message) && !/@shipper:(gemini|openai|gpt)/i.test(message)
+  }, [message])
+  
+  const isTypingModelFilter = useMemo(() => {
+    return message.match(/@shipper:(\w*)$/i) !== null
+  }, [message])
+  
+  const showModelSelector = hasShipperWithoutModel && !isEditing
+  
+  const modelFilter = useMemo(() => {
+    const match = message.match(/@shipper:(\w*)$/i)
+    return match ? match[1].toLowerCase() : ''
+  }, [message])
+  
+  const filteredModels = useMemo(() => {
+    if (!isTypingModelFilter) return Object.values(AI_MODELS)
+    return Object.values(AI_MODELS).filter(model => 
+      model.id.toLowerCase().includes(modelFilter) ||
+      model.name.toLowerCase().includes(modelFilter) ||
+      (model.id === 'openai' && 'gpt'.includes(modelFilter))
+    )
+  }, [isTypingModelFilter, modelFilter])
+  
+  const selectModel = (modelId: string) => {
+    const newMessage = isTypingModelFilter
+      ? message.replace(/@shipper:\w*$/i, `@shipper:${modelId} `)
+      : message.replace(/@shipper\b/i, `@shipper:${modelId}`)
+    setMessage(newMessage)
+    textareaRef.current?.focus()
+  }
+  
+  const useDefaultModel = () => {
+    textareaRef.current?.focus()
+  }
 
   return (
     <div className="border-t bg-background">
@@ -148,7 +186,7 @@ export function GroupInput({
             type="button"
             variant="ghost"
             size="icon"
-            onClick={insertMention}
+            onClick={() => insertMention()}
             className={cn(
               'shrink-0 h-10 w-10 rounded-full transition-colors',
               hasShipperMention && 'bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400'
@@ -207,11 +245,55 @@ export function GroupInput({
         </Button>
       </div>
 
-      {hasShipperMention && !isEditing && (
-        <p className="text-xs text-blue-600 dark:text-blue-400 px-4 pb-2 flex items-center gap-1">
-          <Bot className="h-3 w-3" />
-          Shipper will respond to this message
-        </p>
+      {showModelSelector && filteredModels.length > 0 && (
+        <div className="px-4 pb-3 pt-1 border-t border-blue-100 dark:border-blue-900/50 bg-blue-50/50 dark:bg-blue-950/20">
+          <div className="flex items-center gap-2 mb-2">
+            <Bot className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <p className="text-xs font-medium text-blue-700 dark:text-blue-300">
+              Choose AI Model
+            </p>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {filteredModels.map((model) => (
+              <button
+                key={model.id}
+                onClick={() => selectModel(model.id)}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/50 text-sm transition-all shadow-sm"
+              >
+                <span className="text-lg">{model.icon}</span>
+                <div className="text-left">
+                  <span className="font-medium block">{model.name}</span>
+                  <span className="text-muted-foreground text-xs">{model.description}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={useDefaultModel}
+            className="text-xs text-muted-foreground hover:text-foreground mt-2 underline-offset-2 hover:underline"
+          >
+            Use default (Gemini)
+          </button>
+        </div>
+      )}
+
+      {hasShipperMention && !showModelSelector && !isEditing && (
+        <div className="px-4 pb-2">
+          <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1">
+            <Bot className="h-3 w-3" />
+            Shipper will respond
+            {/@shipper:(openai|gpt)/i.test(message) && (
+              <span className="inline-flex items-center gap-1 ml-1 px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
+                🤖 GPT-4o
+              </span>
+            )}
+            {/@shipper:gemini/i.test(message) && (
+              <span className="inline-flex items-center gap-1 ml-1 px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                ✨ Gemini
+              </span>
+            )}
+          </p>
+        </div>
       )}
     </div>
   )

@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { ai } from '@/lib/ai/client'
-import { AI_MODEL } from '@/lib/ai/config'
 import { buildGroupContext } from '@/lib/ai/groupContext'
+import { getAIProvider, parseModelFromMention, DEFAULT_MODEL } from '@/lib/ai/providers'
 
 type RouteParams = { params: Promise<{ id: string }> }
 
@@ -37,8 +36,13 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       return new Response('AI is disabled for this group', { status: 403 })
     }
 
+    // Parse model from trigger content (e.g., @shipper:openai, @shipper:gpt)
+    const resolvedModel = triggerContent 
+      ? parseModelFromMention(triggerContent) 
+      : DEFAULT_MODEL
+
     // Build context from recent messages
-    const { systemPrompt, history } = await buildGroupContext(groupId)
+    const { systemPrompt, history, lastUserMessage } = await buildGroupContext(groupId)
 
     // Validate replyToId - ignore temp IDs that don't exist in DB
     let validReplyToId: string | null = null
@@ -53,31 +57,30 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       }
     }
 
+    // Get the appropriate AI provider
+    const generateResponse = getAIProvider(resolvedModel)
+
     // Create streaming response
     const encoder = new TextEncoder()
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          const response = await ai.models.generateContentStream({
-            model: AI_MODEL,
-            contents: history,
-            config: {
-              systemInstruction: systemPrompt,
-            },
-          })
-
           let fullResponse = ''
 
-          for await (const chunk of response) {
-            const text = chunk.text || ''
+          // Use the provider abstraction
+          for await (const text of generateResponse({
+            systemPrompt,
+            history: history.slice(0, -1), // Exclude the last message as it will be the userMessage
+            userMessage: lastUserMessage || triggerContent || '',
+          })) {
             fullResponse += text
 
             controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify({ text })}\n\n`)
+              encoder.encode(`data: ${JSON.stringify({ text, model: resolvedModel })}\n\n`)
             )
           }
 
-          // Save AI message to database with reply reference
+          // Save AI message to database with reply reference and model
           const aiMessage = await prisma.groupMessage.create({
             data: {
               groupId,
@@ -85,6 +88,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
               content: fullResponse,
               isAI: true,
               replyToId: validReplyToId,
+              aiModel: resolvedModel,
             },
             include: {
               replyTo: {
@@ -120,7 +124,12 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
 
           controller.enqueue(
             encoder.encode(
-              `data: ${JSON.stringify({ done: true, messageId: aiMessage.id, replyTo })}\n\n`
+              `data: ${JSON.stringify({ 
+                done: true, 
+                messageId: aiMessage.id, 
+                replyTo,
+                model: resolvedModel 
+              })}\n\n`
             )
           )
           controller.close()

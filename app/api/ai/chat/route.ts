@@ -1,9 +1,9 @@
 import { NextRequest } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { ai } from '@/lib/ai/client'
-import { AI_MODEL, getPersonalityPrompt, PersonalityType } from '@/lib/ai/config'
+import { getPersonalityPrompt, PersonalityType, ModelId } from '@/lib/ai/config'
 import { getQuickActionPrompt, QuickActionType } from '@/lib/ai/games'
+import { getAIProvider, resolveModel, ChatMessage } from '@/lib/ai/providers'
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,13 +12,19 @@ export async function POST(request: NextRequest) {
       return new Response('Unauthorized', { status: 401 })
     }
 
-    const { message, conversationId, personality, quickAction } = await request.json()
+    const { message, conversationId, personality, quickAction, model: requestedModel } = await request.json()
 
     if (!message?.trim()) {
       return new Response('Message is required', { status: 400 })
     }
 
     const activePersonality = (personality || 'hype') as PersonalityType
+
+    // Get user's preferred model
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { preferredAIModel: true },
+    })
 
     let conversation = conversationId
       ? await prisma.aIConversation.findFirst({
@@ -27,13 +33,27 @@ export async function POST(request: NextRequest) {
         })
       : null
 
+    // Resolve which model to use
+    const resolvedModel = resolveModel(
+      requestedModel,
+      conversation?.model,
+      user?.preferredAIModel
+    )
+
     if (!conversation) {
       conversation = await prisma.aIConversation.create({
         data: {
           userId: session.user.id,
           title: message.slice(0, 50) + (message.length > 50 ? '...' : ''),
+          model: resolvedModel,
         },
         include: { messages: true },
+      })
+    } else if (requestedModel && conversation.model !== requestedModel) {
+      // Update conversation model if user explicitly switched
+      await prisma.aIConversation.update({
+        where: { id: conversation.id },
+        data: { model: resolvedModel },
       })
     }
 
@@ -45,15 +65,11 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    const history = conversation.messages.map((m) => ({
-      role: m.role === 'assistant' ? 'model' : 'user' as 'user' | 'model',
-      parts: [{ text: m.content }],
+    // Convert to ChatMessage format for provider
+    const history: ChatMessage[] = conversation.messages.map((m) => ({
+      role: m.role as 'user' | 'assistant',
+      content: m.content,
     }))
-
-    history.push({
-      role: 'user',
-      parts: [{ text: message }],
-    })
 
     let systemPrompt = getPersonalityPrompt(activePersonality)
     
@@ -62,26 +78,28 @@ export async function POST(request: NextRequest) {
       systemPrompt = `${systemPrompt}\n\n--- CURRENT TASK ---\n${actionPrompt}`
     }
 
+    // Get the appropriate AI provider
+    const generateResponse = getAIProvider(resolvedModel)
+
     const encoder = new TextEncoder()
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          const response = await ai.models.generateContentStream({
-            model: AI_MODEL,
-            contents: history,
-            config: {
-              systemInstruction: systemPrompt,
-            },
-          })
-
           let fullResponse = ''
 
-          for await (const chunk of response) {
-            const text = chunk.text || ''
+          for await (const text of generateResponse({
+            systemPrompt,
+            history,
+            userMessage: message,
+          })) {
             fullResponse += text
             
             controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify({ text, conversationId: conversation.id })}\n\n`)
+              encoder.encode(`data: ${JSON.stringify({ 
+                text, 
+                conversationId: conversation.id,
+                model: resolvedModel 
+              })}\n\n`)
             )
           }
 
@@ -90,14 +108,20 @@ export async function POST(request: NextRequest) {
               conversationId: conversation.id,
               role: 'assistant',
               content: fullResponse,
+              model: resolvedModel,
             },
           })
 
           controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify({ done: true, conversationId: conversation.id })}\n\n`)
+            encoder.encode(`data: ${JSON.stringify({ 
+              done: true, 
+              conversationId: conversation.id,
+              model: resolvedModel 
+            })}\n\n`)
           )
           controller.close()
         } catch (error) {
+          console.error('AI generation error:', error)
           controller.enqueue(
             encoder.encode(`data: ${JSON.stringify({ error: 'Failed to generate response' })}\n\n`)
           )
