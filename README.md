@@ -67,7 +67,7 @@ A modern real-time chat application with AI-powered features, group collaboratio
 
 ## 🌐 Live Demo
 
-Try it now: **[shipper-chat-app.fly.dev](https://shipper-chat-app.fly.dev)**
+will be added in mean time
 
 ---
 
