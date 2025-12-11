@@ -12,12 +12,54 @@ const DEFAULT_MAX_AGE = 24 * 60 * 60 // 24 hours
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const adapter = PrismaAdapter(prisma as any)
 
+const useSecureCookies = process.env.NEXTAUTH_URL?.startsWith('https://')
+const cookiePrefix = useSecureCookies ? '__Secure-' : ''
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter,
   secret: process.env.NEXTAUTH_SECRET,
+  trustHost: true,
   session: { 
     strategy: 'jwt',
     maxAge: DEFAULT_MAX_AGE,
+  },
+  cookies: {
+    sessionToken: {
+      name: `${cookiePrefix}next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: useSecureCookies,
+      },
+    },
+    callbackUrl: {
+      name: `${cookiePrefix}next-auth.callback-url`,
+      options: {
+        sameSite: 'lax',
+        path: '/',
+        secure: useSecureCookies,
+      },
+    },
+    csrfToken: {
+      name: `${cookiePrefix}next-auth.csrf-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: useSecureCookies,
+      },
+    },
+    pkceCodeVerifier: {
+      name: `${cookiePrefix}next-auth.pkce.code_verifier`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: useSecureCookies,
+        maxAge: 60 * 15,
+      },
+    },
   },
   pages: {
     signIn: '/login',
