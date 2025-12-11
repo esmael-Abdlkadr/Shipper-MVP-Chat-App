@@ -12,13 +12,15 @@ export default function ChatLayout({
 }) {
   const pathname = usePathname()
   const isAIPage = pathname === '/ai' || pathname.startsWith('/ai/')
+  const isGroupPage = pathname.startsWith('/groups/')
+  const hideSidebar = isAIPage || isGroupPage
 
   return (
     <div className="h-dvh flex flex-col bg-background">
       <Header />
       
       <div className="flex flex-1 overflow-hidden">
-        {!isAIPage && <Sidebar />}
+        {!hideSidebar && <Sidebar />}
         
         <main className="flex-1 flex flex-col overflow-hidden">
           {children}

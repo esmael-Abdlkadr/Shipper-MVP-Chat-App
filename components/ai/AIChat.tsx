@@ -1,17 +1,19 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
-import { Sparkles, RefreshCw } from 'lucide-react'
+import { RefreshCw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { AIMessage } from './AIMessage'
 import { AIInput } from './AIInput'
-import { getGreeting, PERSONALITIES, PersonalityType } from '@/lib/ai/config'
+import { ModelSelector } from './ModelSelector'
+import { getGreeting, PERSONALITIES, PersonalityType, ModelId } from '@/lib/ai/config'
 
 interface AIMessage {
   id: string
   role: 'user' | 'assistant'
   content: string
   createdAt: Date
+  model?: string
 }
 
 interface AIChatProps {
@@ -23,6 +25,8 @@ interface AIChatProps {
   onStop: () => void
   onRegenerate: () => void
   personality?: PersonalityType
+  selectedModel: ModelId
+  onModelChange: (model: ModelId) => void
 }
 
 export function AIChat({
@@ -34,6 +38,8 @@ export function AIChat({
   onStop,
   onRegenerate,
   personality = 'hype',
+  selectedModel,
+  onModelChange,
 }: AIChatProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const hasMessages = messages.length > 0 || isStreaming
@@ -50,6 +56,15 @@ export function AIChat({
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
+      {/* Model selector header */}
+      <div className="flex items-center justify-between px-4 py-2 border-b">
+        <ModelSelector
+          value={selectedModel}
+          onChange={onModelChange}
+          disabled={isStreaming}
+        />
+      </div>
+
       <div ref={scrollRef} className="flex-1 overflow-auto">
         {!hasMessages ? (
           <div className="h-full flex flex-col items-center justify-center p-8 text-center">

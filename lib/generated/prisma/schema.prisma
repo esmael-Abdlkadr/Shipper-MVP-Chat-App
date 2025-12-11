@@ -8,22 +8,28 @@ datasource db {
 }
 
 model User {
-  id              String           @id @default(cuid())
-  email           String           @unique
-  name            String?
-  image           String?
-  password        String?
-  emailVerified   DateTime?
-  lastSeen        DateTime         @default(now())
-  isOnline        Boolean          @default(false)
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  messages        Message[]
-  sessions        ChatSession[]    @relation("ChatParticipants")
-  accounts        Account[]
-  aiConversations AIConversation[]
-  reactions       Reaction[]
-  aiProfile       UserAIProfile?
+  id               String           @id @default(cuid())
+  email            String           @unique
+  name             String?
+  image            String?
+  password         String?
+  emailVerified    DateTime?
+  lastSeen         DateTime         @default(now())
+  isOnline         Boolean          @default(false)
+  preferredAIModel String           @default("gemini")
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  messages         Message[]
+  sessions         ChatSession[]    @relation("ChatParticipants")
+  accounts         Account[]
+  aiConversations  AIConversation[]
+  reactions        Reaction[]
+  aiProfile        UserAIProfile?
+  createdGroups    Group[]          @relation("GroupCreator")
+  groupMembers     GroupMember[]
+  groupMessages    GroupMessage[]   @relation("GroupMessageSender")
+  assignedTasks    GroupTask[]      @relation("TaskAssignee")
+  createdTasks     GroupTask[]      @relation("TaskCreator")
 }
 
 model UserAIProfile {
@@ -130,6 +136,7 @@ model AIConversation {
   userId    String
   user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   messages  AIMessage[]
+  model     String? // Override model for this conversation
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
@@ -142,7 +149,98 @@ model AIMessage {
   conversation   AIConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   role           String
   content        String         @db.Text
+  model          String? // Which AI model generated this (for assistant messages)
   createdAt      DateTime       @default(now())
 
   @@index([conversationId])
+}
+
+model Group {
+  id          String         @id @default(cuid())
+  name        String
+  description String?
+  avatar      String?
+  creatorId   String
+  creator     User           @relation("GroupCreator", fields: [creatorId], references: [id])
+  members     GroupMember[]
+  messages    GroupMessage[]
+  tasks       GroupTask[]
+  aiEnabled   Boolean        @default(true)
+  maxMembers  Int            @default(100)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([creatorId])
+}
+
+model GroupMember {
+  id       String   @id @default(cuid())
+  groupId  String
+  userId   String
+  role     String   @default("member")
+  group    Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt DateTime @default(now())
+
+  @@unique([groupId, userId])
+  @@index([groupId])
+  @@index([userId])
+}
+
+model GroupMessage {
+  id              String         @id @default(cuid())
+  groupId         String
+  senderId        String?
+  isAI            Boolean        @default(false)
+  content         String         @db.Text
+  replyToId       String?
+  replyTo         GroupMessage?  @relation("GroupMessageReplies", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies         GroupMessage[] @relation("GroupMessageReplies")
+  group           Group          @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  sender          User?          @relation("GroupMessageSender", fields: [senderId], references: [id])
+  createdAt       DateTime       @default(now())
+  editedAt        DateTime?
+  deletedAt       DateTime?
+  deletedForUsers String[]       @default([])
+  aiModel         String?
+
+  @@index([groupId])
+  @@index([senderId])
+  @@index([replyToId])
+}
+
+model GroupTask {
+  id              String         @id @default(cuid())
+  groupId         String
+  group           Group          @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  assigneeId      String
+  assignee        User           @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  createdById     String?
+  createdBy       User?          @relation("TaskCreator", fields: [createdById], references: [id])
+  description     String
+  status          String         @default("pending")
+  priority        String         @default("normal")
+  sourceMessageId String?
+  dueDate         DateTime?
+  completedAt     DateTime?
+  reminders       TaskReminder[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([groupId])
+  @@index([assigneeId])
+  @@index([status])
+}
+
+model TaskReminder {
+  id        String    @id @default(cuid())
+  taskId    String
+  task      GroupTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  sendAt    DateTime
+  sent      Boolean   @default(false)
+  sentAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([taskId])
+  @@index([sendAt])
 }

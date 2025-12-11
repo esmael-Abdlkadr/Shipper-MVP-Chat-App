@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import { useSocketStore } from '@/stores/useSocketStore'
 import { useChatStore } from '@/stores/useChatStore'
 import { usePresenceStore } from '@/stores/usePresenceStore'
+import { useGroupStore, GroupMessage } from '@/stores/useGroupStore'
 
 export function SocketProvider({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession()
@@ -21,6 +22,14 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     removeReaction,
   } = useChatStore()
   const { setUserOnline, setUserOffline, setTyping } = usePresenceStore()
+  const {
+    addMessage: addGroupMessage,
+    replaceMessageByTempId: replaceGroupMessageByTempId,
+    activeGroupId,
+    setAiTyping,
+    appendStreamingContent,
+    clearStreamingContent,
+  } = useGroupStore()
   const initialized = useRef(false)
 
   useEffect(() => {
@@ -128,6 +137,36 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
       setTyping(data.sessionId, data.userId, data.isTyping)
     }
 
+    // Group event handlers
+    const handleGroupMessage = (data: { groupId: string; message: GroupMessage }) => {
+      if (!data?.message?.id) return
+      addGroupMessage(data.groupId, data.message)
+      
+      if (data.groupId !== activeGroupId) {
+        playNotificationSound()
+      }
+    }
+
+    const handleGroupMessageConfirm = (data: { groupId: string; tempId: string; message: GroupMessage }) => {
+      if (!data?.message?.id || !data?.tempId) return
+      replaceGroupMessageByTempId(data.groupId, data.tempId, data.message)
+    }
+
+    const handleGroupAiTyping = (data: { groupId: string; isTyping: boolean }) => {
+      if (data.groupId === activeGroupId) {
+        setAiTyping(data.isTyping)
+        if (!data.isTyping) {
+          clearStreamingContent()
+        }
+      }
+    }
+
+    const handleGroupAiChunk = (data: { groupId: string; text: string }) => {
+      if (data.groupId === activeGroupId) {
+        appendStreamingContent(data.text)
+      }
+    }
+
     socket.on('message:new', handleNewMessage)
     socket.on('message:confirm', handleMessageConfirm)
     socket.on('message:delivered', handleMessageDelivered)
@@ -137,6 +176,10 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     socket.on('user:online', handleUserOnline)
     socket.on('user:offline', handleUserOffline)
     socket.on('typing:indicator', handleTyping)
+    socket.on('group:message:new', handleGroupMessage)
+    socket.on('group:message:confirm', handleGroupMessageConfirm)
+    socket.on('group:ai:typing', handleGroupAiTyping)
+    socket.on('group:ai:chunk', handleGroupAiChunk)
 
     return () => {
       socket.off('message:new', handleNewMessage)
@@ -148,6 +191,10 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
       socket.off('user:online', handleUserOnline)
       socket.off('user:offline', handleUserOffline)
       socket.off('typing:indicator', handleTyping)
+      socket.off('group:message:new', handleGroupMessage)
+      socket.off('group:message:confirm', handleGroupMessageConfirm)
+      socket.off('group:ai:typing', handleGroupAiTyping)
+      socket.off('group:ai:chunk', handleGroupAiChunk)
     }
   }, [
     socket,
@@ -163,6 +210,12 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     setUserOnline,
     setUserOffline,
     setTyping,
+    addGroupMessage,
+    replaceGroupMessageByTempId,
+    activeGroupId,
+    setAiTyping,
+    appendStreamingContent,
+    clearStreamingContent,
   ])
 
   return <>{children}</>

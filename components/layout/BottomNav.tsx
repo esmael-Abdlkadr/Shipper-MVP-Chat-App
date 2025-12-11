@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { MessageCircle, Users, Sparkles, Settings } from 'lucide-react'
+import { MessageCircle, Users, Sparkles, Settings, UsersRound } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useSessions } from '@/lib/queries'
 
@@ -14,7 +14,7 @@ export function BottomNav() {
 
   const navItems = [
     { label: 'Chats', href: '/chat', icon: MessageCircle, badge: totalUnread },
-    { label: 'Users', href: '/users', icon: Users, badge: 0 },
+    { label: 'Groups', href: '/groups', icon: UsersRound, badge: 0 },
     { label: 'AI', href: '/ai', icon: Sparkles, badge: 0 },
     { label: 'Settings', href: '/settings', icon: Settings, badge: 0 },
   ]

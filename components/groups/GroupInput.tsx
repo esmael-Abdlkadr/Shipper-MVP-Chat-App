@@ -1,0 +1,426 @@
+'use client'
+
+import { useState, useRef, useCallback, KeyboardEvent, useEffect, useMemo } from 'react'
+import { Send, Bot, Loader2, X, Pencil, Check, User } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { GroupMessage } from '@/stores/useGroupStore'
+import { AI_MODELS } from '@/lib/ai/config'
+
+const SHIPPER_COMMANDS = [
+  { id: 'tasks', icon: '📋', name: 'Tasks', description: 'View active tasks' },
+  { id: 'done', icon: '✅', name: 'Done', description: 'Mark task complete' },
+  { id: 'assign', icon: '👤', name: 'Assign', description: '@user task' },
+  { id: 'summarize', icon: '📊', name: 'Summarize', description: 'Daily summary' },
+]
+
+export interface GroupMember {
+  id: string
+  name: string | null
+  image?: string | null
+}
+
+interface GroupInputProps {
+  onSend: (message: string, replyToId?: string) => void
+  onEditMessage?: (messageId: string, content: string) => void
+  disabled?: boolean
+  aiEnabled?: boolean
+  placeholder?: string
+  replyingTo?: GroupMessage | null
+  editingMessage?: GroupMessage | null
+  onCancelReply?: () => void
+  onCancelEdit?: () => void
+  members?: GroupMember[]
+}
+
+export function GroupInput({
+  onSend,
+  onEditMessage,
+  disabled,
+  aiEnabled = true,
+  placeholder = 'Type a message...',
+  replyingTo,
+  editingMessage,
+  onCancelReply,
+  onCancelEdit,
+  members = [],
+}: GroupInputProps) {
+  const [message, setMessage] = useState(editingMessage?.content ?? '')
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const isEditing = !!editingMessage
+  
+  const editingId = editingMessage?.id
+  
+  // User mention autocomplete
+  const mentionMatch = useMemo(() => {
+    // Match @word at end of message, but not @shipper
+    const match = message.match(/@(\w*)$/i)
+    if (!match) return null
+    if (match[1].toLowerCase().startsWith('shipper')) return null
+    return match[1].toLowerCase()
+  }, [message])
+  
+  const showMentionList = mentionMatch !== null && members.length > 0
+  
+  const filteredMembers = useMemo(() => {
+    if (mentionMatch === null) return []
+    if (mentionMatch === '') return members.slice(0, 5)
+    return members.filter(m => 
+      m.name?.toLowerCase().includes(mentionMatch)
+    ).slice(0, 5)
+  }, [mentionMatch, members])
+  
+  const selectMember = (member: GroupMember) => {
+    const name = member.name?.replace(/\s+/g, '') || member.id
+    const newMessage = message.replace(/@\w*$/i, `@${name} `)
+    setMessage(newMessage)
+    textareaRef.current?.focus()
+  }
+
+  useEffect(() => {
+    if (editingMessage) {
+      queueMicrotask(() => setMessage(editingMessage.content))
+    }
+  }, [editingId]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (editingMessage || replyingTo) {
+      textareaRef.current?.focus()
+    }
+  }, [editingMessage, replyingTo])
+
+  const handleSend = useCallback(() => {
+    const trimmed = message.trim()
+    if (!trimmed || disabled) return
+
+    if (editingMessage && onEditMessage) {
+      onEditMessage(editingMessage.id, trimmed)
+    } else {
+      onSend(trimmed, replyingTo?.id)
+    }
+    
+    setMessage('')
+
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto'
+    }
+  }, [message, disabled, onSend, onEditMessage, replyingTo, editingMessage])
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSend()
+    }
+    if (e.key === 'Escape') {
+      if (editingMessage) {
+        onCancelEdit?.()
+        setMessage('')
+      } else if (replyingTo) {
+        onCancelReply?.()
+      }
+    }
+  }
+
+  const handleCancel = () => {
+    if (editingMessage) {
+      onCancelEdit?.()
+      setMessage('')
+    } else if (replyingTo) {
+      onCancelReply?.()
+    }
+  }
+
+  const handleInput = () => {
+    const textarea = textareaRef.current
+    if (textarea) {
+      textarea.style.height = 'auto'
+      textarea.style.height = `${Math.min(textarea.scrollHeight, 150)}px`
+    }
+  }
+
+  const insertMention = (model?: string) => {
+    const mention = model ? `@shipper:${model}` : '@shipper'
+    const newMessage = message ? `${message} ${mention} ` : `${mention} `
+    setMessage(newMessage)
+    textareaRef.current?.focus()
+  }
+
+  const hasShipperMention = /@shipper\b/i.test(message)
+  
+  const hasShipperWithoutModel = useMemo(() => {
+    return /@shipper\b/i.test(message) && !/@shipper:(gemini|openai|gpt|tasks|done|assign|summarize)/i.test(message)
+  }, [message])
+  
+  const isTypingCommand = useMemo(() => {
+    return message.match(/@shipper:(\w*)$/i) !== null
+  }, [message])
+  
+  const isTaskCommand = /@shipper:(tasks|done|assign|summarize)/i.test(message)
+  
+  const showModelSelector = hasShipperWithoutModel && !isEditing && !isTaskCommand
+  
+  const commandFilter = useMemo(() => {
+    const match = message.match(/@shipper:(\w*)$/i)
+    return match ? match[1].toLowerCase() : ''
+  }, [message])
+
+  const filteredCommands = useMemo(() => {
+    if (!isTypingCommand || commandFilter === '') return []
+    const filter = commandFilter.toLowerCase()
+    if (['gemini', 'openai', 'gpt'].some(m => m.startsWith(filter))) return []
+    return SHIPPER_COMMANDS.filter(cmd => cmd.id.includes(filter) || cmd.name.toLowerCase().includes(filter))
+  }, [isTypingCommand, commandFilter])
+  
+  const filteredModels = useMemo(() => {
+    if (!isTypingCommand) return Object.values(AI_MODELS)
+    if (filteredCommands.length > 0) return []
+    return Object.values(AI_MODELS).filter(model => 
+      model.id.toLowerCase().includes(commandFilter) ||
+      model.name.toLowerCase().includes(commandFilter) ||
+      (model.id === 'openai' && 'gpt'.includes(commandFilter))
+    )
+  }, [isTypingCommand, commandFilter, filteredCommands.length])
+  
+  const selectModel = (modelId: string) => {
+    const newMessage = isTypingCommand
+      ? message.replace(/@shipper:\w*$/i, `@shipper:${modelId} `)
+      : message.replace(/@shipper\b/i, `@shipper:${modelId}`)
+    setMessage(newMessage)
+    textareaRef.current?.focus()
+  }
+
+  const selectCommand = (cmdId: string) => {
+    const suffix = cmdId === 'assign' ? ' @' : ''
+    let newMessage: string
+    if (/@shipper:\w*$/i.test(message)) {
+      newMessage = message.replace(/@shipper:\w*$/i, `@shipper:${cmdId}${suffix}`)
+    } else {
+      newMessage = message.replace(/@shipper\b/i, `@shipper:${cmdId}${suffix}`)
+    }
+    setMessage(newMessage)
+    textareaRef.current?.focus()
+  }
+  
+  const useDefaultModel = () => {
+    textareaRef.current?.focus()
+  }
+
+  return (
+    <div className="border-t bg-background">
+      {editingMessage && (
+        <div className="flex items-center gap-2 px-4 py-2 bg-amber-50 dark:bg-amber-950/30 border-b border-amber-200 dark:border-amber-800">
+          <div className="w-1 h-10 bg-amber-500 rounded-full shrink-0" />
+          <Pencil className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-medium text-amber-700 dark:text-amber-400">Editing message</p>
+            <p className="text-sm text-amber-600/70 dark:text-amber-400/70 truncate">
+              {editingMessage.content}
+            </p>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 shrink-0 hover:bg-amber-100 dark:hover:bg-amber-900"
+            onClick={handleCancel}
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
+
+      {replyingTo && !editingMessage && (
+        <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 border-b">
+          <div className="w-1 h-10 bg-primary rounded-full shrink-0" />
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-medium text-primary">
+              Replying to {replyingTo.isAI ? 'Shipper' : (replyingTo.senderName || 'Unknown')}
+            </p>
+            <p className="text-sm text-muted-foreground truncate">{replyingTo.content}</p>
+          </div>
+          <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={handleCancel}>
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
+
+      <div className="flex items-end gap-2 p-3">
+        {aiEnabled && !isEditing && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={() => insertMention()}
+            className={cn(
+              'shrink-0 h-10 w-10 rounded-full transition-colors',
+              hasShipperMention && 'bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400'
+            )}
+            title="Mention @shipper"
+          >
+            <Bot className="h-5 w-5" />
+          </Button>
+        )}
+
+        <div className="relative flex-1">
+          <textarea
+            ref={textareaRef}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onInput={handleInput}
+            placeholder={
+              isEditing
+                ? 'Edit your message...'
+                : replyingTo
+                ? 'Type your reply...'
+                : aiEnabled
+                ? 'Type a message... (Use @shipper for AI)'
+                : placeholder
+            }
+            disabled={disabled}
+            rows={1}
+            className={cn(
+              'w-full resize-none rounded-2xl border bg-muted/50 px-4 py-2.5 text-sm',
+              'focus:outline-none focus:ring-2 focus:ring-ring',
+              'placeholder:text-muted-foreground',
+              'disabled:opacity-50 disabled:cursor-not-allowed',
+              'min-h-[44px] max-h-[150px]',
+              isEditing && 'border-amber-300 dark:border-amber-700 focus:ring-amber-500'
+            )}
+          />
+        </div>
+
+        <Button
+          onClick={handleSend}
+          disabled={!message.trim() || disabled}
+          size="icon"
+          className={cn(
+            'shrink-0 h-10 w-10 rounded-full',
+            isEditing && 'bg-amber-500 hover:bg-amber-600'
+          )}
+        >
+          {disabled ? (
+            <Loader2 className="h-5 w-5 animate-spin" />
+          ) : isEditing ? (
+            <Check className="h-5 w-5" />
+          ) : (
+            <Send className="h-5 w-5" />
+          )}
+        </Button>
+      </div>
+
+      {showMentionList && filteredMembers.length > 0 && (
+        <div className="px-4 pb-3 pt-1 border-t border-purple-100 dark:border-purple-900/50 bg-purple-50/50 dark:bg-purple-950/20">
+          <p className="text-xs font-medium text-purple-700 dark:text-purple-300 mb-2">
+            Mention someone
+          </p>
+          <div className="flex gap-2 flex-wrap">
+            {filteredMembers.map((member) => (
+              <button
+                key={member.id}
+                onClick={() => selectMember(member)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-purple-400 text-sm transition-all"
+              >
+                {member.image ? (
+                  <img src={member.image} alt="" className="w-5 h-5 rounded-full" />
+                ) : (
+                  <div className="w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
+                    <User className="h-3 w-3 text-purple-600 dark:text-purple-400" />
+                  </div>
+                )}
+                <span className="font-medium">{member.name || 'Unknown'}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {filteredCommands.length > 0 && (
+        <div className="px-4 pb-3 pt-1 border-t border-green-100 dark:border-green-900/50 bg-green-50/50 dark:bg-green-950/20">
+          <p className="text-xs font-medium text-green-700 dark:text-green-300 mb-2">Commands</p>
+          <div className="flex gap-2 flex-wrap">
+            {filteredCommands.map((cmd) => (
+              <button
+                key={cmd.id}
+                onClick={() => selectCommand(cmd.id)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-green-400 text-sm transition-all"
+              >
+                <span>{cmd.icon}</span>
+                <span className="font-medium">{cmd.name}</span>
+                <span className="text-muted-foreground text-xs">{cmd.description}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {showModelSelector && filteredModels.length > 0 && (
+        <div className="px-4 pb-3 pt-1 border-t border-blue-100 dark:border-blue-900/50 bg-blue-50/50 dark:bg-blue-950/20">
+          <div className="flex items-center gap-2 mb-2">
+            <Bot className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <p className="text-xs font-medium text-blue-700 dark:text-blue-300">
+              Choose AI Model or Command
+            </p>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {filteredModels.map((model) => (
+              <button
+                key={model.id}
+                onClick={() => selectModel(model.id)}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/50 text-sm transition-all shadow-sm"
+              >
+                <span className="text-lg">{model.icon}</span>
+                <div className="text-left">
+                  <span className="font-medium block">{model.name}</span>
+                  <span className="text-muted-foreground text-xs">{model.description}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+          <div className="flex gap-2 flex-wrap mt-2 pt-2 border-t border-blue-100 dark:border-blue-900/30">
+            {SHIPPER_COMMANDS.map((cmd) => (
+              <button
+                key={cmd.id}
+                onClick={() => selectCommand(cmd.id)}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 hover:border-green-400 text-xs transition-all"
+              >
+                <span>{cmd.icon}</span>
+                <span className="font-medium">{cmd.name}</span>
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={useDefaultModel}
+            className="text-xs text-muted-foreground hover:text-foreground mt-2 underline-offset-2 hover:underline"
+          >
+            Just chat (GPT-4o)
+          </button>
+        </div>
+      )}
+
+      {hasShipperMention && !showModelSelector && !isEditing && filteredCommands.length === 0 && (
+        <div className="px-4 pb-2">
+          <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1">
+            <Bot className="h-3 w-3" />
+            {isTaskCommand ? (
+              <span>Running command...</span>
+            ) : (
+              <>
+                Shipper will respond
+                {/@shipper:(openai|gpt)/i.test(message) && (
+                  <span className="inline-flex items-center gap-1 ml-1 px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
+                    🤖 GPT-4o
+                  </span>
+                )}
+                {/@shipper:gemini/i.test(message) && (
+                  <span className="inline-flex items-center gap-1 ml-1 px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                    ✨ Gemini
+                  </span>
+                )}
+              </>
+            )}
+          </p>
+        </div>
+      )}
+    </div>
+  )
+}

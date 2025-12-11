@@ -1,4 +1,35 @@
-export const AI_MODEL = 'gemini-2.5-flash'
+// Model Types
+export type ModelId = 'gemini' | 'openai'
+
+export interface ModelConfig {
+  id: ModelId
+  name: string
+  modelId: string
+  icon: string
+  description: string
+}
+
+export const AI_MODELS: Record<ModelId, ModelConfig> = {
+  gemini: {
+    id: 'gemini',
+    name: 'Gemini 2.5 Flash',
+    modelId: 'gemini-2.5-flash',
+    icon: '✨',
+    description: 'Fast & free',
+  },
+  openai: {
+    id: 'openai',
+    name: 'GPT-4o',
+    modelId: 'gpt-4o',
+    icon: '🤖',
+    description: 'Advanced reasoning',
+  },
+}
+
+export const DEFAULT_MODEL: ModelId = 'openai'
+
+// Legacy export for backwards compatibility
+export const AI_MODEL = AI_MODELS.gemini.modelId
 
 export type PersonalityType = 'hype' | 'flirty'
 

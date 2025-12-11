@@ -1,9 +1,16 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+let resendClient: Resend | null = null
 
-const APP_NAME = process.env.EMAIL_FROM_NAME || 'Shipper Chat'
-const FROM_EMAIL = process.env.EMAIL_FROM || 'noreply@esmaelabdlkadr.dev'
+function getResend(): Resend {
+  if (!resendClient) {
+    resendClient = new Resend(process.env.RESEND_API_KEY)
+  }
+  return resendClient
+}
+
+const APP_NAME = process.env.EMAIL_FROM_NAME 
+const FROM_EMAIL = process.env.EMAIL_FROM
 
 export async function sendVerificationEmail(
   email: string,
@@ -13,7 +20,7 @@ export async function sendVerificationEmail(
   const verifyUrl = `${process.env.NEXTAUTH_URL}/verify-email?token=${token}`
   const userName = name || 'there'
 
-  const { error } = await resend.emails.send({
+  const { error } = await getResend().emails.send({
     from: `${APP_NAME} <${FROM_EMAIL}>`,
     to: email,
     subject: `Verify your email - ${APP_NAME}`,
@@ -65,7 +72,7 @@ export async function sendPasswordResetEmail(
   const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${token}`
   const userName = name || 'there'
 
-  const { error } = await resend.emails.send({
+  const { error } = await getResend().emails.send({
     from: `${APP_NAME} <${FROM_EMAIL}>`,
     to: email,
     subject: `Reset your password - ${APP_NAME}`,
@@ -108,4 +115,3 @@ export async function sendPasswordResetEmail(
 
   return { success: true }
 }
-

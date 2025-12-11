@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { MessageCircle, Users, Sparkles, Settings, Plus, Search } from 'lucide-react'
+import { MessageCircle, Users, Sparkles, Settings, Plus, Search, UsersRound } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -24,7 +24,7 @@ export function Sidebar() {
 
   const navItems = [
     { label: 'Chats', href: '/chat', icon: MessageCircle, badge: totalUnread },
-    { label: 'Users', href: '/users', icon: Users, badge: 0 },
+    { label: 'Groups', href: '/groups', icon: UsersRound, badge: 0 },
     { label: 'AI Assistant', href: '/ai', icon: Sparkles, badge: 0 },
     { label: 'Settings', href: '/settings', icon: Settings, badge: 0 },
   ]

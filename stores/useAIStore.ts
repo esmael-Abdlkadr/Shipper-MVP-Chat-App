@@ -1,15 +1,18 @@
 import { create } from 'zustand'
+import { ModelId, DEFAULT_MODEL } from '@/lib/ai/config'
 
 type AIMessage = {
   id: string
   role: 'user' | 'assistant'
   content: string
   createdAt: Date
+  model?: string
 }
 
 type AIConversation = {
   id: string
   title: string | null
+  model?: string | null
   createdAt: Date
   updatedAt: Date
 }
@@ -21,6 +24,7 @@ type AIState = {
   isLoading: boolean
   isStreaming: boolean
   streamingContent: string
+  selectedModel: ModelId
 }
 
 type AIActions = {
@@ -38,6 +42,7 @@ type AIActions = {
   setStreamingContent: (content: string) => void
   appendStreamingContent: (content: string) => void
   clearStreamingContent: () => void
+  setSelectedModel: (model: ModelId) => void
   reset: () => void
 }
 
@@ -48,6 +53,7 @@ const initialState: AIState = {
   isLoading: false,
   isStreaming: false,
   streamingContent: '',
+  selectedModel: DEFAULT_MODEL,
 }
 
 export const useAIStore = create<AIState & AIActions>((set) => ({
@@ -116,6 +122,8 @@ export const useAIStore = create<AIState & AIActions>((set) => ({
     })),
 
   clearStreamingContent: () => set({ streamingContent: '' }),
+
+  setSelectedModel: (selectedModel) => set({ selectedModel }),
 
   reset: () => set(initialState),
 }))

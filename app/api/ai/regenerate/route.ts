@@ -1,8 +1,8 @@
 import { NextRequest } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { ai } from '@/lib/ai/client'
-import { AI_MODEL, getPersonalityPrompt, PersonalityType } from '@/lib/ai/config'
+import { getPersonalityPrompt, PersonalityType } from '@/lib/ai/config'
+import { getAIProvider, resolveModel, ChatMessage } from '@/lib/ai/providers'
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,13 +11,19 @@ export async function POST(request: NextRequest) {
       return new Response('Unauthorized', { status: 401 })
     }
 
-    const { conversationId, personality } = await request.json()
+    const { conversationId, personality, model: requestedModel } = await request.json()
 
     if (!conversationId) {
       return new Response('Conversation ID is required', { status: 400 })
     }
 
     const activePersonality = (personality || 'hype') as PersonalityType
+
+    // Get user's preferred model
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { preferredAIModel: true },
+    })
 
     const conversation = await prisma.aIConversation.findFirst({
       where: { id: conversationId, userId: session.user.id },
@@ -27,6 +33,13 @@ export async function POST(request: NextRequest) {
     if (!conversation) {
       return new Response('Conversation not found', { status: 404 })
     }
+
+    // Resolve which model to use
+    const resolvedModel = resolveModel(
+      requestedModel,
+      conversation.model,
+      user?.preferredAIModel
+    )
 
     const lastAssistantMessage = [...conversation.messages]
       .reverse()
@@ -42,33 +55,47 @@ export async function POST(request: NextRequest) {
       (m) => m.id !== lastAssistantMessage?.id
     )
 
-    const history = messagesWithoutLast.map((m) => ({
-      role: m.role === 'assistant' ? 'model' : 'user' as 'user' | 'model',
-      parts: [{ text: m.content }],
-    }))
+    // Get the last user message
+    const lastUserMessage = [...messagesWithoutLast]
+      .reverse()
+      .find((m) => m.role === 'user')
+
+    if (!lastUserMessage) {
+      return new Response('No user message to regenerate from', { status: 400 })
+    }
+
+    // Convert to ChatMessage format (excluding the last user message as it will be passed separately)
+    const history: ChatMessage[] = messagesWithoutLast
+      .filter((m) => m.id !== lastUserMessage.id)
+      .map((m) => ({
+        role: m.role as 'user' | 'assistant',
+        content: m.content,
+      }))
 
     const systemPrompt = getPersonalityPrompt(activePersonality)
+
+    // Get the appropriate AI provider
+    const generateResponse = getAIProvider(resolvedModel)
 
     const encoder = new TextEncoder()
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          const response = await ai.models.generateContentStream({
-            model: AI_MODEL,
-            contents: history,
-            config: {
-              systemInstruction: systemPrompt,
-            },
-          })
-
           let fullResponse = ''
 
-          for await (const chunk of response) {
-            const text = chunk.text || ''
+          for await (const text of generateResponse({
+            systemPrompt,
+            history,
+            userMessage: lastUserMessage.content,
+          })) {
             fullResponse += text
             
             controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify({ text, conversationId })}\n\n`)
+              encoder.encode(`data: ${JSON.stringify({ 
+                text, 
+                conversationId,
+                model: resolvedModel 
+              })}\n\n`)
             )
           }
 
@@ -77,14 +104,20 @@ export async function POST(request: NextRequest) {
               conversationId,
               role: 'assistant',
               content: fullResponse,
+              model: resolvedModel,
             },
           })
 
           controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify({ done: true, conversationId })}\n\n`)
+            encoder.encode(`data: ${JSON.stringify({ 
+              done: true, 
+              conversationId,
+              model: resolvedModel 
+            })}\n\n`)
           )
           controller.close()
-        } catch {
+        } catch (error) {
+          console.error('AI regeneration error:', error)
           controller.enqueue(
             encoder.encode(`data: ${JSON.stringify({ error: 'Failed to regenerate response' })}\n\n`)
           )

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { useSession } from 'next-auth/react'
-import { Menu, X } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { 
   AIChat, 
@@ -12,7 +12,7 @@ import {
 } from '@/components/ai'
 import { useAIStore } from '@/stores/useAIStore'
 import { cn } from '@/lib/utils'
-import { PersonalityType } from '@/lib/ai/config'
+import { PersonalityType, ModelId } from '@/lib/ai/config'
 import { QuickActionType, QUICK_ACTIONS } from '@/lib/ai/games'
 
 type Message = {
@@ -20,6 +20,7 @@ type Message = {
   role: 'user' | 'assistant'
   content: string
   createdAt: Date
+  model?: string
 }
 
 export default function AIPage() {
@@ -43,6 +44,8 @@ export default function AIPage() {
     streamingContent,
     setStreamingContent,
     clearStreamingContent,
+    selectedModel,
+    setSelectedModel,
   } = useAIStore()
 
   const fetchConversations = useCallback(async () => {
@@ -55,12 +58,37 @@ export default function AIPage() {
     } catch {}
   }, [setConversations])
 
+  const fetchUserSettings = useCallback(async () => {
+    try {
+      const res = await fetch('/api/user/settings')
+      if (res.ok) {
+        const data = await res.json()
+        if (data.preferredAIModel) {
+          setSelectedModel(data.preferredAIModel as ModelId)
+        }
+      }
+    } catch {}
+  }, [setSelectedModel])
+
+  const handleModelChange = useCallback(async (model: ModelId) => {
+    setSelectedModel(model)
+    // Save preference to backend
+    try {
+      await fetch('/api/user/settings', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ preferredAIModel: model }),
+      })
+    } catch {}
+  }, [setSelectedModel])
+
   useEffect(() => {
     setActiveConversation(null)
     setMessages([])
     clearStreamingContent()
     fetchConversations()
-  }, [setActiveConversation, setMessages, clearStreamingContent, fetchConversations])
+    fetchUserSettings()
+  }, [setActiveConversation, setMessages, clearStreamingContent, fetchConversations, fetchUserSettings])
 
   const fetchMessages = async (conversationId: string) => {
     try {
@@ -129,6 +157,7 @@ export default function AIPage() {
           conversationId: activeConversationId,
           personality,
           quickAction,
+          model: selectedModel,
         }),
         signal: abortControllerRef.current.signal,
       })
@@ -198,7 +227,7 @@ export default function AIPage() {
       setStreaming(false)
       abortControllerRef.current = null
     }
-  }, [activeConversationId, personality, addMessage, setStreaming, clearStreamingContent, setStreamingContent, setActiveConversation, fetchConversations])
+  }, [activeConversationId, personality, selectedModel, addMessage, setStreaming, clearStreamingContent, setStreamingContent, setActiveConversation, fetchConversations])
 
   const handleQuickAction = useCallback((action: QuickActionType) => {
     const quickAction = QUICK_ACTIONS[action]
@@ -244,6 +273,7 @@ export default function AIPage() {
         body: JSON.stringify({ 
           conversationId: activeConversationId,
           personality,
+          model: selectedModel,
         }),
         signal: abortControllerRef.current.signal,
       })
@@ -302,7 +332,7 @@ export default function AIPage() {
       setStreaming(false)
       abortControllerRef.current = null
     }
-  }, [activeConversationId, messages, personality, setMessages, addMessage, setStreaming, clearStreamingContent, setStreamingContent])
+  }, [activeConversationId, messages, personality, selectedModel, setMessages, addMessage, setStreaming, clearStreamingContent, setStreamingContent])
 
   return (
     <div className="flex h-full pb-14 md:pb-0 md:gap-4">
@@ -364,6 +394,8 @@ export default function AIPage() {
           onStop={handleStop}
           onRegenerate={handleRegenerate}
           personality={personality}
+          selectedModel={selectedModel}
+          onModelChange={handleModelChange}
         />
 
         {/* Quick actions */}
