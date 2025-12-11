@@ -1,160 +1,140 @@
-# Shipper Chat
+# 🚀 Shipper Chat
 
-A real-time chat application MVP built with Next.js 14, featuring instant messaging, reactions, replies, and a polished modern UI.
+A modern real-time chat application with AI-powered features, group collaboration, and smart task management.
 
-![Next.js](https://img.shields.io/badge/Next.js-16-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
-![Socket.io](https://img.shields.io/badge/Socket.io-4-white)
-![Prisma](https://img.shields.io/badge/Prisma-7-teal)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-shipper--chat--app.fly.dev-blue?style=for-the-badge)](https://shipper-chat-app.fly.dev)
 
-## Features
+---
 
-### Core Chat
-- **Real-time messaging** with Socket.io
-- **Optimistic UI updates** - messages appear instantly
-- **Message status indicators** - Sending → Sent → Delivered → Seen
-- **Typing indicators** with animated bouncing dots
-- **Online/offline presence** with pulsing indicators
-- **Unread message counts** with badges
+## 📺 Demo Video
 
-### Enhanced Interactions
-- **Emoji picker** - Full emoji picker in message input
-- **Message reactions** - Quick reactions (👍 ❤️ 😂 😮 😢 🙏)
-- **Double-tap to ❤️** - Instagram-style heart reaction
-- **Reply to messages** - Quote and reply to specific messages
-- **Floating action bar** - Hover (desktop) / long-press (mobile) for actions
+[![Watch Demo](https://img.shields.io/badge/▶️_Watch_Demo_on_Loom-FF0000?style=for-the-badge&logo=loom&logoColor=white)](https://www.loom.com/share/e6ce43ef72d24ca89f715a2ca0285789)
 
-### Animations & Polish
-- **Message slide-in animations**
-- **Reaction pop animations**
-- **Heart burst animation** on double-tap
-- **Smooth transitions** throughout the app
+<a href="https://www.loom.com/share/e6ce43ef72d24ca89f715a2ca0285789">
+  <img src="https://cdn.loom.com/sessions/thumbnails/e6ce43ef72d24ca89f715a2ca0285789-with-play.gif" alt="Shipper Chat Demo" width="600" />
+</a>
 
-### Authentication
-- **Email/password login** with bcrypt hashing
-- **Google OAuth** integration
-- **Email verification** via Resend
-- **Password reset** functionality
-- **JWT sessions** with NextAuth.js v5
+> *Click above to watch a full walkthrough of Shipper Chat*
 
-## Tech Stack
+---
 
-| Category | Technology |
-|----------|------------|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS + ShadCN UI |
-| Database | PostgreSQL (Neon) |
-| ORM | Prisma 7 |
-| Real-time | Socket.io |
-| Auth | NextAuth.js v5 |
-| State | Zustand |
-| Email | Resend |
+## ✨ Features
 
-## Getting Started
+### 💬 Real-Time Messaging
+- Instant message delivery with live updates
+- See when messages are sent, delivered, and read
+- Know when someone is typing
+- Online/offline status indicators
 
-### Prerequisites
-- Node.js 18+
-- pnpm (recommended)
-- PostgreSQL database (Neon recommended)
+### 👥 Group Chats
+- Create groups and invite members
+- Collaborative conversations with your team
+- Mention users with `@username`
+- Group-specific settings and roles
 
-### Installation
+### 🤖 AI Assistant (Shipper)
+- Chat with AI in 1-on-1 conversations
+- Mention `@shipper` in group chats for AI help
+- Switch between **GPT-4o** and **Gemini** models
+- Smart context-aware responses
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/shipper-chat.git
-   cd shipper-chat
-   ```
+### ✅ Smart Task Tracking
+- AI automatically detects task commitments in messages
+- Assign tasks with `@shipper:assign @user task description`
+- View tasks with `@shipper:tasks`
+- Get daily summaries with `@shipper:summarize`
 
-2. **Install dependencies**
-   ```bash
-   pnpm install
-   ```
+### 🎯 Rich Interactions
+- React to messages with emojis (👍 ❤️ 😂 😮 😢 🙏)
+- Double-tap to ❤️ (Instagram-style)
+- Reply to specific messages
+- Edit and delete your messages
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   ```
-   
-   Fill in your environment variables:
-   ```env
-   DATABASE_URL="postgresql://..."
-   NEXTAUTH_SECRET="your-secret-key"
-   NEXTAUTH_URL="http://localhost:3000"
-   
-   # Google OAuth
-   GOOGLE_CLIENT_ID="..."
-   GOOGLE_CLIENT_SECRET="..."
-   
-   # Email (Resend)
-   RESEND_API_KEY="..."
-   FROM_EMAIL="noreply@yourdomain.com"
-   APP_NAME="Shipper Chat"
-   
-   # Socket.io
-   NEXT_PUBLIC_SOCKET_URL="http://localhost:3000"
-   ```
+### 🔐 Secure Authentication
+- Sign up with email or Google
+- Email verification
+- Password reset
+- Remember me option
 
-4. **Set up the database**
-   ```bash
-   pnpm db:generate
-   pnpm db:push
-   ```
+---
 
-5. **Run the development server**
-   ```bash
-   pnpm dev
-   ```
+## 🖼️ Screenshots
 
-6. **Open the app**
-   
-   Navigate to [http://localhost:3000](http://localhost:3000)
+| Chat | Groups | AI Assistant |
+|:----:|:------:|:------------:|
+| ![Chat](https://via.placeholder.com/250x500/1a1a2e/ffffff?text=Chat) | ![Groups](https://via.placeholder.com/250x500/1a1a2e/ffffff?text=Groups) | ![AI](https://via.placeholder.com/250x500/1a1a2e/ffffff?text=AI) |
 
-## Scripts
+---
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server with Socket.io |
-| `pnpm build` | Build for production |
-| `pnpm start` | Start production server |
-| `pnpm db:generate` | Generate Prisma client |
-| `pnpm db:push` | Push schema to database |
-| `pnpm db:studio` | Open Prisma Studio |
+## 🌐 Live Demo
 
-## Project Structure
+Try it now: **[shipper-chat-app.fly.dev](https://shipper-chat-app.fly.dev)**
 
-```
-├── app/
-│   ├── (auth)/          # Auth pages (login, register, etc.)
-│   ├── (chat)/          # Chat pages
-│   └── api/             # API routes
-├── components/
-│   ├── chat/            # Chat components
-│   ├── auth/            # Auth components
-│   ├── layout/          # Layout components
-│   ├── providers/       # React providers
-│   └── ui/              # ShadCN UI components
-├── hooks/               # Custom React hooks
-├── lib/
-│   ├── api/             # API client functions
-│   ├── queries/         # Data fetching hooks
-│   └── generated/       # Prisma client
-├── stores/              # Zustand stores
-├── types/               # TypeScript types
-└── prisma/              # Prisma schema
+---
+
+## 🛠️ Run Locally
+
+Want to run Shipper Chat on your own machine?
+
+### Quick Start
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/esmael-Abdlkadr/Shipper-MVP-Chat-App.git
+cd Shipper-MVP-Chat-App
+
+# 2. Install dependencies
+pnpm install
+
+# 3. Set up environment variables
+cp .env.example .env
+# Edit .env with your credentials
+
+# 4. Set up database
+pnpm db:generate
+pnpm db:push
+
+# 5. Start the app
+pnpm dev
 ```
 
-## Database Schema
+### Environment Variables
 
-- **User** - User accounts with auth info
-- **Account** - OAuth provider accounts
-- **ChatSession** - Chat conversations (1:1)
-- **Message** - Chat messages with reply support
-- **Reaction** - Message reactions
-- **Attachment** - File attachments (ready for implementation)
-- **AIConversation** - AI chat history (ready for implementation)
+Create a `.env` file with:
+
+```env
+# Database (PostgreSQL)
+DATABASE_URL="your-database-url"
+
+# Auth
+NEXTAUTH_SECRET="your-secret-key"
+NEXTAUTH_URL="http://localhost:3000"
+
+# Google OAuth
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+
+# AI APIs
+GOOGLE_GENERATIVE_AI_API_KEY="your-gemini-key"
+OPENAI_API_KEY="your-openai-key"
+
+# Email (Resend)
+RESEND_API_KEY="your-resend-key"
+EMAIL_FROM="noreply@yourdomain.com"
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit PRs.
+
+---
+
 
 
 ---
 
-Built with ❤️ as a technical showcase
+<p align="center">
+  Built with ❤️ by <a href="https://github.com/esmael-Abdlkadr">Esmael Abdlkadr</a>
+</p>
