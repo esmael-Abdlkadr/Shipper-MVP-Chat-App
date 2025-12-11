@@ -2,7 +2,6 @@
 
 A modern real-time chat application with AI-powered features, group collaboration, and smart task management.
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-shipper--chat--app.fly.dev-blue?style=for-the-badge)](https://shipper-chat-app.fly.dev)
 
 ---
 
